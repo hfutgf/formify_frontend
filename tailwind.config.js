@@ -19,6 +19,7 @@ export default {
       black: "#000000",
       blue: "#00d3ff",
       pink: "#cc34ff",
+      red: "#ff1134",
     },
     extend: {
       borderRadius: {
