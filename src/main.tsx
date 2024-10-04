@@ -7,10 +7,10 @@ import Loading from "./components/pages/loading/Loading.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Suspense fallback={<Loading />}>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Suspense fallback={<Loading />}>
         <App />
-      </BrowserRouter>
-    </Suspense>
+      </Suspense>
+    </BrowserRouter>
   </StrictMode>
 );

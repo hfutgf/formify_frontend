@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ["class"],
+  darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     screens: {
@@ -13,10 +13,11 @@ export default {
       desktopMax: "1440px",
     },
     colors: {
-      light: "#f2f2f2",
+      light: "#f1f1f1",
       white: "#ffffff",
       gray: "#6a6a6a",
       black: "#000000",
+      dark: "#18181b",
       blue: "#00d3ff",
       pink: "#cc34ff",
       red: "#ff1134",

@@ -1,19 +1,11 @@
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { authRoutes, dashboardRoutes } from "./routes";
 import NotFound from "./components/pages/notFound/NotFound";
 import AuthLayout from "./components/layouts/AuthLayout";
 import DashboardLayout from "./components/layouts/DashboardLayout";
-import { useEffect } from "react";
-import authenticationCheck from "./utils/authenticationCheck";
 
 const App = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    authenticationCheck(navigate,location);
-  }, [navigate]);
-
   return (
     <Routes>
       {location.pathname.startsWith("/auth") ? (

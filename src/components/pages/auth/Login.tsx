@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
+  const [viewPassword, setViewPassword] = useState(false);
   const navigate = useNavigate();
 
   const { register, handleSubmit } = useForm<ILoginForm>();
@@ -54,15 +55,23 @@ const Login = () => {
         <div className="relative">
           <Input
             {...register("password", { required: true })}
-            type="password"
+            type={viewPassword ? "text" : "password"}
             placeholder="Password"
           />
           <Eye
-            className="absolute z-[10] right-[8px] top-[12px] cursor-pointer text-gray hover:text-black duration-150"
+            onClick={() => setViewPassword(true)}
+            className={cn(
+              "absolute z-[10] right-[8px] top-[12px] cursor-pointer text-gray hover:text-black duration-150",
+              viewPassword ? "hidden" : "block"
+            )}
             size={18}
           />
           <EyeOff
-            className="hidden absolute z-[10] right-[8px] top-[12px] cursor-pointer text-gray hover:text-black duration-150"
+            onClick={() => setViewPassword(false)}
+            className={cn(
+              "absolute z-[10] right-[8px] top-[12px] cursor-pointer text-gray hover:text-black duration-150",
+              viewPassword ? "block" : "hidden"
+            )}
             size={18}
           />
         </div>

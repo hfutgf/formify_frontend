@@ -9,24 +9,16 @@ const authenticationCheck = (
   location: Location<unknown>
 ) => {
   const cookie = Cookies.get(tokens.REFRESH_TOKEN);
-  if (cookie) {
-    const isValid = jwtDecode(cookie, import.meta.env.JWT_SECRET);
-    if (isValid) {
-      navigate(routesConfig.DASHBOARD);
-    } else {
-      if (
-        location.pathname.startsWith("/auth") !==
-        routesConfig.REGISTER.startsWith("/auth")
-      ) {
-        navigate(routesConfig.LOGIN);
-      }
+  if (!cookie) {
+    if (!location.pathname.startsWith("/auth")) {
+      return navigate(routesConfig.LOGIN);
     }
   } else {
-    if (
-      location.pathname.startsWith("/auth") !==
-      routesConfig.REGISTER.startsWith("/auth")
-    ) {
-      navigate(routesConfig.LOGIN);
+    const isValid = jwtDecode(cookie);
+    if (!isValid) {
+      if (!location.pathname.startsWith("/auth")) {
+        return navigate(routesConfig.LOGIN);
+      }
     }
   }
 };

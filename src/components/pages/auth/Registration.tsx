@@ -13,6 +13,9 @@ import { Link, useNavigate } from "react-router-dom";
 const Registration = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
+  const [viewPassword, setViewPassword] = useState(false);
+  const [viewConfirmPassword, setViewConfirmPassword] = useState(false);
+
   const { register, handleSubmit } = useForm<IRegisterForm>();
   const navigate = useNavigate();
 
@@ -61,30 +64,46 @@ const Registration = () => {
         <div className="relative">
           <Input
             {...register("password", { required: true })}
-            type="password"
+            type={viewPassword ? "text" : "password"}
             placeholder="Password"
           />
           <Eye
-            className="absolute z-[10] right-[8px] top-[12px] cursor-pointer text-gray hover:text-black duration-150"
+            onClick={() => setViewPassword(true)}
+            className={cn(
+              "absolute z-[10] right-[8px] top-[12px] cursor-pointer text-gray hover:text-black duration-150",
+              viewPassword ? "hidden" : "block"
+            )}
             size={18}
           />
           <EyeOff
-            className="hidden absolute z-[10] right-[8px] top-[12px] cursor-pointer text-gray hover:text-black duration-150"
+            onClick={() => setViewPassword(false)}
+            className={cn(
+              "absolute z-[10] right-[8px] top-[12px] cursor-pointer text-gray hover:text-black duration-150",
+              viewPassword ? "block" : "hidden"
+            )}
             size={18}
           />
         </div>
         <div className="relative">
           <Input
             {...register("confirmPassword", { required: true })}
-            type="password"
+            type={viewConfirmPassword ? "text" : "password"}
             placeholder="Confirm password"
           />
           <Eye
-            className="absolute z-[10] right-[8px] top-[12px] cursor-pointer text-gray hover:text-black duration-150"
+            onClick={() => setViewConfirmPassword(true)}
+            className={cn(
+              "absolute z-[10] right-[8px] top-[12px] cursor-pointer text-gray hover:text-black duration-150",
+              viewConfirmPassword ? "hidden" : "block"
+            )}
             size={18}
           />
           <EyeOff
-            className="hidden absolute z-[10] right-[8px] top-[12px] cursor-pointer text-gray hover:text-black duration-150"
+            onClick={() => setViewConfirmPassword(false)}
+            className={cn(
+              "absolute z-[10] right-[8px] top-[12px] cursor-pointer text-gray hover:text-black duration-150",
+              viewConfirmPassword ? "block" : "hidden"
+            )}
             size={18}
           />
         </div>
@@ -99,7 +118,7 @@ const Registration = () => {
         <span className="text-gray">Do yout have an account?</span>
         <Link
           to={routesConfig.LOGIN}
-          className="font-[500] hover:text-gray duration-200"
+          className="font-[500] hover:text-gray duration-200 select-none"
         >
           Sign up
         </Link>

@@ -14,8 +14,16 @@ const authRoutes = [
 
 const dashboardRoutes = [
   {
-    component: lazy(() => import("./components/pages/dashboard/Main")),
+    component: lazy(
+      () => import("./components/pages/dashboardPages/dashboard/Dashboard")
+    ),
     path: routesConfig.DASHBOARD,
+  },
+  {
+    component: lazy(
+      () => import("./components/pages/dashboardPages/profile/Profile")
+    ),
+    path: routesConfig.PROFILE,
   },
 ];
 
