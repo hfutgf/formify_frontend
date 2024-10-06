@@ -13,7 +13,7 @@ export default {
       desktopMax: "1440px",
     },
     colors: {
-      light: "#f1f1f1",
+      light: "#f1f3f4",
       white: "#ffffff",
       gray: "#6a6a6a",
       black: "#000000",

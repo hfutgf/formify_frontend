@@ -25,6 +25,12 @@ const dashboardRoutes = [
     ),
     path: routesConfig.PROFILE,
   },
+  {
+    component: lazy(
+      () => import("./components/pages/dashboardPages/template/Template")
+    ),
+    path: routesConfig.TEMPLATE + "/:templateId",
+  },
 ];
 
 const notFound = [

@@ -4,12 +4,15 @@ import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import Loading from "./components/pages/loading/Loading.tsx";
+import TanstackProvider from "./components/providers/TanstackProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <Suspense fallback={<Loading />}>
-        <App />
+        <TanstackProvider>
+          <App />
+        </TanstackProvider>
       </Suspense>
     </BrowserRouter>
   </StrictMode>

@@ -1,11 +1,15 @@
 import routesConfig from "@/config/routes.config";
 import { DoorOpen, Github, Moon, Search, Sun, User } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@radix-ui/react-popover";
 
 const Header = () => {
   const [theme, setTheme] = useState<string>("light");
