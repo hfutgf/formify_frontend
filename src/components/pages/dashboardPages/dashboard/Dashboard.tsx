@@ -3,7 +3,7 @@ import { queryConfig } from "@/config/query.config";
 import { TemplateService } from "@/services/template.service";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../loading/Loading";
-import CreateTemplate from "../../modals/CreateTemplate";
+import CreateTemplate from "../../../shared/modals/CreateTemplate";
 
 const Dashboard = () => {
   const templateService = new TemplateService();
@@ -18,7 +18,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="container mx-auto min-h-screen px-[32px] flex items-center flex-col justify-center gap-[28px]">
+    <div className="container mx-auto min-h-screen px-[32px] flex items-center flex-col justify-center gap-[20px]">
       <div className="w-full p-[24px]">
         <h4 className="text-[18px] font-[500] text-start text-dark">Create</h4>
         <div className="mt-[20px] flex items-center flex-wrap gap-[16px]">
@@ -28,7 +28,7 @@ const Dashboard = () => {
         </div>
       </div>
       {data?.map((item) => (
-        <Cards key={item.theme} theme="Test" templates={item.data} />
+        <Cards key={item.theme} theme={item.theme} templates={item.data} />
       ))}
     </div>
   );

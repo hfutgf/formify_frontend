@@ -3,4 +3,5 @@ export const queryConfig = {
   REGISTER: "/auth/register",
   GET_TEMPLATES: "/templates",
   GET_TEMPLATE_THEMES: "/template-themes",
+  CREATE_TEMPLATE: "/templates",
 };

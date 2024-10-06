@@ -10,4 +10,7 @@ export interface ITemplate {
   updatedAt?: Date;
 }
 
-
+export type TypeCreateTemplate = Omit<
+  ITemplate,
+  "id" | "imageUrl" | "description" | "updatedAt" | "createdAt"
+>;
