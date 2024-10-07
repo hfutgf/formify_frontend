@@ -14,21 +14,20 @@ const authRoutes = [
 
 const dashboardRoutes = [
   {
-    component: lazy(
-      () => import("./components/pages/dashboardPages/dashboard/Dashboard")
-    ),
+    component: lazy(() => import("./components/pages/dashboard/Dashboard")),
     path: routesConfig.DASHBOARD,
   },
   {
     component: lazy(
-      () => import("./components/pages/dashboardPages/profile/Profile")
+      () => import("./components/pages/profile/Profile")
     ),
     path: routesConfig.PROFILE,
   },
+];
+
+const templateRoutes = [
   {
-    component: lazy(
-      () => import("./components/pages/dashboardPages/template/Template")
-    ),
+    component: lazy(() => import("./components/pages/template/Template")),
     path: routesConfig.TEMPLATE + "/:templateId",
   },
 ];
@@ -40,4 +39,4 @@ const notFound = [
   },
 ];
 
-export { authRoutes, dashboardRoutes, notFound };
+export { authRoutes, dashboardRoutes, notFound, templateRoutes };

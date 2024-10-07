@@ -3,7 +3,7 @@ const routesConfig = {
   REGISTER: "/auth/registration",
   DASHBOARD: "/dashboard",
   PROFILE: "/dashboard/profile",
-  TEMPLATE: "/dashboard/template",
+  TEMPLATE: "/template",
 };
 
 export default routesConfig;

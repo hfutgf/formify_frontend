@@ -1,8 +1,9 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { authRoutes, dashboardRoutes } from "./routes";
+import { authRoutes, dashboardRoutes, templateRoutes } from "./routes";
 import NotFound from "./components/pages/notFound/NotFound";
 import AuthLayout from "./components/layouts/AuthLayout";
 import DashboardLayout from "./components/layouts/DashboardLayout";
+import TemplateLayout from "./components/layouts/TemplateLayout";
 
 const App = () => {
   const location = useLocation();
@@ -29,6 +30,18 @@ const App = () => {
               <DashboardLayout>
                 <route.component />
               </DashboardLayout>
+            }
+          />
+        ))
+      ) : location.pathname.startsWith("/template") ? (
+        templateRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <TemplateLayout>
+                <route.component />
+              </TemplateLayout>
             }
           />
         ))

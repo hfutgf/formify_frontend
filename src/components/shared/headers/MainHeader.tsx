@@ -33,15 +33,17 @@ const Header = () => {
   return (
     <div className="bg-white dark:bg-black shadow-md">
       <div className="container mx-auto min-h-[70px] max-h-[70px] grid grid-cols-[2fr_4fr_6fr]">
-        <Link
-          to={routesConfig.DASHBOARD}
-          className="min-h-[70px] max-h-[70px] flex items-center group"
-        >
-          <Github
-            size={36}
-            className="group-hover:opacity-70 duration-300 dark:text-white"
-          />
-        </Link>
+        <div className="flex items-center justify-start">
+          <Link
+            to={routesConfig.DASHBOARD}
+            className="min-h-[70px] max-h-[70px] flex items-center group"
+          >
+            <Github
+              size={36}
+              className="group-hover:opacity-70 duration-300 dark:text-white"
+            />
+          </Link>
+        </div>
         <div className="min-h-[70px] max-h-[70px] flex items-center">
           <div className="border flex items-center w-full rounded-md">
             <Input placeholder="Search template" className="border-none" />
