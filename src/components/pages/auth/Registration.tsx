@@ -3,21 +3,25 @@ import { Input } from "@/components/ui/input";
 import routesConfig from "@/config/routes.config";
 import { cn } from "@/lib/utils";
 import { AuthService } from "@/services/auth.service";
+import useUserStore from "@/store/user.store";
 import { IRegisterForm } from "@/types/auth.types";
+import authenticationCheck from "@/utils/authenticationCheck";
 import { AxiosResponse } from "axios";
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Registration = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [viewPassword, setViewPassword] = useState(false);
   const [viewConfirmPassword, setViewConfirmPassword] = useState(false);
+  const { setUser } = useUserStore();
 
   const { register, handleSubmit } = useForm<IRegisterForm>();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const authService = new AuthService();
 
@@ -31,11 +35,17 @@ const Registration = () => {
       if (response.status !== 201) {
         setErrorMessage(response.message);
       } else {
+        setUser(response.data.user);
         navigate(routesConfig.DASHBOARD);
+        localStorage.setItem("currentUser", JSON.stringify(response.data.user));
       }
     }
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    authenticationCheck(navigate, location);
+  }, [location, navigate]);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

@@ -1,6 +1,6 @@
 import routesConfig from "@/config/routes.config";
 import { DoorOpen, Github, Moon, Search, Sun, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -10,10 +10,25 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@radix-ui/react-popover";
+import useUserStore from "@/store/user.store";
+import { useMutation } from "@tanstack/react-query";
+import { queryConfig } from "@/config/query.config";
+import { AuthService } from "@/services/auth.service";
 
 const Header = () => {
   const [theme, setTheme] = useState<string>("light");
-  const user = true;
+  const { user, setUser } = useUserStore();
+
+  const authService = new AuthService();
+  const navigate = useNavigate();
+
+  const { isPending, data, mutate } = useMutation({
+    mutationKey: [queryConfig.LOGOUT],
+    mutationFn: async () => await authService.logout(),
+    onSuccess: () => {
+      navigate(routesConfig.LOGIN);
+    },
+  });
 
   useEffect(() => {
     const savedTheme = JSON.parse(localStorage.getItem("theme")!);
@@ -23,12 +38,26 @@ const Header = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser")!);
+    if (currentUser) setUser(currentUser);
+  }, [setUser]);
+
   const toggleTheme = (value: string) => {
     document.documentElement.classList.remove(theme);
     document.documentElement.classList.add(value);
     setTheme(value);
     localStorage.setItem("theme", JSON.stringify(value));
   };
+
+  const onLogOut = async () => {
+    mutate();
+    localStorage.clear();
+  };
+
+  useEffect(() => {
+    if (data) setUser(null);
+  }, [data, setUser]);
 
   return (
     <div className="bg-white dark:bg-black shadow-md">
@@ -106,7 +135,9 @@ const Header = () => {
                   </Button>
                 </Link>
                 <Button
+                  onClick={onLogOut}
                   variant={"outline"}
+                  disabled={isPending}
                   className="text-[16px] flex items-start justify-center space-x-1"
                 >
                   <DoorOpen size={20} />

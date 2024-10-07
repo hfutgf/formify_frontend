@@ -22,6 +22,7 @@ export default {
       pink: "#cc34ff",
       red: "#ff1134",
       greenLight: "#e1eee1",
+      primary1: "#6543b4",
     },
     extend: {
       borderRadius: {

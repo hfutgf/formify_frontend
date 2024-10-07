@@ -3,16 +3,24 @@ import { TemplateService } from "@/services/template.service";
 import useTemplateStore from "@/store/template.store";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Loading from "../loading/Loading";
 import Question from "@/components/shared/template/Question";
 import { QuestionService } from "@/services/question.service";
+import { QuestionType } from "@/types/question.type";
+import authenticationCheck from "@/utils/authenticationCheck";
 
 const Template = () => {
   const { setTemplate, template, questions, setQuestions } = useTemplateStore();
   const { templateId } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
   const templateService = new TemplateService();
   const questionService = new QuestionService();
+
+  useEffect(() => {
+    authenticationCheck(navigate, location);
+  }, [location, navigate]);
 
   const { isLoading, data } = useQuery({
     queryKey: [queryConfig.GET_TEMPLATE, Number(templateId)],
@@ -50,7 +58,10 @@ const Template = () => {
           <p className="text-[16px] font-[400]">{template?.description}</p>
         </div>
         {questions?.map((question) => (
-          <Question key={question.id} question={question} />
+          <Question
+            key={question.id}
+            question={{ ...question, questionType: QuestionType.MULTICHOICE }}
+          />
         ))}
       </div>
     </div>

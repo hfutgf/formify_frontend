@@ -1,8 +1,7 @@
-enum QuestionType {
-  TEXT,
-  MULTICHOICE,
-  CHECKBOX,
-  RADIO,
+export enum QuestionType {
+  TEXT = "TEXT",
+  MULTICHOICE = "MULTICHOICE",
+  RADIO = "RADIO",
 }
 
 export interface IQuestion {

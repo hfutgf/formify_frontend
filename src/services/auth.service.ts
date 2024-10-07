@@ -43,5 +43,13 @@ export class AuthService extends Common {
     }
   };
 
-  
+  logout = async () => {
+    try {
+      const response = await this.axiosWithAuth.post(queryConfig.LOGOUT);
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      return e.response?.data;
+    }
+  };
 }

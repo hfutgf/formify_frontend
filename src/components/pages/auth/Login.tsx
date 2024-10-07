@@ -2,19 +2,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import routesConfig from "@/config/routes.config";
 import { Eye, EyeOff } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ILoginForm } from "@/types/auth.types";
 import { AuthService } from "@/services/auth.service";
 import { AxiosResponse } from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import useUserStore from "@/store/user.store";
+import authenticationCheck from "@/utils/authenticationCheck";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [viewPassword, setViewPassword] = useState(false);
+  const { setUser } = useUserStore();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { register, handleSubmit } = useForm<ILoginForm>();
   const authService = new AuthService();
@@ -28,9 +32,15 @@ const Login = () => {
       setErrorMessage(response.message);
     } else {
       navigate(routesConfig.DASHBOARD);
+      setUser(response.data.data);
+      localStorage.setItem("currentUser", JSON.stringify(response.data.data));
     }
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    authenticationCheck(navigate, location);
+  }, [location, navigate]);
 
   return (
     <form

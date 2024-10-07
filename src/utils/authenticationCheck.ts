@@ -19,6 +19,10 @@ const authenticationCheck = (
       if (!location.pathname.startsWith("/auth")) {
         return navigate(routesConfig.LOGIN);
       }
+    } else {
+      if (location.pathname.startsWith("/auth")) {
+        navigate(routesConfig.DASHBOARD);
+      }
     }
   }
 };
