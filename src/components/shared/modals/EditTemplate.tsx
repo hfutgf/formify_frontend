@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -19,23 +20,26 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { queryConfig } from "@/config/query.config";
 import { TemplateService } from "@/services/template.service";
-import { ITemplate, TypeUpdateTemplate } from "@/types/template.types";
-import { useQuery } from "@tanstack/react-query";
-import { Download, LoaderCircle } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import useTemplateStore from "@/store/template.store";
+import { TypeUpdateTemplate } from "@/types/template.types";
+import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { Download, LoaderCircle, Trash2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-interface Props {
-  template: ITemplate | null;
-}
-
-const EditTemplate = ({ template }: Props) => {
+const EditTemplate = () => {
+  const { setTemplate, template } = useTemplateStore();
   const [isVisible, setIsVisible] = useState<string>(`${template?.isPublic}`);
   const [themeValue, setThemeValue] = useState<string | undefined>(
     template?.theme
   );
+  const [fileName, setFileName] = useState("");
 
-  const { register, handleSubmit } = useForm<TypeUpdateTemplate>();
+  const queryClient = new QueryClient();
+
+  const { register, handleSubmit } = useForm<
+    TypeUpdateTemplate & { file: FileList }
+  >();
 
   const templateService = new TemplateService();
   const { isLoading: isThemesPending, data: themes } = useQuery({
@@ -43,7 +47,52 @@ const EditTemplate = ({ template }: Props) => {
     queryFn: async () => await templateService.getThemes(),
   });
 
-  const updateTemplate = async () => {};
+  const {
+    data: updatedData,
+    mutate: update,
+    isPending: updatePending,
+  } = useMutation({
+    mutationKey: [queryConfig.UPDATE_TEMPLATE, template?.id],
+    mutationFn: async (body: FormData) =>
+      await templateService.update(template?.id, body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [queryConfig.GET_TEMPLATE, template?.id],
+      });
+    },
+  });
+  const {
+    data: removedImageData,
+    mutate: removeImage,
+    isPending: removeImagePending,
+  } = useMutation({
+    mutationKey: [queryConfig.REMOVE_TEMPLATE_IMG, template?.id],
+    mutationFn: async () => await templateService.removeImage(template?.id),
+    onSuccess: () => {
+      setFileName("");
+    },
+  });
+  useEffect(() => {
+    if (updatedData) setTemplate(updatedData);
+  }, [setTemplate, updatedData]);
+  useEffect(() => {
+    if (!removeImagePending) {
+      if (removedImageData) setTemplate(removedImageData);
+    }
+  }, [setTemplate, removedImageData, removeImagePending]);
+
+  const updateTemplate: SubmitHandler<
+    TypeUpdateTemplate & { file: FileList }
+  > = async (data) => {
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("description", data.description!);
+    formData.append("theme", themeValue!);
+    formData.append("isPublic", isVisible);
+    if (data.file) formData.append("file", data.file[0]);
+    update(formData);
+  };
+
   return (
     <Dialog>
       <DialogTrigger className="h-10 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground ">
@@ -60,11 +109,15 @@ const EditTemplate = ({ template }: Props) => {
               className=" w-full flex flex-col gap-[16px]"
             >
               <Input
-                value={template?.title}
+                defaultValue={template?.title}
                 {...register("title", { required: true })}
                 placeholder="Title"
               />
-              <Textarea placeholder="Description" />
+              <Textarea
+                defaultValue={template?.description}
+                {...register("description", { required: true })}
+                placeholder="Description"
+              />
               <Select
                 value={themeValue}
                 required
@@ -82,25 +135,34 @@ const EditTemplate = ({ template }: Props) => {
                 </SelectContent>
               </Select>
               {template?.imageUrl ? (
-                <div>
+                <div className="flex items-center gap-2">
                   <img
                     src={template.imageUrl}
-                    alt=""
-                    className="w-[100px] h-[50px] rounded-md"
+                    alt="template-img"
+                    className="w-[200px] h-[100px] rounded-md"
+                  />
+                  <Trash2
+                    onClick={() => removeImage()}
+                    className="text-red hover:text-red/70 duration-200 cursor-pointer"
+                    size={24}
                   />
                 </div>
               ) : (
                 <div className="w-full flex items-center justify-start">
                   <label
                     htmlFor="template-image"
-                    className="flex items-center gap-[8px] border p-[8px_12px] cursor-pointer rounded-md hover:bg-light duration-200"
+                    className="flex items-center gap-[8px] border p-[8px_12px] cursor-pointer rounded-md hover:bg-light duration-200 overflow-hidden"
                   >
                     <Download size={20} />
-                    <span>Select image</span>
+                    <span>{fileName.length ? fileName : "Select image"}</span>
                   </label>
-                  <input
+                  <Input
+                    {...register("file", {
+                      required: true,
+                      onChange: (e) => setFileName(e.target.value),
+                    })}
                     type="file"
-                    name=""
+                    name="file"
                     id="template-image"
                     className="hidden"
                   />
@@ -122,13 +184,15 @@ const EditTemplate = ({ template }: Props) => {
                   <Label htmlFor="option-two">Private</Label>
                 </div>
               </RadioGroup>
-              <Button
-                // disabled={updatePending}
-                type="submit"
-                className="w-full bg-primary1 dark:bg-light dark:text-dark hover:bg-primary1/80 duration-200 mt-[16px]"
-              >
-                Create
-              </Button>
+              <DialogClose asChild>
+                <Button
+                  disabled={updatePending}
+                  type="submit"
+                  className="w-full bg-primary1 dark:bg-light dark:text-dark hover:bg-primary1/80 duration-200 mt-[16px]"
+                >
+                  Update
+                </Button>
+              </DialogClose>
             </form>
           )}
         </DialogHeader>

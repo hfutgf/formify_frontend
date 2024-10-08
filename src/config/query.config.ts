@@ -5,6 +5,8 @@ export const queryConfig = {
   GET_TEMPLATES: "/templates",
   GET_TEMPLATE: "/templates",
   GET_TEMPLATE_THEMES: "/template-themes",
+  REMOVE_TEMPLATE_IMG: "/template-img",
   CREATE_TEMPLATE: "/templates",
+  UPDATE_TEMPLATE: "/templates",
   GET_QUESTIONS: "/questions",
 };

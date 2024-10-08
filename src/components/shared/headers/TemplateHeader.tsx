@@ -27,7 +27,7 @@ const TemplateHeader = () => {
           navs
         </div>
         <div className="flex items-center justify-end space-x-4">
-          {user?.id === template?.authorId ? <EditTemplate template= {template} /> : <></>}
+          {user?.id === template?.authorId ? <EditTemplate /> : <></>}
           <Button className="bg-primary1 hover:bg-primary1/80 duration-200 w-[30%]">
             Send
           </Button>

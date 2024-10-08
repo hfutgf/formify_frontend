@@ -55,4 +55,35 @@ export class TemplateService extends Common {
       console.log(e.message);
     }
   };
+
+  update = async (templateId: number | undefined, body: FormData) => {
+    try {
+      const response = await this.axiosWithAuth.put<ITemplate>(
+        queryConfig.UPDATE_TEMPLATE + "/" + templateId,
+        body,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      const e = error as Error;
+      console.log(e.message);
+    }
+  };
+
+  removeImage = async (templateId: number | undefined) => {
+    try {
+      const response = await this.axiosWithAuth.put(
+        queryConfig.REMOVE_TEMPLATE_IMG + "/" + templateId
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as Error;
+      console.log(e.message);
+    }
+  };
 }

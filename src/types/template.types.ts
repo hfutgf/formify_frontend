@@ -15,7 +15,10 @@ export type TypeCreateTemplate = Omit<
   "id" | "imageUrl" | "description" | "updatedAt" | "createdAt"
 >;
 
-export type TypeUpdateTemplate = Omit<ITemplate, "id" | "createdAt">;
+export type TypeUpdateTemplate = Omit<
+  ITemplate,
+  "id" | "createdAt" | "imageUrl"
+>;
 
 export interface IGetTemplates {
   theme: string;
