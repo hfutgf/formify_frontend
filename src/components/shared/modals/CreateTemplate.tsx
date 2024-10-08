@@ -93,7 +93,11 @@ const CreateTemplate = () => {
               {...register("title", { required: true })}
               placeholder="Title"
             />
-            <Select required onValueChange={(value) => setThemeValue(value)}>
+            <Select
+              value={themeValue}
+              required
+              onValueChange={(value) => setThemeValue(value)}
+            >
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Theme" />
               </SelectTrigger>
@@ -106,6 +110,7 @@ const CreateTemplate = () => {
               </SelectContent>
             </Select>
             <RadioGroup
+              value={isVisible}
               onValueChange={(value) => setIsVisible(value)}
               required
               defaultValue="option-one"

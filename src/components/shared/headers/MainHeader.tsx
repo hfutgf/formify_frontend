@@ -38,10 +38,7 @@ const Header = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser")!);
-    if (currentUser) setUser(currentUser);
-  }, [setUser]);
+
 
   const toggleTheme = (value: string) => {
     document.documentElement.classList.remove(theme);

@@ -9,7 +9,6 @@ import useTemplateStore from "@/store/template.store";
 const TemplateHeader = () => {
   const { user } = useUserStore();
   const { template } = useTemplateStore();
-  
   return (
     <div className="bg-white border-b shadow-sm">
       <div className="container mx-auto grid grid-cols-[3fr_6fr_3fr]">
@@ -28,7 +27,7 @@ const TemplateHeader = () => {
           navs
         </div>
         <div className="flex items-center justify-end space-x-4">
-          {user?.id === template?.authorId ? <EditTemplate /> : <></>}
+          {user?.id === template?.authorId ? <EditTemplate template= {template} /> : <></>}
           <Button className="bg-primary1 hover:bg-primary1/80 duration-200 w-[30%]">
             Send
           </Button>

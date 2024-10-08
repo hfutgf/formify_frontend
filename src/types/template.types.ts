@@ -3,7 +3,7 @@ export interface ITemplate {
   authorId: number;
   title: string;
   description?: string;
-  theme?: string;
+  theme: string;
   imageUrl?: string;
   isPublic: boolean;
   createdAt: Date;
@@ -14,6 +14,8 @@ export type TypeCreateTemplate = Omit<
   ITemplate,
   "id" | "imageUrl" | "description" | "updatedAt" | "createdAt"
 >;
+
+export type TypeUpdateTemplate = Omit<ITemplate, "id" | "createdAt">;
 
 export interface IGetTemplates {
   theme: string;

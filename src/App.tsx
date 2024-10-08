@@ -4,9 +4,16 @@ import NotFound from "./components/pages/notFound/NotFound";
 import AuthLayout from "./components/layouts/AuthLayout";
 import DashboardLayout from "./components/layouts/DashboardLayout";
 import TemplateLayout from "./components/layouts/TemplateLayout";
+import { useEffect } from "react";
+import useUserStore from "./store/user.store";
 
 const App = () => {
+  const { setUser } = useUserStore();
   const location = useLocation();
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser")!);
+    if (currentUser) setUser(currentUser);
+  }, [setUser]);
   return (
     <Routes>
       {location.pathname.startsWith("/auth") ? (
