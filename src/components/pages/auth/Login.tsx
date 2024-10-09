@@ -9,7 +9,7 @@ import { AuthService } from "@/services/auth.service";
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import useUserStore from "@/store/user.store";
+import useUserStore from "@/store/users.store";
 import authenticationCheck from "@/utils/authenticationCheck";
 
 const Login = () => {
@@ -33,7 +33,7 @@ const Login = () => {
     } else {
       navigate(routesConfig.DASHBOARD);
       setUser(response.data.data);
-      console.log(response.data)
+      console.log(response.data);
       localStorage.setItem("currentUser", JSON.stringify(response.data.data));
     }
     setIsLoading(false);

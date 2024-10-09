@@ -104,7 +104,7 @@ const CreateTemplate = () => {
               <SelectContent>
                 {themes?.map((theme) => (
                   <SelectItem key={theme} value={theme}>
-                    {theme}
+                    {theme.slice(0, 1) + theme.slice(1).toLowerCase()}
                   </SelectItem>
                 ))}
               </SelectContent>

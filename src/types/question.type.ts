@@ -7,7 +7,7 @@ export enum QuestionType {
 export interface IQuestion {
   id: number;
   templateId: number;
-  questionType: QuestionType;
+  questionType: QuestionType | string;
   title: string;
   description: string;
   order: number;
@@ -15,3 +15,16 @@ export interface IQuestion {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IOption {
+  id: number;
+  questionId: number;
+  text: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export type TypeQuestionForm = Omit<
+  IQuestion,
+  "id" | "tempalteId" | "createdAt"
+>;

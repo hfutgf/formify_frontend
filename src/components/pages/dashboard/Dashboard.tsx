@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "../loading/Loading";
 import CreateTemplate from "../../shared/modals/CreateTemplate";
 import { useEffect } from "react";
-import useTemplateStore from "@/store/template.store";
+import useTemplateStore from "@/store/templates.store";
 
 const Dashboard = () => {
   const { setTemplates, templates } = useTemplateStore();

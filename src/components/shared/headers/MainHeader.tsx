@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@radix-ui/react-popover";
-import useUserStore from "@/store/user.store";
+import useUserStore from "@/store/users.store";
 import { useMutation } from "@tanstack/react-query";
 import { queryConfig } from "@/config/query.config";
 import { AuthService } from "@/services/auth.service";
@@ -37,8 +37,6 @@ const Header = () => {
       document.documentElement.classList.add(savedTheme);
     }
   }, []);
-
-
 
   const toggleTheme = (value: string) => {
     document.documentElement.classList.remove(theme);

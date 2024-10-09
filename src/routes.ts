@@ -27,7 +27,7 @@ const dashboardRoutes = [
 
 const templateRoutes = [
   {
-    component: lazy(() => import("./components/pages/template/Template")),
+    component: lazy(() => import("./components/pages/questions/Quesitons")),
     path: routesConfig.TEMPLATE + "/:templateId",
   },
 ];

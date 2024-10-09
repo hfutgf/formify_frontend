@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import routesConfig from "@/config/routes.config";
 import { cn } from "@/lib/utils";
 import { AuthService } from "@/services/auth.service";
-import useUserStore from "@/store/user.store";
+import useUserStore from "@/store/users.store";
 import { IRegisterForm } from "@/types/auth.types";
 import authenticationCheck from "@/utils/authenticationCheck";
 import { AxiosResponse } from "axios";

@@ -5,7 +5,7 @@ import AuthLayout from "./components/layouts/AuthLayout";
 import DashboardLayout from "./components/layouts/DashboardLayout";
 import TemplateLayout from "./components/layouts/TemplateLayout";
 import { useEffect } from "react";
-import useUserStore from "./store/user.store";
+import useUserStore from "./store/users.store";
 
 const App = () => {
   const { setUser } = useUserStore();

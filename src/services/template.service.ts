@@ -44,7 +44,7 @@ export class TemplateService extends Common {
     }
   };
 
-  getOne = async (templateId: number) => {
+  getOneTempalte = async (templateId: number) => {
     try {
       const response = await this.axiosWithAuth.get(
         queryConfig.GET_TEMPLATE + "/" + templateId

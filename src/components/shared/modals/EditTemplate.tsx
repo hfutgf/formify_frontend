@@ -20,7 +20,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { queryConfig } from "@/config/query.config";
 import { TemplateService } from "@/services/template.service";
-import useTemplateStore from "@/store/template.store";
+import useTemplateStore from "@/store/templates.store";
 import { TypeUpdateTemplate } from "@/types/template.types";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { Download, LoaderCircle, Trash2 } from "lucide-react";
@@ -129,7 +129,7 @@ const EditTemplate = () => {
                 <SelectContent>
                   {themes?.map((theme) => (
                     <SelectItem key={theme} value={theme}>
-                      {theme}
+                      {theme.slice(0, 1) + theme.slice(1).toLowerCase()}
                     </SelectItem>
                   ))}
                 </SelectContent>
