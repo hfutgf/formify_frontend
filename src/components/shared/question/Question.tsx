@@ -4,7 +4,7 @@ import { Draggable } from "@hello-pangea/dnd";
 import useUserStore from "@/store/users.store";
 import useTemplateStore from "@/store/templates.store";
 import { useEffect, useState } from "react";
-import Options from "./Options";
+import Options from "../options/Options";
 import UpdateQuestion from "./UpdateQuestion";
 
 interface Props {
@@ -34,7 +34,7 @@ const Question = ({ initialQuestion, index }: Props) => {
           {...provided.draggableProps}
           className="w-full mx-auto bg-white rounded-md p-[12px_20px] flex flex-col gap-[12px]"
         >
-          {user?.id === template?.authorId ? (
+          {user?.id === template?.authorId || user?.role === "ADMIN" ? (
             <div className="w-full flex items-center justify-center">
               <div {...provided.dragHandleProps}>
                 <GripHorizontal
@@ -46,7 +46,7 @@ const Question = ({ initialQuestion, index }: Props) => {
           ) : (
             <></>
           )}
-          {user?.id === template?.authorId ? (
+          {user?.id === template?.authorId || user?.role === "ADMIN" ? (
             <UpdateQuestion question={question} setQuestion={setQuestion} />
           ) : (
             <>

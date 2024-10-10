@@ -107,7 +107,7 @@ const Questions = () => {
           <p className="text-[16px] font-[400]">{template?.description}</p>
         </div>
         <QuestionList />
-        {user?.id === template?.authorId ? (
+        {user?.id === template?.authorId || user?.role === "ADMIN" ? (
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="w-[65%] mx-auto bg-white rounded-md p-[12px] flex flex-col gap-[12px]"
