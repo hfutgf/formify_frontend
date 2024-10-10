@@ -74,6 +74,7 @@ const Options = ({ question }: Props) => {
       ) : question?.questionType === QuestionType.RADIO ? (
         <RadioOption
           options={options}
+          setOptions={setOptions}
           setText={setText}
           clickOption={clickOption}
           onOptionAdd={onOptionAdd}
@@ -85,6 +86,7 @@ const Options = ({ question }: Props) => {
       ) : (
         <MultichoiceOptions
           options={options}
+          setOptions={setOptions}
           setText={setText}
           clickOption={clickOption}
           onOptionAdd={onOptionAdd}
