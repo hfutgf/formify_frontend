@@ -15,4 +15,6 @@ export const queryConfig = {
   GET_OPTIONS: "/options",
   CREATE_OPTION: "/options",
   UPDATE_OPTION: "/options",
+  DELETE_OPTION: "/options",
+
 };

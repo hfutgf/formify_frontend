@@ -5,6 +5,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import useTemplateStore from "@/store/templates.store";
 import useUserStore from "@/store/users.store";
 import { IOption } from "@/types/question.type";
+import { Trash2 } from "lucide-react";
 import { Dispatch, FormEvent, SetStateAction } from "react";
 
 interface Props {
@@ -12,10 +13,10 @@ interface Props {
   setText: Dispatch<SetStateAction<string>>;
   clickOption: IOption | null;
   setClickOption: Dispatch<SetStateAction<IOption | null>>;
-  clickedOptionId: number | undefined;
-  setClickedOptionId: Dispatch<SetStateAction<number | undefined>>;
   onUpdateOption: (e: FormEvent<HTMLFormElement>) => void;
   onOptionAdd: () => void;
+  onDeleteOption: () => void;
+  deleteOptionPending: boolean;
 }
 
 const RadioOption = ({
@@ -23,18 +24,20 @@ const RadioOption = ({
   clickOption,
   setClickOption,
   setText,
-  clickedOptionId,
   onUpdateOption,
-  setClickedOptionId,
   onOptionAdd,
+  deleteOptionPending,
+  onDeleteOption,
 }: Props) => {
   const { user } = useUserStore();
   const { template } = useTemplateStore();
+
+  console.log(clickOption);
   return (
-    <RadioGroup className="flex flex-col gap-[12px]">
+    <RadioGroup className="flex flex-col gap-[16px]">
       {options?.map((option) =>
         user?.id === template?.authorId || user?.role === "ADMIN" ? (
-          clickOption && clickedOptionId === option.id ? (
+          clickOption?.id === option.id ? (
             <form
               key={option.id}
               onSubmit={onUpdateOption}
@@ -58,18 +61,33 @@ const RadioOption = ({
               >
                 Cancel
               </Button>
+              <Button
+                disabled={deleteOptionPending}
+                variant={"ghost"}
+                className="p-0 h-0"
+                onClick={() => {
+                  onDeleteOption();
+                  setClickOption(null);
+                }}
+              >
+                <Trash2
+                  size={20}
+                  className="opacity-50 hover:opacity-100 duration-200 cursor-pointer hover:text-red"
+                />
+              </Button>
             </form>
           ) : (
             <div
               key={option.id}
               onDoubleClick={() => {
                 setClickOption(option);
-                setClickedOptionId(option.id);
               }}
-              className="flex items-center space-x-2"
+              className="flex items-center justify-between group"
             >
-              <RadioGroupItem value={option.text} id="option-one" />
-              <Label htmlFor="option-one">{option.text}</Label>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value={option.text} id="option-one" />
+                <Label htmlFor="option-one">{option.text}</Label>
+              </div>
             </div>
           )
         ) : (

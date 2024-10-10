@@ -96,4 +96,16 @@ export class QuestionService extends Common {
       console.log(e.message);
     }
   };
+
+  deleteOption = async (optionId: number | undefined) => {
+    try {
+      const response = await this.axiosWithAuth.delete(
+        queryConfig.UPDATE_OPTION + "/" + optionId
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as Error;
+      console.log(e.message);
+    }
+  };
 }

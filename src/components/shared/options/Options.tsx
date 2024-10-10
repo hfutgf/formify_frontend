@@ -13,7 +13,6 @@ interface Props {
 const Options = ({ question }: Props) => {
   const [options, setOptions] = useState<IOption[]>([]);
   const [clickOption, setClickOption] = useState<IOption | null>(null);
-  const [clickedOptionId, setClickedOptionId] = useState<number>();
   const [text, setText] = useState("");
 
   const questionService = new QuestionService();
@@ -46,6 +45,14 @@ const Options = ({ question }: Props) => {
     },
   });
 
+  const { mutate: deleteOption, isPending: deleteOptionPending } = useMutation({
+    mutationKey: [queryConfig.DELETE_OPTION, clickOption?.id],
+    mutationFn: async () => await questionService.deleteOption(clickOption?.id),
+    onSuccess: (data) => {
+      setOptions((prev) => [...prev.filter((item) => item.id !== data.id)]);
+    },
+  });
+
   const onOptionAdd = () => {
     createOption();
   };
@@ -54,6 +61,10 @@ const Options = ({ question }: Props) => {
     e.preventDefault();
     updateOption({ text });
     setClickOption(null);
+  };
+
+  const onDeleteOption = () => {
+    deleteOption();
   };
 
   return (
@@ -65,22 +76,22 @@ const Options = ({ question }: Props) => {
           options={options}
           setText={setText}
           clickOption={clickOption}
-          clickedOptionId={clickedOptionId}
           onOptionAdd={onOptionAdd}
           onUpdateOption={onUpdateOption}
           setClickOption={setClickOption}
-          setClickedOptionId={setClickedOptionId}
+          deleteOptionPending={deleteOptionPending}
+          onDeleteOption={onDeleteOption}
         />
       ) : (
         <MultichoiceOptions
           options={options}
           setText={setText}
           clickOption={clickOption}
-          clickedOptionId={clickedOptionId}
           onOptionAdd={onOptionAdd}
           onUpdateOption={onUpdateOption}
           setClickOption={setClickOption}
-          setClickedOptionId={setClickedOptionId}
+          deleteOptionPending={deleteOptionPending}
+          onDeleteOption={onDeleteOption}
         />
       )}
     </div>
