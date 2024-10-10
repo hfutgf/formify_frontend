@@ -28,7 +28,7 @@ export class QuestionService extends Common {
     }
   };
 
-  getOptions = async (questionId: number) => {
+  getOptions = async (questionId: number | undefined) => {
     try {
       const response = await this.axiosWithAuth.get<IOption[]>(
         queryConfig.GET_OPTIONS + "/" + questionId
@@ -44,6 +44,51 @@ export class QuestionService extends Common {
     try {
       const response = await this.axiosWithAuth.get<string[]>(
         queryConfig.GET_QUESTION_TYPES
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as Error;
+      console.log(e.message);
+    }
+  };
+
+  updateQuestion = async (
+    questonId: number | undefined,
+    body: TypeQuestionForm
+  ) => {
+    try {
+      const response = await this.axiosWithAuth.put(
+        queryConfig.UPDATE_QUESTION + "/" + questonId,
+        body
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as Error;
+      console.log(e.message);
+    }
+  };
+
+  createOption = async (questionId: number) => {
+    try {
+      const response = await this.axiosWithAuth.post<IOption>(
+        queryConfig.CREATE_OPTION + "/" + questionId,
+        { text: "" }
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as Error;
+      console.log(e.message);
+    }
+  };
+
+  updateOption = async (
+    optionId: number | undefined,
+    body: { text: string }
+  ) => {
+    try {
+      const response = await this.axiosWithAuth.put(
+        queryConfig.UPDATE_OPTION + "/" + optionId,
+        body
       );
       return response.data;
     } catch (error) {

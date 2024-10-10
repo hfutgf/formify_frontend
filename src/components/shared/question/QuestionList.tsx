@@ -43,7 +43,7 @@ const QuestionList = () => {
             {questions?.map((question, index) => (
               <Question
                 key={String(question.id)}
-                question={question}
+                initialQuestion={question}
                 index={index}
               />
             ))}

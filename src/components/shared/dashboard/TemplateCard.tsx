@@ -6,7 +6,7 @@ interface Props {
   item: ITemplate;
 }
 
-const Card = ({ item }: Props) => {
+const TemplateCard = ({ item }: Props) => {
   return (
     <div className="flex flex-col gap-[12px] w-[192px]">
       <Link
@@ -21,9 +21,11 @@ const Card = ({ item }: Props) => {
           height={120}
         />
       </Link>
-      <h5 className="px-[4px]">{item.title}</h5>
+      <h5 className="px-[4px]">
+        {item.title.length > 16 ? item.title.slice(0, 16) : item.title}
+      </h5>
     </div>
   );
 };
 
-export default Card;
+export default TemplateCard;

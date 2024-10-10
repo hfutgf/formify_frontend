@@ -19,12 +19,13 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { queryConfig } from "@/config/query.config";
+import { cn } from "@/lib/utils";
 import { TemplateService } from "@/services/template.service";
 import useTemplateStore from "@/store/templates.store";
 import { TypeUpdateTemplate } from "@/types/template.types";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { Download, LoaderCircle, Trash2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 const EditTemplate = () => {
@@ -47,39 +48,25 @@ const EditTemplate = () => {
     queryFn: async () => await templateService.getThemes(),
   });
 
-  const {
-    data: updatedData,
-    mutate: update,
-    isPending: updatePending,
-  } = useMutation({
+  const { mutate: update, isPending: updatePending } = useMutation({
     mutationKey: [queryConfig.UPDATE_TEMPLATE, template?.id],
     mutationFn: async (body: FormData) =>
       await templateService.update(template?.id, body),
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: [queryConfig.GET_TEMPLATE, template?.id],
       });
+      setTemplate(data!);
     },
   });
-  const {
-    data: removedImageData,
-    mutate: removeImage,
-    isPending: removeImagePending,
-  } = useMutation({
+  const { mutate: removeImage, isPending: removeImagePending } = useMutation({
     mutationKey: [queryConfig.REMOVE_TEMPLATE_IMG, template?.id],
     mutationFn: async () => await templateService.removeImage(template?.id),
-    onSuccess: () => {
+    onSuccess: (data) => {
       setFileName("");
+      setTemplate(data);
     },
   });
-  useEffect(() => {
-    if (updatedData) setTemplate(updatedData);
-  }, [setTemplate, updatedData]);
-  useEffect(() => {
-    if (!removeImagePending) {
-      if (removedImageData) setTemplate(removedImageData);
-    }
-  }, [setTemplate, removedImageData, removeImagePending]);
 
   const updateTemplate: SubmitHandler<
     TypeUpdateTemplate & { file: FileList }
@@ -96,7 +83,7 @@ const EditTemplate = () => {
   return (
     <Dialog>
       <DialogTrigger className="h-10 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground ">
-        Edit
+        Edit template
       </DialogTrigger>
       <DialogContent className="rounded-lg">
         <DialogHeader>
@@ -143,7 +130,10 @@ const EditTemplate = () => {
                   />
                   <Trash2
                     onClick={() => removeImage()}
-                    className="text-red hover:text-red/70 duration-200 cursor-pointer"
+                    className={cn(
+                      "text-red hover:text-red/70 duration-200 cursor-pointer",
+                      removeImagePending ? "text-red/70" : ""
+                    )}
                     size={24}
                   />
                 </div>

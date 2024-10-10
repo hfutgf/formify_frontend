@@ -9,7 +9,10 @@ export const queryConfig = {
   CREATE_TEMPLATE: "/templates",
   UPDATE_TEMPLATE: "/templates",
   GET_QUESTIONS: "/questions",
-  GET_OPTIONS: "/options",
   GET_QUESTION_TYPES: "/question-types",
   CREATE_QUESTION: "/questions",
+  UPDATE_QUESTION: "/questions",
+  GET_OPTIONS: "/options",
+  CREATE_OPTION: "/options",
+  UPDATE_OPTION: "/options",
 };

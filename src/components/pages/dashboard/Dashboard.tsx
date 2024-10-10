@@ -1,4 +1,4 @@
-import Cards from "@/components/shared/dashboard/Cards";
+import Cards from "@/components/shared/dashboard/TemplateCards";
 import { queryConfig } from "@/config/query.config";
 import { TemplateService } from "@/services/template.service";
 import { useQuery } from "@tanstack/react-query";

@@ -59,20 +59,18 @@ const Questions = () => {
     queryFn: async () => await questionService.getQuestionTypes(),
   });
 
-  const {
-    isPending: isCreateQuestionPending,
-    data: questionData,
-    mutate: createQuestion,
-  } = useMutation({
-    mutationKey: [queryConfig.CREATE_QUESTION, template?.id],
-    mutationFn: async (body: TypeQuestionForm) =>
-      await questionService.create(template?.id, body),
-    onSuccess: async () => {
-      reset();
-      setVisible("");
-      setQuestionType("");
-    },
-  });
+  const { isPending: isCreateQuestionPending, mutate: createQuestion } =
+    useMutation({
+      mutationKey: [queryConfig.CREATE_QUESTION, template?.id],
+      mutationFn: async (body: TypeQuestionForm) =>
+        await questionService.create(template?.id, body),
+      onSuccess: (data) => {
+        reset();
+        setVisible("");
+        setQuestionType("");
+        setQuestion(data!);
+      },
+    });
 
   const onSubmit: SubmitHandler<TypeQuestionForm> = async (data) => {
     createQuestion({
@@ -81,12 +79,6 @@ const Questions = () => {
       isVisible: visible.length === 4 ? true : false,
     });
   };
-
-  useEffect(() => {
-    if (questionData) {
-      setQuestion(questionData);
-    }
-  }, [questionData, setQuestion]);
 
   useEffect(() => {
     authenticationCheck(navigate, location);

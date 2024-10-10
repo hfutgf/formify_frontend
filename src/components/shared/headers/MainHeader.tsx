@@ -22,11 +22,12 @@ const Header = () => {
   const authService = new AuthService();
   const navigate = useNavigate();
 
-  const { isPending, data, mutate } = useMutation({
+  const { isPending, mutate } = useMutation({
     mutationKey: [queryConfig.LOGOUT],
     mutationFn: async () => await authService.logout(),
     onSuccess: () => {
       navigate(routesConfig.LOGIN);
+      setUser(null);
     },
   });
 
@@ -49,10 +50,6 @@ const Header = () => {
     mutate();
     localStorage.clear();
   };
-
-  useEffect(() => {
-    if (data) setUser(null);
-  }, [data, setUser]);
 
   return (
     <div className="bg-white dark:bg-black shadow-md">
