@@ -4,6 +4,7 @@ const routesConfig = {
   DASHBOARD: "/dashboard",
   PROFILE: "/dashboard/profile",
   TEMPLATE: "/template",
+  SEARCH: "/dashboard/search-tempalte",
 };
 
 export default routesConfig;

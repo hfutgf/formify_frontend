@@ -98,9 +98,9 @@ const Questions = () => {
     return <Loading />;
   }
   return (
-    <div className="min-h-screen bg-greenLight">
+    <div className="min-h-screen bg-greenLight dark:bg-dark">
       <div className="container mx-auto py-[32px] flex flex-col gap-[24px] select-none">
-        <div className="w-[65%] mx-auto bg-white rounded-md p-[12px] flex flex-col ">
+        <div className="w-[65%] mx-auto bg-white dark:bg-black rounded-md p-[12px] flex flex-col ">
           <h4 className="text-center text-[20px] font-[500]">
             {template?.title}
           </h4>
@@ -110,7 +110,7 @@ const Questions = () => {
         {user?.id === template?.authorId || user?.role === "ADMIN" ? (
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-[65%] mx-auto bg-white rounded-md p-[12px] flex flex-col gap-[12px]"
+            className="w-[65%] mx-auto bg-white dark:bg-black rounded-md p-[12px] flex flex-col gap-[12px]"
           >
             <Input
               {...register("title", { required: true })}
@@ -155,7 +155,7 @@ const Questions = () => {
             <Button
               disabled={isCreateQuestionPending}
               type="submit"
-              className="bg-primary1 hover:bg-primary1/80 duration-200 mt-[12px] text-[16px]"
+              className="bg-primary1 hover:bg-primary1/80 dark:text-white duration-200 mt-[12px] text-[16px]"
             >
               Add question
             </Button>

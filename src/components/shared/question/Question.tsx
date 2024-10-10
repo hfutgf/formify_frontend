@@ -32,7 +32,7 @@ const Question = ({ initialQuestion, index }: Props) => {
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          className="w-full mx-auto bg-white rounded-md p-[12px_20px] flex flex-col gap-[12px]"
+          className="w-full mx-auto bg-white dark:bg-black rounded-md p-[12px_20px] flex flex-col gap-[12px]"
         >
           {user?.id === template?.authorId || user?.role === "ADMIN" ? (
             <div className="w-full flex items-center justify-center">

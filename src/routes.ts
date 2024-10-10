@@ -18,10 +18,12 @@ const dashboardRoutes = [
     path: routesConfig.DASHBOARD,
   },
   {
-    component: lazy(
-      () => import("./components/pages/profile/Profile")
-    ),
+    component: lazy(() => import("./components/pages/profile/Profile")),
     path: routesConfig.PROFILE,
+  },
+  {
+    component: lazy(() => import("./components/pages/search/Search")),
+    path: routesConfig.SEARCH,
   },
 ];
 

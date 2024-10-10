@@ -1,4 +1,4 @@
-import Cards from "@/components/shared/dashboard/TemplateCards";
+import TemplateCards from "@/components/shared/dashboard/TemplateCards";
 import { queryConfig } from "@/config/query.config";
 import { TemplateService } from "@/services/template.service";
 import { useQuery } from "@tanstack/react-query";
@@ -38,7 +38,7 @@ const Dashboard = () => {
         </div>
       </div>
       {templates?.map((item) => (
-        <Cards key={item.theme} theme={item.theme} templates={item.data} />
+        <TemplateCards key={item.theme} theme={item.theme} templates={item.data} />
       ))}
     </div>
   );

@@ -86,4 +86,16 @@ export class TemplateService extends Common {
       console.log(e.message);
     }
   };
+
+  searchTemplate = async (title: string) => {
+    try {
+      const response = await this.axiosWithAuth.get(
+        queryConfig.SEARCH_TEMPLATE + "?title=" + title
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as Error;
+      console.log(e.message);
+    }
+  };
 }

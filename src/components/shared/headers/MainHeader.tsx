@@ -1,7 +1,7 @@
 import routesConfig from "@/config/routes.config";
 import { DoorOpen, Github, Moon, Search, Sun, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,15 +11,22 @@ import {
   PopoverContent,
 } from "@radix-ui/react-popover";
 import useUserStore from "@/store/users.store";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryConfig } from "@/config/query.config";
 import { AuthService } from "@/services/auth.service";
+import { TemplateService } from "@/services/template.service";
+import useTemplateStore from "@/store/templates.store";
 
 const Header = () => {
   const [theme, setTheme] = useState<string>("light");
+  const [title, setTitle] = useState("");
+  const [enabledSearchTemplates, setEnabledSearchTemplates] = useState(false);
+
   const { user, setUser } = useUserStore();
+  const { setSearchTemplates } = useTemplateStore();
 
   const authService = new AuthService();
+  const templateService = new TemplateService();
   const navigate = useNavigate();
 
   const { isPending, mutate } = useMutation({
@@ -30,6 +37,20 @@ const Header = () => {
       setUser(null);
     },
   });
+
+  const { data: templates, isLoading: searchTempalteLoading } = useQuery({
+    queryKey: [queryConfig.SEARCH_TEMPLATE],
+    queryFn: async () => await templateService.searchTemplate(title),
+    enabled: enabledSearchTemplates && !!title,
+  });
+
+  useEffect(() => {
+    if (templates) {
+      setSearchTemplates(templates);
+      setEnabledSearchTemplates(false);
+      localStorage.setItem("searchTemplates", JSON.stringify(templates));
+    }
+  }, [setSearchTemplates, templates]);
 
   useEffect(() => {
     const savedTheme = JSON.parse(localStorage.getItem("theme")!);
@@ -51,6 +72,12 @@ const Header = () => {
     localStorage.clear();
   };
 
+  const onSearchTempaltes = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate(routesConfig.SEARCH);
+    setEnabledSearchTemplates(true);
+  };
+
   return (
     <div className="bg-white dark:bg-black shadow-md">
       <div className="container mx-auto min-h-[70px] max-h-[70px] grid grid-cols-[2fr_4fr_6fr]">
@@ -66,15 +93,24 @@ const Header = () => {
           </Link>
         </div>
         <div className="min-h-[70px] max-h-[70px] flex items-center">
-          <div className="border flex items-center w-full rounded-md">
-            <Input placeholder="Search template" className="border-none" />
+          <form
+            onSubmit={onSearchTempaltes}
+            className="border flex items-center w-full rounded-md"
+          >
+            <Input
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Search template"
+              className="border-none"
+            />
             <Button
+              disabled={searchTempalteLoading}
               variant={"ghost"}
+              type="submit"
               className="rounded-tl-none rounded-bl-none"
             >
               <Search size={24} />
             </Button>
-          </div>
+          </form>
         </div>
         <div className="min-h-[70px] max-h-[70px] flex items-center justify-end gap-[24px]">
           <div className="border bg-light w-[72px] p-[4px] rounded-3xl">
