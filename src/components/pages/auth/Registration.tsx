@@ -49,7 +49,7 @@ const Registration = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-[450px] min-w-[450px] border rounded-[12px] shadow-md p-[24px] bg-white overflow-hidden "
+      className="max-w-[450px] min-w-[450px] border rounded-[12px] shadow-md p-[24px] bg-white dark:bg-black overflow-hidden "
     >
       <h1 className="text-center text-gray text-[24px] font-[500]">Sign up</h1>
       <div
@@ -120,7 +120,7 @@ const Registration = () => {
       </div>
       <Button
         disabled={isLoading}
-        className="w-full mt-[24px] bg-gradient-to-r from-blue to-pink hover:from-blue/90 hover:to-pink/90 "
+        className="w-full dark:text-white mt-[24px] bg-gradient-to-r from-blue to-pink hover:from-blue/90 hover:to-pink/90 "
       >
         Registration
       </Button>

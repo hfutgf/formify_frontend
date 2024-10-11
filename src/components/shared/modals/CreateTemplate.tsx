@@ -35,11 +35,6 @@ const CreateTemplate = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(
-    () => authenticationCheck(navigate, location),
-    [location, navigate]
-  );
-
   const templateService = new TemplateService();
   const { isLoading: isThemesPending, data: themes } = useQuery({
     queryKey: [queryConfig.GET_TEMPLATE_THEMES],
@@ -60,11 +55,14 @@ const CreateTemplate = () => {
   });
 
   const createTemplate: SubmitHandler<TypeCreateTemplate> = async (data) => {
-    mutate({
-      ...data,
-      isPublic: isVisible.length === 4 ? true : false,
-      theme: themeValue,
-    });
+    console.log(authenticationCheck(navigate, location));
+    if (authenticationCheck(navigate, location)) {
+      mutate({
+        ...data,
+        isPublic: isVisible.length === 4 ? true : false,
+        theme: themeValue,
+      });
+    }
   };
 
   useEffect(() => {

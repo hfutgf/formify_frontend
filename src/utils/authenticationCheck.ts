@@ -11,13 +11,15 @@ const authenticationCheck = (
   const cookie = Cookies.get(tokens.REFRESH_TOKEN);
   if (!cookie) {
     if (!location.pathname.startsWith("/auth")) {
-      return navigate(routesConfig.LOGIN);
+      navigate(routesConfig.LOGIN);
+      return false;
     }
   } else {
     const isValid = jwtDecode(cookie);
     if (!isValid) {
       if (!location.pathname.startsWith("/auth")) {
-        return navigate(routesConfig.LOGIN);
+        navigate(routesConfig.LOGIN);
+        return false;
       }
     } else {
       if (location.pathname.startsWith("/auth")) {
@@ -25,5 +27,6 @@ const authenticationCheck = (
       }
     }
   }
+  return true;
 };
 export default authenticationCheck;

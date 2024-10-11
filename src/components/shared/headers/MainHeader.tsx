@@ -69,7 +69,8 @@ const Header = () => {
 
   const onLogOut = async () => {
     mutate();
-    localStorage.clear();
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("searchTemplates");
   };
 
   const onSearchTempaltes = (e: FormEvent<HTMLFormElement>) => {
