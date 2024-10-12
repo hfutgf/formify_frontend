@@ -1,10 +1,11 @@
-import { Common } from ".";
+import { Common } from "./common.service";
 import {
   IGetTemplates,
   ITemplate,
   TypeCreateTemplate,
 } from "@/types/template.types";
 import { queryConfig } from "@/config/query.config";
+import { AxiosError } from "axios";
 
 export class TemplateService extends Common {
   getAll = async () => {
@@ -14,8 +15,8 @@ export class TemplateService extends Common {
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 
@@ -26,8 +27,8 @@ export class TemplateService extends Common {
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 
@@ -39,8 +40,8 @@ export class TemplateService extends Common {
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 
@@ -51,8 +52,8 @@ export class TemplateService extends Common {
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 
@@ -70,8 +71,8 @@ export class TemplateService extends Common {
 
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 
@@ -82,8 +83,8 @@ export class TemplateService extends Common {
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 
@@ -94,8 +95,20 @@ export class TemplateService extends Common {
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
+    }
+  };
+
+  deleteTemplate = async (templateId: number | undefined) => {
+    try {
+      const response = await this.axiosWithAuth.delete<ITemplate>(
+        queryConfig.DELETE_TEMPLATE + "/" + templateId
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 }

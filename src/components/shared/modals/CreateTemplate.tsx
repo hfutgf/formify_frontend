@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { TemplateService } from "@/services/template.service";
 import { queryConfig } from "@/config/query.config";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -25,13 +25,15 @@ import { useEffect, useState } from "react";
 import authenticationCheck from "@/utils/authenticationCheck";
 import { useLocation, useNavigate } from "react-router-dom";
 import routesConfig from "@/config/routes.config";
+import useTemplateStore from "@/store/templates.store";
 
 const CreateTemplate = () => {
   const [isVisible, setIsVisible] = useState<string>("");
   const [themeValue, setThemeValue] = useState<string>("");
 
+  const { setTemplates, templates } = useTemplateStore();
+
   const { register, handleSubmit } = useForm<TypeCreateTemplate>();
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -49,8 +51,17 @@ const CreateTemplate = () => {
     mutationKey: [queryConfig.CREATE_TEMPLATE],
     mutationFn: async (body: TypeCreateTemplate) =>
       await templateService.create(body),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [queryConfig.GET_TEMPLATES] });
+    onSuccess: (data) => {
+      const addTemplate = templates.map((item) => {
+        if (item?.theme === data?.theme) {
+          item?.data?.push(data!);
+          return {
+            theme: item?.theme,
+            data: item?.data,
+          };
+        }
+      });
+      setTemplates(addTemplate);
     },
   });
 

@@ -8,7 +8,7 @@ interface Props {
 
 const TemplateCard = ({ item }: Props) => {
   return (
-    <div className="flex flex-col gap-[12px] w-[192px]">
+    <div className="flex flex-col gap-[8px] w-[192px]">
       <Link
         className="border rounded-md cursor-pointer hover:border hover:border-pink shadow-md overflow-hidden"
         to={routesConfig.TEMPLATE + "/" + item.id}

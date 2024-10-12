@@ -21,6 +21,6 @@ export type TypeUpdateTemplate = Omit<
 >;
 
 export interface IGetTemplates {
-  theme: string;
-  data: ITemplate[];
+  theme: string | undefined;
+  data: ITemplate[] | undefined;
 }

@@ -38,7 +38,7 @@ const Dashboard = () => {
         </div>
       </div>
       {templates?.map((item) => (
-        <TemplateCards key={item.theme} theme={item.theme} templates={item.data} />
+        <TemplateCards key={item?.theme} theme={item?.theme} templates={item?.data} />
       ))}
     </div>
   );

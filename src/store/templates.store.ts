@@ -5,8 +5,8 @@ type Store = {
   themes: string[];
   template: ITemplate | null;
   setTemplate: (template: ITemplate) => void;
-  templates: IGetTemplates[];
-  setTemplates: (templates: IGetTemplates[]) => void;
+  templates: (IGetTemplates | undefined)[];
+  setTemplates: (templates: (IGetTemplates | undefined)[]) => void;
   serachTempaltes: ITemplate[];
   setSearchTemplates: (serachTempaltes: ITemplate[]) => void;
 };

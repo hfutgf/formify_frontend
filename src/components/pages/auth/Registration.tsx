@@ -37,7 +37,6 @@ const Registration = () => {
       } else {
         setUser(response.data.user);
         navigate(routesConfig.DASHBOARD);
-        localStorage.setItem("currentUser", JSON.stringify(response.data.user));
       }
     }
     setIsLoading(false);

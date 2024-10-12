@@ -33,7 +33,6 @@ const Login = () => {
     } else {
       navigate(routesConfig.DASHBOARD);
       setUser(response.data.data);
-      localStorage.setItem("currentUser", JSON.stringify(response.data.data));
     }
     setIsLoading(false);
   };

@@ -1,6 +1,7 @@
 import { queryConfig } from "@/config/query.config";
-import { Common } from ".";
+import { Common } from "./common.service";
 import { IOption, IQuestion, TypeQuestionForm } from "@/types/question.type";
+import { AxiosError } from "axios";
 
 export class QuestionService extends Common {
   create = async (templateId: number | undefined, body: TypeQuestionForm) => {
@@ -11,8 +12,8 @@ export class QuestionService extends Common {
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 
@@ -23,8 +24,8 @@ export class QuestionService extends Common {
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 
@@ -35,8 +36,8 @@ export class QuestionService extends Common {
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 
@@ -47,8 +48,8 @@ export class QuestionService extends Common {
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 
@@ -63,8 +64,8 @@ export class QuestionService extends Common {
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 
@@ -76,8 +77,8 @@ export class QuestionService extends Common {
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 
@@ -92,8 +93,8 @@ export class QuestionService extends Common {
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 
@@ -104,8 +105,8 @@ export class QuestionService extends Common {
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-      console.log(e.message);
+      const e = error as AxiosError;
+      console.log(e.response?.data);
     }
   };
 }

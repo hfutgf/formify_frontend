@@ -2,13 +2,16 @@ export const queryConfig = {
   LOGIN: "/auth/login",
   REGISTER: "/auth/register",
   LOGOUT: "/auth/logout",
+  GET_USER: "/users",
+  GET_ACCESS_TOKEN: "/auth/get-access-token",
   GET_TEMPLATES: "/templates",
   GET_TEMPLATE: "/templates",
   GET_TEMPLATE_THEMES: "/template-themes",
   REMOVE_TEMPLATE_IMG: "/template-img",
-  SEARCH_TEMPLATE:"/templates-search",
+  SEARCH_TEMPLATE: "/templates-search",
   CREATE_TEMPLATE: "/templates",
   UPDATE_TEMPLATE: "/templates",
+  DELETE_TEMPLATE: "/templates",
   GET_QUESTIONS: "/questions",
   GET_QUESTION_TYPES: "/question-types",
   CREATE_QUESTION: "/questions",
@@ -17,5 +20,4 @@ export const queryConfig = {
   CREATE_OPTION: "/options",
   UPDATE_OPTION: "/options",
   DELETE_OPTION: "/options",
-
 };

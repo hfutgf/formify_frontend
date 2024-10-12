@@ -4,11 +4,36 @@ import { useNavigate } from "react-router-dom";
 import EditTemplate from "../modals/EditTemplate";
 import useUserStore from "@/store/users.store";
 import useTemplateStore from "@/store/templates.store";
+import { useMutation } from "@tanstack/react-query";
+import { queryConfig } from "@/config/query.config";
+import { TemplateService } from "@/services/template.service";
 
 const TemplateHeader = () => {
   const { user } = useUserStore();
-  const { template } = useTemplateStore();
+  const { template, setTemplates, templates } = useTemplateStore();
   const navigate = useNavigate();
+
+  const tempalteService = new TemplateService();
+
+  console.log(templates);
+
+  const { isPending: deleteTempaltePending, mutate: deleteTempalte } =
+    useMutation({
+      mutationKey: [queryConfig.DELETE_TEMPLATE, template?.id],
+      mutationFn: async () =>
+        await tempalteService.deleteTemplate(template?.id),
+      onSuccess: (data) => {
+        const filter = templates.map((item) => {
+          const filterTemplates = item?.data?.filter((i) => i.id !== data?.id);
+          return {
+            theme: item?.theme,
+            data: filterTemplates,
+          };
+        });
+        setTemplates(filter);
+      },
+    });
+
   return (
     <div className="bg-white dark:bg-black border-b shadow-sm">
       <div className="container mx-auto grid grid-cols-[3fr_6fr_3fr]">
@@ -24,7 +49,16 @@ const TemplateHeader = () => {
         </div>
         <div className="flex items-center justify-end space-x-4">
           {user?.id === template?.authorId || user?.role === "ADMIN" ? (
-            <EditTemplate />
+            <div className="flex items-center space-x-4">
+              <EditTemplate />
+              <Button
+                disabled={deleteTempaltePending}
+                onClick={() => deleteTempalte()}
+                variant={"destructive"}
+              >
+                Delete
+              </Button>
+            </div>
           ) : (
             <></>
           )}

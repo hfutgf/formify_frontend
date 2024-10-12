@@ -6,14 +6,15 @@ import DashboardLayout from "./components/layouts/DashboardLayout";
 import TemplateLayout from "./components/layouts/TemplateLayout";
 import { useEffect } from "react";
 import useUserStore from "./store/users.store";
+import userSession from "./utils/userSession";
 
 const App = () => {
   const { setUser } = useUserStore();
   const location = useLocation();
   useEffect(() => {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser")!);
-    if (currentUser) setUser(currentUser);
+    userSession().then((user) => setUser(user));
   }, [setUser]);
+
   return (
     <Routes>
       {location.pathname.startsWith("/auth") ? (

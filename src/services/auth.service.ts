@@ -4,7 +4,7 @@ import {
   IRegisterForm,
   TypeRegisterResponse,
 } from "@/types/auth.types";
-import { Common } from ".";
+import { Common } from "./common.service";
 import { queryConfig } from "@/config/query.config";
 import { AxiosError } from "axios";
 import Cookies from "js-cookie";
@@ -23,7 +23,7 @@ export class AuthService extends Common {
       return response;
     } catch (error) {
       const e = error as AxiosError;
-      return e.response?.data;
+      console.log(e.response?.data);
     }
   };
 
@@ -39,7 +39,7 @@ export class AuthService extends Common {
       return response;
     } catch (error) {
       const e = error as AxiosError;
-      return e.response?.data;
+      console.log(e.response?.data);
     }
   };
 
@@ -49,7 +49,7 @@ export class AuthService extends Common {
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
-      return e.response?.data;
+      console.log(e.response?.data);
     }
   };
 }
