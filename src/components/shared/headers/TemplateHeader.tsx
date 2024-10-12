@@ -15,8 +15,6 @@ const TemplateHeader = () => {
 
   const tempalteService = new TemplateService();
 
-  console.log(templates);
-
   const { isPending: deleteTempaltePending, mutate: deleteTempalte } =
     useMutation({
       mutationKey: [queryConfig.DELETE_TEMPLATE, template?.id],

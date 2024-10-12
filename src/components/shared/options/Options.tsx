@@ -15,6 +15,8 @@ const Options = ({ question }: Props) => {
   const [clickOption, setClickOption] = useState<IOption | null>(null);
   const [text, setText] = useState("");
 
+  console.log(question);
+
   const questionService = new QuestionService();
   const { data: getOptions } = useQuery({
     queryKey: [queryConfig.GET_OPTIONS, question?.id],
