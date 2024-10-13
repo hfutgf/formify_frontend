@@ -29,10 +29,10 @@ export class QuestionService extends Common {
     }
   };
 
-  getOptions = async (questionId: number | undefined) => {
+  deleteQuestion = async (questionId?: number) => {
     try {
-      const response = await this.axiosWithAuth.get<IOption[]>(
-        queryConfig.GET_OPTIONS + "/" + questionId
+      const response = await this.axiosWithAuth.delete<IQuestion>(
+        queryConfig.DELETE_QUESTION + "/" + questionId
       );
       return response.data;
     } catch (error) {
@@ -45,6 +45,18 @@ export class QuestionService extends Common {
     try {
       const response = await this.axiosWithAuth.get<string[]>(
         queryConfig.GET_QUESTION_TYPES
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      console.log(e.response?.data);
+    }
+  };
+
+  getOptions = async (questionId: number | undefined) => {
+    try {
+      const response = await this.axiosWithAuth.get<IOption[]>(
+        queryConfig.GET_OPTIONS + "/" + questionId
       );
       return response.data;
     } catch (error) {
@@ -91,6 +103,18 @@ export class QuestionService extends Common {
         queryConfig.UPDATE_OPTION + "/" + optionId,
         body
       );
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      console.log(e.response?.data);
+    }
+  };
+
+  updatesAnyOptions = async (ids: number[]) => {
+    try {
+      const response = await this.axiosWithAuth.put(queryConfig.UPDATE_OPTION, {
+        ids,
+      });
       return response.data;
     } catch (error) {
       const e = error as AxiosError;

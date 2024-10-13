@@ -41,10 +41,11 @@ const Options = ({ question }: Props) => {
     mutationFn: async (body: { text: string }) =>
       await questionService.updateOption(clickOption?.id, body),
     onSuccess: (data) => {
-      setOptions((prev) => [
-        ...prev.filter((item) => item.id !== data.id),
-        data,
-      ]);
+      setOptions((prev) =>
+        [...prev.filter((item) => item.id !== data.id), data].sort(
+          (a, b) => a.order - b.order
+        )
+      );
     },
   });
 

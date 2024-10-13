@@ -16,6 +16,7 @@ export const queryConfig = {
   GET_QUESTION_TYPES: "/question-types",
   CREATE_QUESTION: "/questions",
   UPDATE_QUESTION: "/questions",
+  DELETE_QUESTION: "/questions",
   GET_OPTIONS: "/options",
   CREATE_OPTION: "/options",
   UPDATE_OPTION: "/options",

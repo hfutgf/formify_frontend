@@ -20,6 +20,7 @@ export interface IOption {
   id: number;
   questionId: number;
   text: string;
+  order: number;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -44,6 +44,8 @@ const QuestionList = () => {
               <Question
                 key={String(question.id)}
                 initialQuestion={question}
+                setQuestions={setQuestions}
+                questions={questions}
                 index={index}
               />
             ))}

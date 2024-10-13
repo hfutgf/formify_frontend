@@ -61,7 +61,7 @@ const Questions = () => {
     return <Loading />;
   }
   return (
-    <div className="min-h-screen bg-greenLight dark:bg-dark">
+    <div className="min-h-[calc(100vh-70px)] bg-greenLight dark:bg-dark">
       <div className="container mx-auto py-[32px] flex flex-col gap-[24px] select-none">
         <div className="w-[65%] mx-auto bg-white dark:bg-black rounded-md p-[12px] flex flex-col ">
           <h4 className="text-center text-[20px] font-[500]">

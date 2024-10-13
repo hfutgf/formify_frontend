@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { queryConfig } from "@/config/query.config";
+import { QuestionService } from "@/services/question.service";
 import useTemplateStore from "@/store/templates.store";
 import useUserStore from "@/store/users.store";
 import { IOption } from "@/types/question.type";
@@ -10,6 +12,7 @@ import {
   Droppable,
   DropResult,
 } from "@hello-pangea/dnd";
+import { useMutation } from "@tanstack/react-query";
 import { GripVertical, Trash2 } from "lucide-react";
 import { Dispatch, FormEvent, SetStateAction } from "react";
 
@@ -50,6 +53,14 @@ const MultichoiceOptions = ({
   const { user } = useUserStore();
   const { template } = useTemplateStore();
 
+  const questionService = new QuestionService();
+
+  const { mutate } = useMutation({
+    mutationKey: [queryConfig.UPDATE_OPTION],
+    mutationFn: async (ids: number[]) =>
+      await questionService.updatesAnyOptions(ids),
+  });
+
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) {
       return;
@@ -59,7 +70,7 @@ const MultichoiceOptions = ({
       result.source.index,
       result.destination.index
     );
-
+    mutate(reorderedQuestions.map((item) => item.id));
     setOptions(reorderedQuestions);
   };
   return (
@@ -71,82 +82,85 @@ const MultichoiceOptions = ({
             {...provided.droppableProps}
             className="flex flex-col gap-[8px]"
           >
-            {options?.map((option, index) =>
-              user?.id === template?.authorId || user?.role === "ADMIN" ? (
-                clickOption && clickOption.id === option.id ? (
-                  <form
-                    key={option.id}
-                    onSubmit={onUpdateOption}
-                    className="flex items-center gap-[12px]"
-                  >
-                    <Input
-                      onChange={(e) => setText(e.target.value)}
-                      required
-                      defaultValue={option.text}
-                    />
-                    <Button
-                      type="submit"
-                      className="bg-primary1 hover:bg-primary1/80 duration-200 text-white"
+            {options
+              ?.map((option, index) =>
+                user?.id === template?.authorId || user?.role === "ADMIN" ? (
+                  clickOption && clickOption.id === option.id ? (
+                    <form
+                      key={option.id}
+                      onSubmit={onUpdateOption}
+                      className="flex items-center gap-[12px]"
                     >
-                      Ok
-                    </Button>
-                    <Button
-                      onClick={() => setClickOption(null)}
-                      variant={"destructive"}
-                      type="button"
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      disabled={deleteOptionPending}
-                      variant={"ghost"}
-                      className="p-0 h-0"
-                      onClick={() => {
-                        onDeleteOption();
-                        setClickOption(null);
-                      }}
-                    >
-                      <Trash2
-                        size={20}
-                        className="opacity-50 hover:opacity-100 duration-200 cursor-pointer hover:text-red"
+                      <Input
+                        onChange={(e) => setText(e.target.value)}
+                        required
+                        defaultValue={option.text}
                       />
-                    </Button>
-                  </form>
-                ) : (
-                  <Draggable
-                    key={option?.id}
-                    draggableId={String(option?.id)}
-                    index={index}
-                  >
-                    {(provided) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        key={option.id}
-                        onDoubleClick={() => {
-                          setClickOption(option);
-                        }}
-                        className="flex items-center space-x-2"
+                      <Button
+                        type="submit"
+                        className="bg-primary1 hover:bg-primary1/80 duration-200 text-white"
                       >
-                        <div {...provided.dragHandleProps}>
-                          <GripVertical
-                            className="opacity-60 hover:opacity-100 duration-200 cursor-move"
-                            size={20}
-                          />
+                        Ok
+                      </Button>
+                      <Button
+                        onClick={() => setClickOption(null)}
+                        variant={"destructive"}
+                        type="button"
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        disabled={deleteOptionPending}
+                        variant={"ghost"}
+                        className="p-0 h-0"
+                        onClick={() => {
+                          onDeleteOption();
+                          setClickOption(null);
+                        }}
+                      >
+                        <Trash2
+                          size={20}
+                          className="opacity-50 hover:opacity-100 duration-200 cursor-pointer hover:text-red"
+                        />
+                      </Button>
+                    </form>
+                  ) : (
+                    <Draggable
+                      key={option?.id}
+                      draggableId={String(option?.id)}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          key={option.id}
+                          onDoubleClick={() => {
+                            setClickOption(option);
+                          }}
+                          className="flex items-center space-x-2"
+                        >
+                          <div {...provided.dragHandleProps}>
+                            <GripVertical
+                              className="opacity-60 hover:opacity-100 duration-200 cursor-move"
+                              size={20}
+                            />
+                          </div>
+                          <Checkbox />
+                          <div className="cursor-text w-full">
+                            {option.text}
+                          </div>
                         </div>
-                        <Checkbox />
-                        <span className="cursor-text">{option.text}</span>
-                      </div>
-                    )}
-                  </Draggable>
+                      )}
+                    </Draggable>
+                  )
+                ) : (
+                  <div key={option.id} className="flex items-center gap-[8px]">
+                    <Checkbox />
+                    <span>{option.text}</span>
+                  </div>
                 )
-              ) : (
-                <div key={option.id} className="flex items-center gap-[8px]">
-                  <Checkbox />
-                  <span>{option.text}</span>
-                </div>
-              )
-            )}
+              )}
             {user?.id === template?.authorId || user?.role === "ADMIN" ? (
               <div
                 onClick={onOptionAdd}

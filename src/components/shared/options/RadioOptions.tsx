@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { queryConfig } from "@/config/query.config";
+import { QuestionService } from "@/services/question.service";
 import useTemplateStore from "@/store/templates.store";
 import useUserStore from "@/store/users.store";
 import { IOption } from "@/types/question.type";
@@ -11,6 +13,7 @@ import {
   Droppable,
   DropResult,
 } from "@hello-pangea/dnd";
+import { useMutation } from "@tanstack/react-query";
 import { GripVertical, Trash2 } from "lucide-react";
 import { Dispatch, FormEvent, SetStateAction } from "react";
 
@@ -51,6 +54,14 @@ const RadioOption = ({
   const { user } = useUserStore();
   const { template } = useTemplateStore();
 
+  const questionService = new QuestionService();
+
+  const { mutate } = useMutation({
+    mutationKey: [queryConfig.UPDATE_OPTION],
+    mutationFn: async (ids: number[]) =>
+      await questionService.updatesAnyOptions(ids),
+  });
+
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) {
       return;
@@ -60,8 +71,7 @@ const RadioOption = ({
       result.source.index,
       result.destination.index
     );
-    console.log(reorderedQuestions);
-
+    mutate(reorderedQuestions.map((item) => item.id));
     setOptions(reorderedQuestions);
   };
 
