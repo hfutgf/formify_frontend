@@ -3,8 +3,7 @@ import { queryConfig } from "@/config/query.config";
 import { TemplateService } from "@/services/template.service";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../loading/Loading";
-import CreateTemplate from "../../shared/modals/CreateTemplate";
-import { useEffect } from "react";
+import CreateTemplate from "../../shared/modals/createTemplateModal/CreateTemplate";
 import useTemplateStore from "@/store/templates.store";
 
 const Dashboard = () => {
@@ -12,16 +11,17 @@ const Dashboard = () => {
 
   const templateService = new TemplateService();
 
-  const { isPending, data } = useQuery({
+  const { isPending } = useQuery({
     queryKey: [queryConfig.GET_TEMPLATES],
-    queryFn: async () => await templateService.getAll(),
+    queryFn: async () => {
+      const data = await templateService.getAll();
+      if (!data) {
+        return null;
+      }
+      setTemplates(data);
+      return data;
+    },
   });
-
-  useEffect(() => {
-    if (!isPending) {
-      if (data) setTemplates(data);
-    }
-  }, [data, isPending, setTemplates]);
 
   if (isPending) {
     return <Loading />;
@@ -38,7 +38,11 @@ const Dashboard = () => {
         </div>
       </div>
       {templates?.map((item) => (
-        <TemplateCards key={item?.theme} theme={item?.theme} templates={item?.data} />
+        <TemplateCards
+          key={item?.theme}
+          theme={item?.theme}
+          templates={item?.data}
+        />
       ))}
     </div>
   );

@@ -1,0 +1,53 @@
+import { CirclePlus, LoaderCircle } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useQuery } from "@tanstack/react-query";
+import { TemplateService } from "@/services/template.service";
+import { queryConfig } from "@/config/query.config";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import routesConfig from "@/config/routes.config";
+import useTemplateStore from "@/store/templates.store";
+import CraeteForm from "./CraeteForm";
+
+const CreateTemplate = () => {
+  const { template } = useTemplateStore();
+
+  const navigate = useNavigate();
+
+  const templateService = new TemplateService();
+  const { isLoading: isThemesPending, data: themes } = useQuery({
+    queryKey: [queryConfig.GET_TEMPLATE_THEMES],
+    queryFn: async () => await templateService.getThemes(),
+  });
+
+  useEffect(() => {
+    if (template) {
+      navigate(routesConfig.TEMPLATE + "/" + template.id);
+    }
+  }, [navigate, template]);
+
+  return (
+    <Dialog>
+      <DialogTrigger className="w-[192px] h-[120px] flex items-center justify-center border rounded-md cursor-pointer hover:border hover:border-pink shadow-md overflow-hidden">
+        <CirclePlus size={36} className="text-pink" />
+      </DialogTrigger>
+      <DialogContent className="rounded-lg">
+        <DialogTitle className="text-[18px] text-center font-[500]">
+          Create template
+        </DialogTitle>
+        {isThemesPending ? (
+          <LoaderCircle className="text-blue animate-spin" size={32} />
+        ) : (
+          <CraeteForm themes={themes} />
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default CreateTemplate;

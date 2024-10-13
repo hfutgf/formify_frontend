@@ -4,8 +4,8 @@ import { Draggable } from "@hello-pangea/dnd";
 import useUserStore from "@/store/users.store";
 import useTemplateStore from "@/store/templates.store";
 import { useEffect, useState } from "react";
-import Options from "../options/Options";
 import UpdateQuestion from "./UpdateQuestion";
+import Options from "../options/Options";
 
 interface Props {
   initialQuestion: IQuestion;

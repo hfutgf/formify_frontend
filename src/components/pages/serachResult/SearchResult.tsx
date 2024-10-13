@@ -2,7 +2,7 @@ import TemplateCards from "@/components/shared/dashboard/TemplateCards";
 import useTemplateStore from "@/store/templates.store";
 import { useEffect } from "react";
 
-const Search = () => {
+const SearchResult = () => {
   const { serachTempaltes, setSearchTemplates } = useTemplateStore();
   useEffect(() => {
     const templates = JSON.parse(localStorage.getItem("searchTemplates")!);
@@ -17,4 +17,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default SearchResult;

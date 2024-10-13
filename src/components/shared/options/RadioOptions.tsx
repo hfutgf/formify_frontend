@@ -60,6 +60,8 @@ const RadioOption = ({
       result.source.index,
       result.destination.index
     );
+    console.log(reorderedQuestions);
+
     setOptions(reorderedQuestions);
   };
 
@@ -166,6 +168,7 @@ const RadioOption = ({
             ) : (
               <></>
             )}
+            {provided.placeholder}
           </RadioGroup>
         )}
       </Droppable>

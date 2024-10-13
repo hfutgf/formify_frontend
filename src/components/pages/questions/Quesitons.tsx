@@ -22,16 +22,30 @@ const Questions = () => {
   const templateService = new TemplateService();
   const questionService = new QuestionService();
 
-  const { isLoading, data } = useQuery({
+  const { isLoading } = useQuery({
     queryKey: [queryConfig.GET_TEMPLATE, Number(templateId)],
-    queryFn: async () =>
-      await templateService.getOneTempalte(Number(templateId)),
+    queryFn: async () => {
+      const data = await templateService.getOneTempalte(Number(templateId));
+      if (!data) {
+        return null;
+      }
+      setTemplate(data);
+      return data;
+    },
   });
 
-  const { isLoading: isPendingQuestion, data: questionsData } = useQuery({
+  const { isLoading: isPendingQuestion } = useQuery({
     queryKey: [queryConfig.GET_QUESTIONS, Number(templateId)],
-    queryFn: async () =>
-      await questionService.getQuestionByTemplateId(Number(templateId)),
+    queryFn: async () => {
+      const data = await questionService.getQuestionByTemplateId(
+        Number(templateId)
+      );
+      if (!data) {
+        return null;
+      }
+      setQuestions(data);
+      return data;
+    },
   });
 
   const { isLoading: isQuestionTypesPending, data: questionTypes } = useQuery({
@@ -42,16 +56,6 @@ const Questions = () => {
   useEffect(() => {
     authenticationCheck(navigate, location);
   }, [location, navigate]);
-
-  useEffect(() => {
-    if (!isLoading) {
-      if (data) setTemplate(data);
-    }
-  }, [data, isLoading, setTemplate]);
-
-  useEffect(() => {
-    if (questionsData) setQuestions(questionsData);
-  }, [questionsData, setQuestions]);
 
   if (isLoading || isPendingQuestion || isQuestionTypesPending) {
     return <Loading />;

@@ -19,7 +19,7 @@ export class QuestionService extends Common {
 
   getQuestionByTemplateId = async (templateId: number) => {
     try {
-      const response = await this.axiosWithAuth.get(
+      const response = await this.axiosWithAuth.get<IQuestion[]>(
         queryConfig.GET_QUESTIONS + "/" + templateId
       );
       return response.data;

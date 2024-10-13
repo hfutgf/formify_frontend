@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import EditTemplate from "../modals/EditTemplate";
+import EditTemplate from "../../modals/editTemplateModal/EditTemplateModal";
 import useUserStore from "@/store/users.store";
 import useTemplateStore from "@/store/templates.store";
 import { useMutation } from "@tanstack/react-query";
@@ -54,14 +54,14 @@ const TemplateHeader = () => {
                 onClick={() => deleteTempalte()}
                 variant={"destructive"}
               >
-                Delete
+                Delete template
               </Button>
             </div>
           ) : (
             <></>
           )}
           <Button className="bg-primary1 dark:text-white hover:bg-primary1/80 duration-200 w-[30%]">
-            Send
+            Send answers
           </Button>
         </div>
       </div>

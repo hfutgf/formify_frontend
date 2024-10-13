@@ -3,7 +3,7 @@ import { queryConfig } from "@/config/query.config";
 import { QuestionService } from "@/services/question.service";
 import { IOption, IQuestion, QuestionType } from "@/types/question.type";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import RadioOption from "./RadioOptions";
 import MultichoiceOptions from "./MultichoiceOptions";
 
@@ -15,17 +15,18 @@ const Options = ({ question }: Props) => {
   const [clickOption, setClickOption] = useState<IOption | null>(null);
   const [text, setText] = useState("");
 
-  console.log(question);
-
   const questionService = new QuestionService();
-  const { data: getOptions } = useQuery({
+  useQuery({
     queryKey: [queryConfig.GET_OPTIONS, question?.id],
-    queryFn: async () => await questionService.getOptions(question?.id),
+    queryFn: async () => {
+      if (question) {
+        const data = await questionService.getOptions(question?.id);
+        if (data) setOptions(data);
+        return data;
+      }
+      return null;
+    },
   });
-
-  useEffect(() => {
-    if (getOptions) setOptions(getOptions);
-  }, [getOptions, setOptions]);
 
   const { mutate: createOption } = useMutation({
     mutationKey: [queryConfig.CREATE_OPTION, question?.id],

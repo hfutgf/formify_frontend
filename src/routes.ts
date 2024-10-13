@@ -22,7 +22,7 @@ const dashboardRoutes = [
     path: routesConfig.PROFILE,
   },
   {
-    component: lazy(() => import("./components/pages/search/Search")),
+    component: lazy(() => import("./components/pages/serachResult/SearchResult")),
     path: routesConfig.SEARCH,
   },
 ];

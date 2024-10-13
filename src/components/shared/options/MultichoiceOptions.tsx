@@ -59,6 +59,7 @@ const MultichoiceOptions = ({
       result.source.index,
       result.destination.index
     );
+
     setOptions(reorderedQuestions);
   };
   return (
@@ -157,6 +158,7 @@ const MultichoiceOptions = ({
             ) : (
               <></>
             )}
+            {provided.placeholder}
           </div>
         )}
       </Droppable>
