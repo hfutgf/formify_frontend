@@ -8,8 +8,8 @@ import {
 import { queryConfig } from "@/config/query.config";
 import { TemplateService } from "@/services/template.service";
 import { useQuery } from "@tanstack/react-query";
-import { LoaderCircle } from "lucide-react";
-import EditForm from "./EditForm";
+import { LoaderCircle, Pencil } from "lucide-react";
+import EditTemplateForm from "./EditTemplateForm";
 
 const EditTemplateModal = () => {
   const templateService = new TemplateService();
@@ -20,8 +20,9 @@ const EditTemplateModal = () => {
 
   return (
     <Dialog>
-      <DialogTrigger className="h-10 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground ">
-        Edit template
+      <DialogTrigger className="h-10 px-4 py-2 inline-flex items-center gap-[4px] justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground ">
+        <Pencil size={20} />
+        Edit
       </DialogTrigger>
       <DialogContent className="rounded-lg">
         <DialogHeader>
@@ -29,7 +30,7 @@ const EditTemplateModal = () => {
           {isThemesPending ? (
             <LoaderCircle className="text-blue animate-spin" size={32} />
           ) : (
-            <EditForm themes={themes} />
+            <EditTemplateForm themes={themes} />
           )}
         </DialogHeader>
       </DialogContent>

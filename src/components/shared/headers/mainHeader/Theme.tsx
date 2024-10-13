@@ -1,24 +1,16 @@
 import { cn } from "@/lib/utils";
+import useMainStore from "@/store/main.store";
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
 
 const Theme = () => {
-  const [theme, setTheme] = useState<string>("light");
-
-  const toggleTheme = (value: string) => {
+  const { theme, setTheme } = useMainStore();
+  const toggleTheme = (value: "light" | "dark") => {
     document.documentElement.classList.remove(theme);
     document.documentElement.classList.add(value);
     setTheme(value);
     localStorage.setItem("theme", JSON.stringify(value));
   };
 
-  useEffect(() => {
-    const savedTheme = JSON.parse(localStorage.getItem("theme")!);
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.classList.add(savedTheme);
-    }
-  }, []);
   return (
     <div className="border bg-light dark:bg-dark w-[72px] p-[4px] rounded-3xl">
       <div

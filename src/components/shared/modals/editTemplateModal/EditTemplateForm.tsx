@@ -21,7 +21,7 @@ import { Trash2, Download } from "lucide-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-const EditForm = ({ themes }: { themes: string[] | undefined }) => {
+const EditTemplateForm = ({ themes }: { themes: string[] | undefined }) => {
   const { setTemplate, template } = useTemplateStore();
   const [isVisible, setIsVisible] = useState<string>(`${template?.isPublic}`);
   const [themeValue, setThemeValue] = useState<string | undefined>(
@@ -159,4 +159,4 @@ const EditForm = ({ themes }: { themes: string[] | undefined }) => {
   );
 };
 
-export default EditForm;
+export default EditTemplateForm;

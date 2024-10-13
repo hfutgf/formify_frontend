@@ -8,28 +8,14 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { TemplateService } from "@/services/template.service";
 import { queryConfig } from "@/config/query.config";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import routesConfig from "@/config/routes.config";
-import useTemplateStore from "@/store/templates.store";
-import CraeteForm from "./CraeteForm";
+import CreateTemplateForm from "./CreateTemplateForm";
 
 const CreateTemplate = () => {
-  const { template } = useTemplateStore();
-
-  const navigate = useNavigate();
-
   const templateService = new TemplateService();
   const { isLoading: isThemesPending, data: themes } = useQuery({
     queryKey: [queryConfig.GET_TEMPLATE_THEMES],
     queryFn: async () => await templateService.getThemes(),
   });
-
-  useEffect(() => {
-    if (template) {
-      navigate(routesConfig.TEMPLATE + "/" + template.id);
-    }
-  }, [navigate, template]);
 
   return (
     <Dialog>
@@ -43,7 +29,7 @@ const CreateTemplate = () => {
         {isThemesPending ? (
           <LoaderCircle className="text-blue animate-spin" size={32} />
         ) : (
-          <CraeteForm themes={themes} />
+          <CreateTemplateForm themes={themes} />
         )}
       </DialogContent>
     </Dialog>

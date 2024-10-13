@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { queryConfig } from "@/config/query.config";
+import routesConfig from "@/config/routes.config";
 import { TemplateService } from "@/services/template.service";
 import useTemplateStore from "@/store/templates.store";
 import { TypeCreateTemplate } from "@/types/template.types";
@@ -19,14 +20,11 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const CraeteForm = ({ themes }: { themes: string[] | undefined }) => {
+const CreateTemplateForm = ({ themes }: { themes: string[] | undefined }) => {
   const [isVisible, setIsVisible] = useState<string>("");
   const [themeValue, setThemeValue] = useState<string>("");
-
-  const { setTemplates, templates } = useTemplateStore();
-
+  const { setTemplates, templates, template } = useTemplateStore();
   const { register, handleSubmit } = useForm<TypeCreateTemplate>();
-
   const location = useLocation();
   const navigate = useNavigate();
   const templateService = new TemplateService();
@@ -46,6 +44,7 @@ const CraeteForm = ({ themes }: { themes: string[] | undefined }) => {
         }
       });
       setTemplates(addTemplate);
+      if (data) navigate(routesConfig.TEMPLATE + "/" + template?.id);
     },
   });
 
@@ -107,4 +106,4 @@ const CraeteForm = ({ themes }: { themes: string[] | undefined }) => {
   );
 };
 
-export default CraeteForm;
+export default CreateTemplateForm;

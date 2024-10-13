@@ -1,36 +1,15 @@
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Send } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import EditTemplate from "../../modals/editTemplateModal/EditTemplateModal";
 import useUserStore from "@/store/users.store";
 import useTemplateStore from "@/store/templates.store";
-import { useMutation } from "@tanstack/react-query";
-import { queryConfig } from "@/config/query.config";
-import { TemplateService } from "@/services/template.service";
+import DeleteTemplate from "./DeleteTemplate";
 
 const TemplateHeader = () => {
   const { user } = useUserStore();
-  const { template, setTemplates, templates } = useTemplateStore();
+  const { template } = useTemplateStore();
   const navigate = useNavigate();
-
-  const tempalteService = new TemplateService();
-
-  const { isPending: deleteTempaltePending, mutate: deleteTempalte } =
-    useMutation({
-      mutationKey: [queryConfig.DELETE_TEMPLATE, template?.id],
-      mutationFn: async () =>
-        await tempalteService.deleteTemplate(template?.id),
-      onSuccess: (data) => {
-        const filter = templates.map((item) => {
-          const filterTemplates = item?.data?.filter((i) => i.id !== data?.id);
-          return {
-            theme: item?.theme,
-            data: filterTemplates,
-          };
-        });
-        setTemplates(filter);
-      },
-    });
 
   return (
     <div className="bg-white dark:bg-black border-b shadow-sm">
@@ -49,19 +28,14 @@ const TemplateHeader = () => {
           {user?.id === template?.authorId || user?.role === "ADMIN" ? (
             <div className="flex items-center space-x-4">
               <EditTemplate />
-              <Button
-                disabled={deleteTempaltePending}
-                onClick={() => deleteTempalte()}
-                variant={"destructive"}
-              >
-                Delete template
-              </Button>
+              <DeleteTemplate />
             </div>
           ) : (
             <></>
           )}
-          <Button className="bg-primary1 dark:text-white hover:bg-primary1/80 duration-200 w-[30%]">
-            Send answers
+          <Button className="flex items-center gap-[4px] bg-primary1 dark:text-white hover:bg-primary1/80 duration-200">
+            <Send size={20} />
+            Send
           </Button>
         </div>
       </div>
