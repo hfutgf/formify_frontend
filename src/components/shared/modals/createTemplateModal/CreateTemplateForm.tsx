@@ -23,7 +23,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const CreateTemplateForm = ({ themes }: { themes: string[] | undefined }) => {
   const [isVisible, setIsVisible] = useState<string>("");
   const [themeValue, setThemeValue] = useState<string>("");
-  const { setTemplates, templates, template } = useTemplateStore();
+  const { setTemplates, templates, setTemplate } = useTemplateStore();
   const { register, handleSubmit } = useForm<TypeCreateTemplate>();
   const location = useLocation();
   const navigate = useNavigate();
@@ -44,7 +44,10 @@ const CreateTemplateForm = ({ themes }: { themes: string[] | undefined }) => {
         }
       });
       setTemplates(addTemplate);
-      if (data) navigate(routesConfig.TEMPLATE + "/" + template?.id);
+      if (data) {
+        setTemplate(data);
+        navigate(routesConfig.TEMPLATE + "/" + data?.id);
+      }
     },
   });
 

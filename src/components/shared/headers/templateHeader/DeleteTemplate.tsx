@@ -39,25 +39,30 @@ const DeleteTemplate = () => {
   return (
     <>
       <AlertDialog>
-        <AlertDialogTrigger
-          disabled={deleteTempaltePending}
-          onClick={() => deleteTempalte()}
-          className="bg-red text-white rounded-md p-2 flex items-center gap-[4px]"
-        >
+        <AlertDialogTrigger className="bg-red text-white rounded-md p-2 flex items-center gap-[4px]">
           <Trash2 size={20} />
           Delete
         </AlertDialogTrigger>
-        <AlertDialogContent>
+        <AlertDialogContent className="rounded-md">
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle>
+              Are you sure you want to delete this template?
+            </AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              If you delete it, it will be impossible to restore it.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogFooter className="justify-end gap-4">
+            <div className="space-x-4">
+              <AlertDialogAction
+                disabled={deleteTempaltePending}
+                onClick={() => deleteTempalte()}
+                className="bg-red hover:bg-red/80 duration-200"
+              >
+                Continue
+              </AlertDialogAction>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+            </div>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
