@@ -2,6 +2,9 @@ import { IQuestion } from "@/types/question.type";
 import Question from "./Question";
 import { DragDropContext, Droppable, DropResult } from "@hello-pangea/dnd";
 import useQuestionsStore from "@/store/questions.store";
+import { useMutation } from "@tanstack/react-query";
+import { queryConfig } from "@/config/query.config";
+import { QuestionService } from "@/services/question.service";
 
 const reorder = (
   list: IQuestion[],
@@ -17,6 +20,14 @@ const reorder = (
 const QuestionList = () => {
   const { questions, setQuestions } = useQuestionsStore();
 
+  const questionService = new QuestionService();
+
+  const { mutate } = useMutation({
+    mutationKey: [queryConfig.UPDATE_QUESTIONS_ORDERS],
+    mutationFn: async (ids: number[]) =>
+      await questionService.updateQuestionsOrders(ids),
+  });
+
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) {
       return;
@@ -27,7 +38,7 @@ const QuestionList = () => {
       result.source.index,
       result.destination.index
     );
-
+    mutate(reorderedQuestions.map((item) => item.id));
     setQuestions(reorderedQuestions);
   };
 

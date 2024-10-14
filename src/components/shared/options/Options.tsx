@@ -86,6 +86,7 @@ const Options = ({ question }: Props) => {
           setClickOption={setClickOption}
           deleteOptionPending={deleteOptionPending}
           onDeleteOption={onDeleteOption}
+          question={question}
         />
       ) : (
         <MultichoiceOptions
@@ -98,6 +99,7 @@ const Options = ({ question }: Props) => {
           setClickOption={setClickOption}
           deleteOptionPending={deleteOptionPending}
           onDeleteOption={onDeleteOption}
+          question={question}
         />
       )}
     </div>

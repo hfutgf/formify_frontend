@@ -6,7 +6,7 @@ import { queryConfig } from "@/config/query.config";
 import { QuestionService } from "@/services/question.service";
 import useTemplateStore from "@/store/templates.store";
 import useUserStore from "@/store/users.store";
-import { IOption } from "@/types/question.type";
+import { IOption, IQuestion } from "@/types/question.type";
 import {
   DragDropContext,
   Draggable,
@@ -27,6 +27,7 @@ interface Props {
   onOptionAdd: () => void;
   onDeleteOption: () => void;
   deleteOptionPending: boolean;
+  question?: IQuestion;
 }
 
 const reorder = (
@@ -50,6 +51,7 @@ const RadioOption = ({
   deleteOptionPending,
   onDeleteOption,
   setOptions,
+  question,
 }: Props) => {
   const { user } = useUserStore();
   const { template } = useTemplateStore();
@@ -57,9 +59,9 @@ const RadioOption = ({
   const questionService = new QuestionService();
 
   const { mutate } = useMutation({
-    mutationKey: [queryConfig.UPDATE_OPTION],
+    mutationKey: [queryConfig.UPDATE_OPTIONS_ORDER],
     mutationFn: async (ids: number[]) =>
-      await questionService.updatesAnyOptions(ids),
+      await questionService.updateOptionsOrder(ids, question?.id),
   });
 
   const onDragEnd = (result: DropResult) => {
@@ -153,7 +155,12 @@ const RadioOption = ({
                               value={option.text}
                               id="option-one"
                             />
-                            <Label htmlFor="option-one">{option.text}</Label>
+                            <Label
+                              className="cursor-text w-full"
+                              htmlFor="option-one"
+                            >
+                              {option.text}
+                            </Label>
                           </div>
                         </div>
                       )}

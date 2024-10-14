@@ -17,8 +17,10 @@ export const queryConfig = {
   CREATE_QUESTION: "/questions",
   UPDATE_QUESTION: "/questions",
   DELETE_QUESTION: "/questions",
+  UPDATE_QUESTIONS_ORDERS: "/questions-order",
   GET_OPTIONS: "/options",
   CREATE_OPTION: "/options",
   UPDATE_OPTION: "/options",
   DELETE_OPTION: "/options",
+  UPDATE_OPTIONS_ORDER: "/options-orders",
 };

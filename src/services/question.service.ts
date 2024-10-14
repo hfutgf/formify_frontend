@@ -110,11 +110,29 @@ export class QuestionService extends Common {
     }
   };
 
-  updatesAnyOptions = async (ids: number[]) => {
+  updateQuestionsOrders = async (ids: number[]) => {
     try {
-      const response = await this.axiosWithAuth.put(queryConfig.UPDATE_OPTION, {
-        ids,
-      });
+      const response = await this.axiosWithAuth.put(
+        queryConfig.UPDATE_QUESTIONS_ORDERS,
+        {
+          ids,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      console.log(e.response?.data);
+    }
+  };
+
+  updateOptionsOrder = async (ids: number[], questionId?: number) => {
+    try {
+      const response = await this.axiosWithAuth.put(
+        queryConfig.UPDATE_OPTIONS_ORDER + "/" + questionId,
+        {
+          ids,
+        }
+      );
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
