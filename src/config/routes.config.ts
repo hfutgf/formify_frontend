@@ -2,7 +2,9 @@ const routesConfig = {
   LOGIN: "/auth/login",
   REGISTER: "/auth/registration",
   DASHBOARD: "/dashboard",
-  PROFILE: "/dashboard/profile",
+  PERSONAL: "/profile/personal",
+  MY_TEMPLATES: "/profile/my-templates",
+  FORMS: "/profile/forms",
   TEMPLATE: "/template",
   SEARCH: "/dashboard/search-tempalte",
 };

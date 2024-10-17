@@ -19,7 +19,7 @@ const CreateTemplate = () => {
 
   return (
     <Dialog>
-      <DialogTrigger className="w-[192px] h-[120px] flex items-center justify-center border rounded-md cursor-pointer hover:border hover:border-pink shadow-md overflow-hidden">
+      <DialogTrigger className="w-[192px] h-[120px] bg-white flex items-center justify-center border rounded-md cursor-pointer hover:border hover:border-pink shadow-md overflow-hidden">
         <CirclePlus size={36} className="text-pink" />
       </DialogTrigger>
       <DialogContent className="rounded-lg">

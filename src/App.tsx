@@ -1,5 +1,10 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { authRoutes, dashboardRoutes, templateRoutes } from "./routes";
+import {
+  authRoutes,
+  dashboardRoutes,
+  profileRoutes,
+  templateRoutes,
+} from "./routes";
 import NotFound from "./components/pages/notFound/NotFound";
 import AuthLayout from "./components/layouts/AuthLayout";
 import DashboardLayout from "./components/layouts/DashboardLayout";
@@ -7,6 +12,7 @@ import TemplateLayout from "./components/layouts/TemplateLayout";
 import { useEffect } from "react";
 import useUserStore from "./store/users.store";
 import userSession from "./utils/userSession";
+import ProfileLayout from "./components/layouts/ProfileLayout";
 
 const App = () => {
   const { setUser } = useUserStore();
@@ -50,6 +56,18 @@ const App = () => {
               <TemplateLayout>
                 <route.component />
               </TemplateLayout>
+            }
+          />
+        ))
+      ) : location.pathname.startsWith("/profile") ? (
+        profileRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <ProfileLayout>
+                <route.component />
+              </ProfileLayout>
             }
           />
         ))

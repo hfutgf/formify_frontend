@@ -18,12 +18,25 @@ const dashboardRoutes = [
     path: routesConfig.DASHBOARD,
   },
   {
-    component: lazy(() => import("./components/pages/profile/Profile")),
-    path: routesConfig.PROFILE,
+    component: lazy(
+      () => import("./components/pages/serachResult/SearchResult")
+    ),
+    path: routesConfig.SEARCH,
+  },
+];
+
+const profileRoutes = [
+  {
+    component: lazy(() => import("./components/pages/profile/Personal")),
+    path: routesConfig.PERSONAL,
   },
   {
-    component: lazy(() => import("./components/pages/serachResult/SearchResult")),
-    path: routesConfig.SEARCH,
+    component: lazy(() => import("./components/pages/profile/MyTemplates")),
+    path: routesConfig.MY_TEMPLATES,
+  },
+  {
+    component: lazy(() => import("./components/pages/profile/Forms")),
+    path: routesConfig.FORMS,
   },
 ];
 
@@ -41,4 +54,4 @@ const notFound = [
   },
 ];
 
-export { authRoutes, dashboardRoutes, notFound, templateRoutes };
+export { authRoutes, dashboardRoutes, notFound, templateRoutes, profileRoutes };
