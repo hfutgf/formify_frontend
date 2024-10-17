@@ -3,7 +3,7 @@ import ChangeFullName from "./ChangeFullName";
 import ChangePassword from "./ChangePassword";
 
 const PersonalData = () => {
-  const { user } = useUserStore();
+  const { user, setUser } = useUserStore();
   return (
     <div className="flex items-center space-x-6">
       <ul className="flex flex-col gap-[4px]">
@@ -13,8 +13,8 @@ const PersonalData = () => {
       </ul>
       <ul className="flex flex-col gap-[4px]">
         <li>{user?.email}</li>
-        <ChangeFullName user={user} />
-        <ChangePassword />
+        <ChangeFullName user={user} setUser={setUser} />
+        <ChangePassword user={user} />
       </ul>
     </div>
   );

@@ -25,4 +25,5 @@ export const queryConfig = {
   UPDATE_OPTIONS_ORDER: "/options-orders",
   CRUD_FORMS: "/forms",
   CURD_ANSWER: "/answers",
+  CRUD_USERS: "/users",
 };
