@@ -23,7 +23,7 @@ export class AuthService extends Common {
       return response;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
       return e.response?.data;
     }
   };
@@ -40,7 +40,7 @@ export class AuthService extends Common {
       return response;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
       return e.response?.data;
     }
   };
@@ -51,7 +51,7 @@ export class AuthService extends Common {
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
     }
   };
 }

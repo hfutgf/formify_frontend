@@ -30,7 +30,6 @@ const Questions = () => {
         return null;
       }
       setTemplate(data);
-      return data;
     },
   });
 

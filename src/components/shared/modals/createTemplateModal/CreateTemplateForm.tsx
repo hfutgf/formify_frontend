@@ -16,7 +16,7 @@ import useTemplateStore from "@/store/templates.store";
 import { TypeCreateTemplate } from "@/types/template.types";
 import authenticationCheck from "@/utils/authenticationCheck";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -51,6 +51,8 @@ const CreateTemplateForm = ({ themes }: { themes: string[] | undefined }) => {
     },
   });
 
+  const sortedTheme = useMemo(() => themes?.sort(), [themes]);
+
   const createTemplate: SubmitHandler<TypeCreateTemplate> = async (data) => {
     if (authenticationCheck(navigate, location)) {
       mutate({
@@ -68,14 +70,14 @@ const CreateTemplateForm = ({ themes }: { themes: string[] | undefined }) => {
       <Input {...register("title", { required: true })} placeholder="Title" />
       <Select
         value={themeValue}
-        required
+        required={true}
         onValueChange={(value) => setThemeValue(value)}
       >
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Theme" />
         </SelectTrigger>
         <SelectContent>
-          {themes?.map((theme) => (
+          {sortedTheme?.map((theme) => (
             <SelectItem key={theme} value={theme}>
               {theme.slice(0, 1) + theme.slice(1).toLowerCase()}
             </SelectItem>
@@ -85,7 +87,7 @@ const CreateTemplateForm = ({ themes }: { themes: string[] | undefined }) => {
       <RadioGroup
         value={isVisible}
         onValueChange={(value) => setIsVisible(value)}
-        required
+        required={true}
         defaultValue="option-one"
         className="flex items-center gap-[24px] px-[12px]"
       >

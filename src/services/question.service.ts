@@ -13,7 +13,7 @@ export class QuestionService extends Common {
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
     }
   };
 
@@ -25,7 +25,7 @@ export class QuestionService extends Common {
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
     }
   };
 
@@ -37,7 +37,7 @@ export class QuestionService extends Common {
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
     }
   };
 
@@ -49,7 +49,7 @@ export class QuestionService extends Common {
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
     }
   };
 
@@ -61,7 +61,7 @@ export class QuestionService extends Common {
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
     }
   };
 
@@ -77,7 +77,7 @@ export class QuestionService extends Common {
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
     }
   };
 
@@ -90,14 +90,11 @@ export class QuestionService extends Common {
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
     }
   };
 
-  updateOption = async (
-    optionId: number | undefined,
-    body: { text: string }
-  ) => {
+  updateOption = async (optionId?: number, body?: { text: string }) => {
     try {
       const response = await this.axiosWithAuth.put(
         queryConfig.UPDATE_OPTION + "/" + optionId,
@@ -106,7 +103,7 @@ export class QuestionService extends Common {
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
     }
   };
 
@@ -121,7 +118,7 @@ export class QuestionService extends Common {
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
     }
   };
 
@@ -136,7 +133,7 @@ export class QuestionService extends Common {
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
     }
   };
 
@@ -148,7 +145,7 @@ export class QuestionService extends Common {
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
     }
   };
 }

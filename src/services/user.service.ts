@@ -15,7 +15,7 @@ export class UserService extends Common {
       return response.data;
     } catch (error) {
       const e = error as AxiosError;
-      console.log(e.response?.data);
+      console.error(e.response?.data);
     }
   };
 }

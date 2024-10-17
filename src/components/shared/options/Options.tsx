@@ -1,4 +1,3 @@
-import { Input } from "@/components/ui/input";
 import { queryConfig } from "@/config/query.config";
 import { QuestionService } from "@/services/question.service";
 import { IOption, IQuestion, QuestionType } from "@/types/question.type";
@@ -6,6 +5,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { FormEvent, useState } from "react";
 import RadioOption from "./RadioOptions";
 import MultichoiceOptions from "./MultichoiceOptions";
+import TextOptions from "./TextOptions";
 
 interface Props {
   question: IQuestion | undefined;
@@ -46,6 +46,7 @@ const Options = ({ question }: Props) => {
           (a, b) => a.order - b.order
         )
       );
+      setClickOption(null);
     },
   });
 
@@ -64,7 +65,6 @@ const Options = ({ question }: Props) => {
   const onUpdateOption = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     updateOption({ text });
-    setClickOption(null);
   };
 
   const onDeleteOption = () => {
@@ -74,7 +74,7 @@ const Options = ({ question }: Props) => {
   return (
     <div className="mt-[16px">
       {question?.questionType === QuestionType.TEXT ? (
-        <Input placeholder="Answer" />
+        <TextOptions question={question} />
       ) : question?.questionType === QuestionType.RADIO ? (
         <RadioOption
           options={options}

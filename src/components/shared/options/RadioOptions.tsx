@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { queryConfig } from "@/config/query.config";
 import { QuestionService } from "@/services/question.service";
+import useAnswersStore from "@/store/answers.store";
 import useTemplateStore from "@/store/templates.store";
 import useUserStore from "@/store/users.store";
 import { IOption, IQuestion } from "@/types/question.type";
@@ -55,6 +56,7 @@ const RadioOption = ({
 }: Props) => {
   const { user } = useUserStore();
   const { template } = useTemplateStore();
+  const { setAnswer } = useAnswersStore();
 
   const questionService = new QuestionService();
 
@@ -81,7 +83,16 @@ const RadioOption = ({
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {(provided) => (
-          <RadioGroup>
+          <RadioGroup
+            onValueChange={(value) =>
+              setAnswer({
+                formId: 0,
+                questionId: question!.id,
+                answerValue: value,
+              })
+            }
+            required={true}
+          >
             <div
               className="flex flex-col gap-[16px]"
               ref={provided.innerRef}
@@ -140,9 +151,6 @@ const RadioOption = ({
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             key={option.id}
-                            onDoubleClick={() => {
-                              setClickOption(option);
-                            }}
                             className="flex items-center space-x-2"
                           >
                             <div {...provided.dragHandleProps}>
@@ -156,6 +164,9 @@ const RadioOption = ({
                               id="option-one"
                             />
                             <Label
+                              onDoubleClick={() => {
+                                setClickOption(option);
+                              }}
                               className="cursor-text w-full"
                               htmlFor="option-one"
                             >

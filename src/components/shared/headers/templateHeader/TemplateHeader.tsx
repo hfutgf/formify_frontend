@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, Send } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import EditTemplate from "../../modals/editTemplateModal/EditTemplateModal";
 import useUserStore from "@/store/users.store";
 import useTemplateStore from "@/store/templates.store";
 import DeleteTemplate from "./DeleteTemplate";
+import SendForm from "./SendForm";
 
 const TemplateHeader = () => {
   const { user } = useUserStore();
@@ -33,10 +33,7 @@ const TemplateHeader = () => {
           ) : (
             <></>
           )}
-          <Button className="flex items-center gap-[4px] bg-primary1 dark:text-white hover:bg-primary1/80 duration-200">
-            <Send size={20} />
-            Send
-          </Button>
+          <SendForm />
         </div>
       </div>
     </div>

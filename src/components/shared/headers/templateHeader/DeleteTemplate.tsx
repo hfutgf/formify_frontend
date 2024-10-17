@@ -14,11 +14,14 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import routesConfig from "@/config/routes.config";
 
 const DeleteTemplate = () => {
   const { setTemplates, templates, template } = useTemplateStore();
 
   const tempalteService = new TemplateService();
+  const navigate = useNavigate();
 
   const { isPending: deleteTempaltePending, mutate: deleteTempalte } =
     useMutation({
@@ -33,6 +36,7 @@ const DeleteTemplate = () => {
             data: filterTemplates,
           };
         });
+        navigate(routesConfig.DASHBOARD);
         setTemplates(filter);
       },
     });

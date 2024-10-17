@@ -23,4 +23,6 @@ export const queryConfig = {
   UPDATE_OPTION: "/options",
   DELETE_OPTION: "/options",
   UPDATE_OPTIONS_ORDER: "/options-orders",
+  CRUD_FORMS: "/forms",
+  CURD_ANSWER: "/answers",
 };

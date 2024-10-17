@@ -3,6 +3,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { queryConfig } from "@/config/query.config";
 import { QuestionService } from "@/services/question.service";
+import useAnswersStore from "@/store/answers.store";
 import useTemplateStore from "@/store/templates.store";
 import useUserStore from "@/store/users.store";
 import { IOption, IQuestion } from "@/types/question.type";
@@ -14,7 +15,13 @@ import {
 } from "@hello-pangea/dnd";
 import { useMutation } from "@tanstack/react-query";
 import { GripVertical, Trash2 } from "lucide-react";
-import { Dispatch, FormEvent, SetStateAction } from "react";
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 
 interface Props {
   options: IOption[] | undefined;
@@ -52,11 +59,23 @@ const MultichoiceOptions = ({
   setOptions,
   question,
 }: Props) => {
+  const [checkedOptions, setCheckedOptions] = useState<string[]>([]);
+
   const { user } = useUserStore();
   const { template } = useTemplateStore();
+  const { setAnswer } = useAnswersStore();
+
+  useEffect(() => {
+    if (checkedOptions.length) {
+      setAnswer({
+        formId: 0,
+        questionId: question!.id,
+        options: checkedOptions,
+      });
+    }
+  }, [checkedOptions, question, setAnswer]);
 
   const questionService = new QuestionService();
-
   const { mutate } = useMutation({
     mutationKey: [queryConfig.UPDATE_OPTIONS_ORDER],
     mutationFn: async (ids: number[]) =>
@@ -136,9 +155,6 @@ const MultichoiceOptions = ({
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         key={option.id}
-                        onDoubleClick={() => {
-                          setClickOption(option);
-                        }}
                         className="flex items-center space-x-2"
                       >
                         <div {...provided.dragHandleProps}>
@@ -147,16 +163,35 @@ const MultichoiceOptions = ({
                             size={20}
                           />
                         </div>
-                        <Checkbox />
-                        <div className="cursor-text w-full">{option.text}</div>
+                        <Checkbox
+                          id={`${option.id}`}
+                          onCheckedChange={(value) =>
+                            value
+                              ? setCheckedOptions((prev) => [
+                                  ...prev,
+                                  option.text,
+                                ])
+                              : setCheckedOptions((prev) =>
+                                  prev.filter((i) => i !== option.text)
+                                )
+                          }
+                        />
+                        <div
+                          onDoubleClick={() => {
+                            setClickOption(option);
+                          }}
+                          className="cursor-text w-full h-5"
+                        >
+                          {option.text}
+                        </div>
                       </div>
                     )}
                   </Draggable>
                 )
               ) : (
                 <div key={option.id} className="flex items-center gap-[8px]">
-                  <Checkbox />
-                  <span>{option.text}</span>
+                  <Checkbox id={`${option.id}`} />
+                  <label htmlFor={`${option.id}`}>{option.text}</label>
                 </div>
               )
             )}

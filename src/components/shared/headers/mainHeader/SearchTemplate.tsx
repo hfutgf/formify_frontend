@@ -18,7 +18,7 @@ const SearchTemplate = () => {
   const templateService = new TemplateService();
 
   const { isLoading: searchTempalteLoading } = useQuery({
-    queryKey: [queryConfig.SEARCH_TEMPLATE],
+    queryKey: [queryConfig.SEARCH_TEMPLATE, title],
     queryFn: async () => {
       const data = await templateService.searchTemplate(title);
       if (data) {
