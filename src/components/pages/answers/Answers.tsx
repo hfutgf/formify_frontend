@@ -13,15 +13,16 @@ const FormPage = () => {
     queryKey: [queryConfig.CURD_ANSWER, Number(formId)],
     queryFn: async () => answerService.getAnswersByForm(Number(formId)),
   });
+
   if (getAnswersPending) {
     return <Loading />;
   }
   return (
     <div className="bg-greenLight min-h-[calc(100vh-70px)]">
       <div className="container mx-auto p-[24px]">
-        <div className="w-[65%] mx-auto flex flex-col gap-[24px">
+        <div className="w-[65%] mx-auto flex flex-col gap-[24px]">
           {answers?.map((answer) => (
-            <AnswerCard answer={answer} />
+            <AnswerCard key={answer.id} answer={answer} />
           ))}
         </div>
       </div>

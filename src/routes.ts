@@ -54,7 +54,7 @@ const templateRoutes = [
 const answerRoutes = [
   {
     component: lazy(() => import("./components/pages/answers/Answers")),
-    path: routesConfig.ANSWERS + "/forms/:formId",
+    path: routesConfig.ANSWERS + "/forms/:formId/:authorId",
   },
 ];
 

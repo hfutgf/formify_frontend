@@ -15,6 +15,7 @@ import useUserStore from "./store/users.store";
 import userSession from "./utils/userSession";
 import ProfileLayout from "./components/layouts/ProfileLayout";
 import AnswerLayout from "./components/layouts/AnswerLayout";
+import NotFoundLayout from "./components/layouts/NotFoundLayout";
 
 const App = () => {
   const { setUser } = useUserStore();
@@ -97,7 +98,14 @@ const App = () => {
           />
         ))
       ) : (
-        <Route path={"*"} element={<NotFound />} />
+        <Route
+          path={"*"}
+          element={
+            <NotFoundLayout>
+              <NotFound />
+            </NotFoundLayout>
+          }
+        />
       )}
     </Routes>
   );

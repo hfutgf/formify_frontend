@@ -18,3 +18,9 @@ export interface IAnswerForm {
   answerValue?: string;
   options?: string[];
 }
+
+export interface IAnswerOption {
+  id: number;
+  answerId: number;
+  option: string;
+}

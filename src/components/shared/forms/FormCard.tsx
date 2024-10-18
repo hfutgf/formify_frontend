@@ -13,17 +13,19 @@ interface Props {
 
 const FormCard = ({ form }: Props) => {
   const userService = new UserService();
+
   const { isLoading: getUserIsLoading, data: user } = useQuery({
     queryKey: [queryConfig.GET_USER, form.authorId],
     queryFn: async () => await userService.getUser(form.authorId),
   });
+
   return getUserIsLoading ? (
     <div className="w-[100px] h-[70px] flex items-center justify-center bg-white rounded-md">
       <Loader2 className="animate-spin" />
     </div>
   ) : (
     <Link
-      to={routesConfig.ANSWERS + "/forms/" + form.id}
+      to={routesConfig.ANSWERS + "/forms/" + form.id + "/" + user?.id}
       className="border p-[16px] rounded-md flex flex-col items-center cursor-pointer bg-white shadow-sm hover:bg-light duration-300 overflow-hidden"
     >
       <span>
