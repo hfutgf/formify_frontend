@@ -1,8 +1,8 @@
 import { ReactNode, useEffect } from "react";
-import TemplateHeader from "../shared/headers/templateHeader/TemplateHeader";
 import useTemplateStore from "@/store/templates.store";
+import AnswerHeader from "../shared/headers/answerHeader/answerHeader";
 
-const TemplateLayout = ({ children }: { children: ReactNode }) => {
+const AnswerLayout = ({ children }: { children: ReactNode }) => {
   const { setTemplate } = useTemplateStore();
 
   useEffect(() => {
@@ -14,10 +14,10 @@ const TemplateLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <div>
-      <TemplateHeader />
+      <AnswerHeader />
       {children}
     </div>
   );
 };
 
-export default TemplateLayout;
+export default AnswerLayout;

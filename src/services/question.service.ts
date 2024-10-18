@@ -148,4 +148,16 @@ export class QuestionService extends Common {
       console.error(e.response?.data);
     }
   };
+
+  getQuestion = async (questionId: number | undefined) => {
+    try {
+      const response = await this.axiosWithAuth.get<IQuestion>(
+        queryConfig.GET_QUESTIONS + "/question/" + questionId
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      console.error(e.response?.data);
+    }
+  };
 }

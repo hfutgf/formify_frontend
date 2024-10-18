@@ -6,6 +6,7 @@ const routesConfig = {
   MY_TEMPLATES: "/profile/my-templates",
   FORMS: "/profile/forms",
   TEMPLATE: "/template",
+  ANSWERS: "/answers",
   SEARCH: "/dashboard/search-tempalte",
 };
 

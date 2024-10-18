@@ -1,8 +1,5 @@
-
 const Forms = () => {
-  return (
-    <div>Forms</div>
-  )
-}
+  return <div>FOrms</div>;
+};
 
-export default Forms
+export default Forms;

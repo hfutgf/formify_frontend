@@ -45,6 +45,17 @@ const templateRoutes = [
     component: lazy(() => import("./components/pages/questions/Quesitons")),
     path: routesConfig.TEMPLATE + "/:templateId",
   },
+  {
+    component: lazy(() => import("./components/pages/forms/Forms")),
+    path: routesConfig.TEMPLATE + "/forms/:templateId",
+  },
+];
+
+const answerRoutes = [
+  {
+    component: lazy(() => import("./components/pages/answers/Answers")),
+    path: routesConfig.ANSWERS + "/forms/:formId",
+  },
 ];
 
 const notFound = [
@@ -54,4 +65,11 @@ const notFound = [
   },
 ];
 
-export { authRoutes, dashboardRoutes, notFound, templateRoutes, profileRoutes };
+export {
+  authRoutes,
+  dashboardRoutes,
+  notFound,
+  templateRoutes,
+  profileRoutes,
+  answerRoutes,
+};

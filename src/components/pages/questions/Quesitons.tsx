@@ -29,6 +29,7 @@ const Questions = () => {
       if (!data) {
         return null;
       }
+      localStorage.setItem("template", JSON.stringify(data));
       setTemplate(data);
     },
   });
@@ -43,7 +44,6 @@ const Questions = () => {
         return null;
       }
       setQuestions(data);
-      return data;
     },
   });
 

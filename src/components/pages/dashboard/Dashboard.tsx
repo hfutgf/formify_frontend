@@ -8,7 +8,6 @@ import useTemplateStore from "@/store/templates.store";
 
 const Dashboard = () => {
   const { setTemplates, templates } = useTemplateStore();
-
   const templateService = new TemplateService();
 
   const { isPending } = useQuery({
@@ -28,7 +27,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="container mx-auto min-h-screen px-[32px] flex items-center flex-col justify-start gap-[20px]">
+    <div className="container mx-auto min-h-[calc(100vh-70px)] px-[32px] flex items-center flex-col justify-start gap-[20px]">
       <div className="w-full p-[24px]">
         <h4 className="text-[18px] font-[500] text-start text-dark">Create</h4>
         <div className="mt-[20px] flex items-center flex-wrap gap-[16px]">

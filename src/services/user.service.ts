@@ -1,7 +1,7 @@
 import { queryConfig } from "@/config/query.config";
 import { Common } from "./common.service";
 import { AxiosError } from "axios";
-import { TypeUpdateUser } from "@/types/user.types";
+import { IUser, TypeUpdateUser } from "@/types/user.types";
 
 export class UserService extends Common {
   constructor() {
@@ -10,7 +10,7 @@ export class UserService extends Common {
 
   getUser = async (id: number) => {
     try {
-      const response = await this.axiosWithOutAuth.get(
+      const response = await this.axiosWithOutAuth.get<IUser>(
         queryConfig.GET_USER + "/" + id
       );
       return response.data;

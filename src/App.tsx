@@ -1,5 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import {
+  answerRoutes,
   authRoutes,
   dashboardRoutes,
   profileRoutes,
@@ -13,12 +14,24 @@ import { useEffect } from "react";
 import useUserStore from "./store/users.store";
 import userSession from "./utils/userSession";
 import ProfileLayout from "./components/layouts/ProfileLayout";
+import AnswerLayout from "./components/layouts/AnswerLayout";
 
 const App = () => {
   const { setUser } = useUserStore();
   const location = useLocation();
+
   useEffect(() => {
-    userSession().then((user) => setUser(user));
+    userSession().then((user) => {
+      setUser(user!);
+      localStorage.setItem("user", JSON.stringify(user));
+    });
+  }, [setUser]);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user")!);
+    if (user) {
+      setUser(user);
+    }
   }, [setUser]);
 
   return (
@@ -68,6 +81,18 @@ const App = () => {
               <ProfileLayout>
                 <route.component />
               </ProfileLayout>
+            }
+          />
+        ))
+      ) : location.pathname.startsWith("/answers") ? (
+        answerRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <AnswerLayout>
+                <route.component />
+              </AnswerLayout>
             }
           />
         ))

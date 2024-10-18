@@ -32,4 +32,16 @@ export class AnswerService extends Common {
       console.error(e.message);
     }
   };
+
+  getAnswersByForm = async (formId: number) => {
+    try {
+      const response = await this.axiosWithAuth.get<IAnswer[]>(
+        queryConfig.CURD_ANSWER + "/" + formId
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as Error;
+      console.error(e.message);
+    }
+  };
 }
