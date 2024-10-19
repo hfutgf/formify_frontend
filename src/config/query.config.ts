@@ -27,4 +27,5 @@ export const queryConfig = {
   CURD_ANSWER: "/answers",
   CRUD_ANSWER_OPTIONS: "/answer-options",
   CRUD_USERS: "/users",
+  CRUD_COMMENTS: "/template/comments",
 };
