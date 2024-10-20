@@ -23,15 +23,22 @@ const App = () => {
 
   useEffect(() => {
     userSession().then((user) => {
-      setUser(user!);
-      localStorage.setItem("user", JSON.stringify(user));
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+        setUser(user!);
+      }
     });
   }, [setUser]);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user")!);
-    if (user) {
-      setUser(user);
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const user = JSON.parse(storedUser);
+        setUser(user);
+      } catch (error) {
+        console.error("Error parsing user data from localStorage:", error);
+      }
     }
   }, [setUser]);
 

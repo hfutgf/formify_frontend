@@ -7,3 +7,10 @@ export interface IComment {
 }
 
 export type TypeFormComment = Omit<IComment, "id" | "createdAt">;
+
+export interface ICommentLike {
+  id: number;
+  userId: number;
+  commentId: number;
+  value: "LIKE" | "DISLIKE";
+}

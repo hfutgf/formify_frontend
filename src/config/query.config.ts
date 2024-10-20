@@ -28,5 +28,6 @@ export const queryConfig = {
   CRUD_ANSWER_OPTIONS: "/answer-options",
   CRUD_USERS: "/users",
   CRUD_COMMENTS: "/template/comments",
-  CRUD_LIKES: "/template/likes",
+  CRUD_TEMPLATE_LIKES: "/template/likes",
+  CRUD_COMMENT_LIKES: "/comment/likes",
 };

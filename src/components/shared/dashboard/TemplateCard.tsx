@@ -33,7 +33,7 @@ const TemplateCard = ({ item }: Props) => {
   });
 
   return (
-    <div className="flex flex-col gap-[6px] w-[192px]">
+    <div className="flex flex-col w-[192px]">
       <Link
         className="border rounded-md cursor-pointer hover:border hover:border-pink shadow-md overflow-hidden"
         to={routesConfig.TEMPLATE + "/" + item.id}
@@ -46,16 +46,16 @@ const TemplateCard = ({ item }: Props) => {
           height={120}
         />
       </Link>
-      <h5 className="px-[4px]">
+      <h5 className="px-[4px] my-[6px]">
         {item.title.length > 16 ? item.title.slice(0, 16) : item.title}
       </h5>
-      <div className="flex items-center gap-[8px] w-full justify-end select-none">
+      <div className="flex items-center w-full justify-end select-none">
         <Popover>
           <PopoverTrigger>
             <abbr title="Comments" className="no-underline">
               <div className="flex items-center gap-[4px] text-dark/60 hover:text-dark/80 duration-200 cursor-pointer">
                 <span>{comments.length}</span>
-                <MessageCircle size={20} />
+                <MessageCircle size={18} />
               </div>
             </abbr>
           </PopoverTrigger>
