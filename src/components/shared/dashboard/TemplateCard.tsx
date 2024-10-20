@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/popover";
 import routesConfig from "@/config/routes.config";
 import { ITemplate } from "@/types/template.types";
-import { Heart, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import Comments from "./Comments";
 import { useState } from "react";
@@ -13,6 +13,7 @@ import { IComment } from "@/types/comment.types";
 import { useQuery } from "@tanstack/react-query";
 import { queryConfig } from "@/config/query.config";
 import { CommentSerivce } from "@/services/comment.service";
+import Likes from "./Likes";
 
 interface Props {
   item: ITemplate;
@@ -67,12 +68,7 @@ const TemplateCard = ({ item }: Props) => {
             />
           </PopoverContent>
         </Popover>
-        <abbr title="Likes" className="no-underline">
-          <div className="flex items-center gap-[4px] text-dark/60 hover:text-dark/80 duration-200 cursor-pointer">
-            <span>0</span>
-            <Heart size={20} />
-          </div>
-        </abbr>
+        <Likes templateId={item.id} />
       </div>
     </div>
   );

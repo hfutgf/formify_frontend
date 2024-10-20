@@ -24,3 +24,10 @@ export interface IGetTemplates {
   theme: string | undefined;
   data: ITemplate[] | undefined;
 }
+
+export interface ITemplateLike {
+  id: number;
+  userId: number;
+  templateId: number;
+  value: "LIKE" | "DISLIKE";
+}
