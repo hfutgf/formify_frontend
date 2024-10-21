@@ -1,27 +1,27 @@
 import TemplateCards from "@/components/shared/dashboard/TemplateCards";
-import useTemplateStore from "@/store/templates.store";
+import { queryConfig } from "@/config/query.config";
+import { TemplateService } from "@/services/template.service";
 import useUserStore from "@/store/users.store";
-import { IGetTemplates } from "@/types/template.types";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Loader } from "lucide-react";
 
 const MyTemplates = () => {
-  const [myTemplates, setMyTemplates] =
-    useState<(IGetTemplates | undefined)[]>();
-
-  const { templates } = useTemplateStore();
   const { user } = useUserStore();
+  const templateService = new TemplateService();
 
-  useEffect(() => {
-    const myTemplates = templates.map((item) => ({
-      theme: item?.theme,
-      data: item?.data?.filter((template) => template.authorId === user?.id),
-    }));
-    setMyTemplates(myTemplates);
-  }, [templates, user?.id]);
+  const { data: templates, isLoading: getTemplatesPending } = useQuery({
+    queryKey: [queryConfig.GET_TEMPLATES, user?.id],
+    queryFn: async () => await templateService.getUserTemplates(user?.id),
+    enabled: !!user?.id,
+  });
 
-  return (
+  return getTemplatesPending ? (
+    <div className="h-full flex items-center justify-center">
+      <Loader className="animate-spin" size={20} />
+    </div>
+  ) : (
     <div>
-      {myTemplates?.map((item) =>
+      {templates?.map((item) =>
         item?.data?.length ? (
           <TemplateCards
             key={item?.theme}

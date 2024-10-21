@@ -26,6 +26,7 @@ const Options = ({ question }: Props) => {
       }
       return null;
     },
+    enabled: !!question?.id,
   });
 
   const { mutate: createOption } = useMutation({

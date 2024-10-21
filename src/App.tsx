@@ -1,5 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import {
+  adminPanelRoutes,
   answerRoutes,
   authRoutes,
   dashboardRoutes,
@@ -16,6 +17,7 @@ import userSession from "./utils/userSession";
 import ProfileLayout from "./components/layouts/ProfileLayout";
 import AnswerLayout from "./components/layouts/AnswerLayout";
 import NotFoundLayout from "./components/layouts/NotFoundLayout";
+import AdminLayout from "./components/layouts/AdminLayout";
 
 const App = () => {
   const { setUser } = useUserStore();
@@ -101,6 +103,18 @@ const App = () => {
               <AnswerLayout>
                 <route.component />
               </AnswerLayout>
+            }
+          />
+        ))
+      ) : location.pathname.startsWith("/admin") ? (
+        adminPanelRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <AdminLayout>
+                <route.component />
+              </AdminLayout>
             }
           />
         ))

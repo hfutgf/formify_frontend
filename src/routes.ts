@@ -34,10 +34,6 @@ const profileRoutes = [
     component: lazy(() => import("./components/pages/profile/MyTemplates")),
     path: routesConfig.MY_TEMPLATES,
   },
-  {
-    component: lazy(() => import("./components/pages/profile/Forms")),
-    path: routesConfig.FORMS,
-  },
 ];
 
 const templateRoutes = [
@@ -48,6 +44,17 @@ const templateRoutes = [
   {
     component: lazy(() => import("./components/pages/forms/Forms")),
     path: routesConfig.TEMPLATE + "/forms/:templateId",
+  },
+];
+
+const adminPanelRoutes = [
+  {
+    component: lazy(() => import("./components/pages/admin/UsersPanel")),
+    path: routesConfig.ADMIN_USERS,
+  },
+  {
+    component: lazy(() => import("./components/pages/admin/TemplatesPanel")),
+    path: routesConfig.ADMIN_TEMPLATES,
   },
 ];
 
@@ -72,4 +79,5 @@ export {
   templateRoutes,
   profileRoutes,
   answerRoutes,
+  adminPanelRoutes,
 };

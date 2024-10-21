@@ -26,11 +26,40 @@ export class UserService extends Common {
         queryConfig.CRUD_USERS + "/" + userId,
         body
       );
-      return response;
+      return response.data;
     } catch (error) {
       const e = error as AxiosError;
       console.error(e.response?.data);
-      return e.response;
+    }
+  };
+
+  getAllUsers = async (adminId?: number) => {
+    try {
+      const response = await this.axiosWithAuth.get<IUser[]>(
+        queryConfig.CRUD_USERS + "/all/" + adminId
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      console.error(e.response?.data);
+    }
+  };
+
+  getUsersByRole = async (
+    role?: "USER" | "ADMIN" | string,
+    adminId?: number
+  ) => {
+    try {
+      if (role === "ALL") {
+        return await this.getAllUsers(adminId);
+      }
+      const response = await this.axiosWithAuth.get<IUser[]>(
+        queryConfig.CRUD_USERS + "/role/" + adminId + `?role=${role}`
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      console.error(e.response?.data);
     }
   };
 }

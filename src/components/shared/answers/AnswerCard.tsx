@@ -17,11 +17,13 @@ const AnswerCard = ({ answer }: Props) => {
   const { data: question, isLoading: questionLoading } = useQuery({
     queryKey: [queryConfig.GET_QUESTIONS + "/question/", answer.questionId],
     queryFn: async () => await questionService.getQuestion(answer.questionId),
+    enabled: !!answer.questionId,
   });
 
   const { isLoading: getAnswerOptionsLoading, data: answerOptions } = useQuery({
     queryKey: [queryConfig.CRUD_ANSWER_OPTIONS, answer.id],
     queryFn: async () => await answerService.getAnswerOptions(answer.id),
+    enabled: !!answer.id,
   });
 
   return questionLoading || getAnswerOptionsLoading ? (

@@ -13,6 +13,7 @@ const Forms = () => {
   const { isLoading: isGetFormsPending, data: forms } = useQuery({
     queryKey: [queryConfig.CRUD_FORMS, Number(templateId)],
     queryFn: async () => await formService.getFormTemplate(Number(templateId)),
+    enabled: !!templateId,
   });
 
   if (isGetFormsPending) {

@@ -28,6 +28,7 @@ const Likes = ({ templateId }: Props) => {
       }
       return data;
     },
+    enabled: !!templateId && !!user?.id,
   });
 
   useQuery({
@@ -37,6 +38,7 @@ const Likes = ({ templateId }: Props) => {
       if (data) setLikes(data);
       return data;
     },
+    enabled: !!templateId,
   });
 
   const { mutate: createLike, isPending: createLikePending } = useMutation({

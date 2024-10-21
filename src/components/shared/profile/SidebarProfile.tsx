@@ -25,13 +25,13 @@ const SidebarProfile = () => {
         My templates
       </Link>
       <Link
-        to={routesConfig.FORMS}
+        to={routesConfig.ADMIN_USERS}
         className={cn(
           location.pathname === routesConfig.FORMS ? "underline" : "",
           "p-[4px]"
         )}
       >
-        Forms
+        Admin panel
       </Link>
     </div>
   );

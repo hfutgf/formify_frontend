@@ -12,6 +12,7 @@ const FormPage = () => {
   const { isLoading: getAnswersPending, data: answers } = useQuery({
     queryKey: [queryConfig.CURD_ANSWER, Number(formId)],
     queryFn: async () => answerService.getAnswersByForm(Number(formId)),
+    enabled: !!formId,
   });
 
   if (getAnswersPending) {

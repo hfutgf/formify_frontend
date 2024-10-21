@@ -57,7 +57,7 @@ export class TemplateService extends Common {
     }
   };
 
-  update = async (templateId: number | undefined, body: FormData) => {
+  update = async (templateId?: number, body?: FormData) => {
     try {
       const response = await this.axiosWithAuth.put<ITemplate>(
         queryConfig.UPDATE_TEMPLATE + "/" + templateId,
@@ -76,7 +76,7 @@ export class TemplateService extends Common {
     }
   };
 
-  removeImage = async (templateId: number | undefined) => {
+  removeImage = async (templateId?: number) => {
     try {
       const response = await this.axiosWithAuth.put(
         queryConfig.REMOVE_TEMPLATE_IMG + "/" + templateId
@@ -100,10 +100,22 @@ export class TemplateService extends Common {
     }
   };
 
-  deleteTemplate = async (templateId: number | undefined) => {
+  deleteTemplate = async (templateId?: number) => {
     try {
       const response = await this.axiosWithAuth.delete<ITemplate>(
         queryConfig.DELETE_TEMPLATE + "/" + templateId
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      console.error(e.response?.data);
+    }
+  };
+
+  getUserTemplates = async (userId?: number) => {
+    try {
+      const response = await this.axiosWithAuth.get<IGetTemplates[]>(
+        queryConfig.GET_TEMPLATES + "/" + userId
       );
       return response.data;
     } catch (error) {

@@ -33,6 +33,7 @@ const Questions = () => {
       setTemplate(data);
       return data;
     },
+    enabled: !!templateId,
   });
 
   const { isLoading: isPendingQuestion } = useQuery({
@@ -47,6 +48,7 @@ const Questions = () => {
       setQuestions(data);
       return data;
     },
+    enabled: !!templateId,
   });
 
   const { isLoading: isQuestionTypesPending, data: questionTypes } = useQuery({

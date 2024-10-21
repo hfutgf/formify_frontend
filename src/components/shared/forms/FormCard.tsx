@@ -17,6 +17,7 @@ const FormCard = ({ form }: Props) => {
   const { isLoading: getUserIsLoading, data: user } = useQuery({
     queryKey: [queryConfig.GET_USER, form.authorId],
     queryFn: async () => await userService.getUser(form.authorId),
+    enabled: !!form.authorId,
   });
 
   return getUserIsLoading ? (

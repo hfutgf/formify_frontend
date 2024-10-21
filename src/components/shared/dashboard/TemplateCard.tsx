@@ -30,6 +30,7 @@ const TemplateCard = ({ item }: Props) => {
       if (data) setComments(data);
       return data;
     },
+    enabled: !!item.id,
   });
 
   return (

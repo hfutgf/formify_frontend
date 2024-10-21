@@ -24,6 +24,7 @@ const Comment = ({ comment }: Props) => {
   const { data: author, isLoading: getAuthorLoading } = useQuery({
     queryKey: [queryConfig.GET_USER, comment?.authorId],
     queryFn: async () => await userService.getUser(comment?.authorId),
+    enabled: !!comment?.authorId,
   });
 
   const { mutate: createCommentLike, isPending: createCommentLikePending } =
@@ -50,6 +51,7 @@ const Comment = ({ comment }: Props) => {
       }
       return data;
     },
+    enabled: !!comment?.id && !!user?.id,
   });
 
   useQuery({
@@ -59,6 +61,7 @@ const Comment = ({ comment }: Props) => {
       if (data) setLikes(data);
       return data;
     },
+    enabled: !!comment?.id,
   });
 
   const { mutate: deleteCommentLike, isPending: deleteCommentLikePending } =

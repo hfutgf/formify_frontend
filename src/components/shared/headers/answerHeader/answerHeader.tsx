@@ -13,6 +13,7 @@ const AnswerHeader = () => {
   const { data: author } = useQuery({
     queryKey: [queryConfig.GET_USER, authorId],
     queryFn: async () => await userService.getUser(Number(authorId)),
+    enabled: !!authorId,
   });
   return (
     <div className="bg-white min-h-[70px] max-h-[70px] flex items-center dark:bg-black border-b shadow-sm">

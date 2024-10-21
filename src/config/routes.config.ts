@@ -8,6 +8,8 @@ const routesConfig = {
   TEMPLATE: "/template",
   ANSWERS: "/answers",
   SEARCH: "/dashboard/search-tempalte",
+  ADMIN_USERS: "/admin/users",
+  ADMIN_TEMPLATES: "/admin/templates",
 };
 
 export default routesConfig;
