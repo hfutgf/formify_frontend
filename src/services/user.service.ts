@@ -62,4 +62,33 @@ export class UserService extends Common {
       console.error(e.response?.data);
     }
   };
+
+  updateUserFromAdmin = async (
+    body: { role?: string; status?: string },
+    adminId?: number,
+    userId?: number
+  ) => {
+    try {
+      const response = await this.axiosWithAuth.put<IUser>(
+        queryConfig.CRUD_USERS + "/" + adminId + "/" + userId,
+        body
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      console.error(e.response?.data);
+    }
+  };
+
+  deleteFromUser = async (adminId?: number, userId?: number) => {
+    try {
+      const response = await this.axiosWithAuth.delete<IUser>(
+        queryConfig.CRUD_USERS + "/" + adminId + "/" + userId
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      console.error(e.response?.data);
+    }
+  };
 }

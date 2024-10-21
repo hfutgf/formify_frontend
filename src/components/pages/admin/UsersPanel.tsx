@@ -20,6 +20,7 @@ const UsersPanel = () => {
         users={users}
         getUsersLoading={getUsersLoading}
         getUsersByRoleLoading={getUsersByRoleLoading}
+        setUsers={setUsers}
       />
     </div>
   );
