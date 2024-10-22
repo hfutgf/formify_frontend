@@ -11,7 +11,10 @@ export interface IUser {
   updatedAt: Date;
 }
 
-export type TypeUpdateUser = Omit<IUser, "createdAt" | "updatedAt" | "id"> & {
+export type TypeUpdateUser = Omit<
+  IUser,
+  "createdAt" | "updatedAt" | "id" | "status"
+> & {
   password?: string;
   oldPassword?: string;
 };

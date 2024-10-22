@@ -123,4 +123,19 @@ export class TemplateService extends Common {
       console.error(e.response?.data);
     }
   };
+
+  getTemplatesByTheme = async (theme?: string) => {
+    try {
+      if (theme === "ALL") {
+        return await this.getAll();
+      }
+      const response = await this.axiosWithAuth.get<IGetTemplates>(
+        "/theme" + queryConfig.GET_TEMPLATES + "/?theme=" + theme
+      );
+      return [response.data];
+    } catch (error) {
+      const e = error as AxiosError;
+      console.error(e.response?.data);
+    }
+  };
 }

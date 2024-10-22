@@ -1,5 +1,5 @@
-import UserFilter from "@/components/shared/usersPanel/UserFilter";
-import UserList from "@/components/shared/usersPanel/UserList";
+import UserFilter from "@/components/shared/admin/usersPanel/UserFilter";
+import UserList from "@/components/shared/admin/usersPanel/UserList";
 import { IUser } from "@/types/user.types";
 import { useState } from "react";
 

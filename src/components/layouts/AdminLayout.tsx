@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import AdminSidebar from "../shared/admin/AdminSidebar";
-import AdminPanelHeader from "../shared/headers/adminPanel/AdminPanelHeader";
+import AdminPanelHeader from "../shared/headers/adminPanelHeader/AdminPanelHeader";
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
   return (
