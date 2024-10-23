@@ -20,7 +20,7 @@ const Forms = () => {
     return <Loading />;
   }
   return (
-    <div className="bg-greenLight">
+    <div className="bg-greenLight dark:bg-dark">
       <div className="container mx-auto min-h-[calc(100vh-70px)] p-[24px]">
         <h1 className="text-[20px]">Forms:</h1>
         <div className="flex items-center gap-[24px] mt-[16px]">

@@ -8,7 +8,7 @@ const TemplatesPanel = () => {
   const [getByThemeLoading, setGetByThemeLoading] = useState<boolean>(false);
 
   return (
-    <div className="flex flex-col gap-[16px]">
+    <div className="flex flex-col gap-[16px] ">
       <FilterTemplates
         setTemplates={setTemplates}
         setGetByThemeLoading={setGetByThemeLoading}

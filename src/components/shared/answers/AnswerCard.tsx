@@ -29,7 +29,7 @@ const AnswerCard = ({ answer }: Props) => {
   return questionLoading || getAnswerOptionsLoading ? (
     <Skeleton className="h-24 w-full" />
   ) : (
-    <div className="bg-white rounded-md p-[16px]">
+    <div className="bg-white dark:bg-black rounded-md p-[16px]">
       <div className="flex flex-col gap-[16px]">
         <h3 className="text-center text-[18px]">{question?.title}</h3>
         <p>{question?.description}</p>

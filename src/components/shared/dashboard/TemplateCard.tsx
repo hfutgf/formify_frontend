@@ -54,7 +54,7 @@ const TemplateCard = ({ item }: Props) => {
         <Popover>
           <PopoverTrigger>
             <abbr title="Comments" className="no-underline">
-              <div className="flex items-center gap-[4px] text-dark/60 hover:text-dark/80 duration-200 cursor-pointer">
+              <div className="flex items-center gap-[4px] dark:text-light dark:hover:text-light/80 text-dark/60 hover:text-dark/80 duration-200 cursor-pointer">
                 <span>{comments.length}</span>
                 <MessageCircle size={18} />
               </div>

@@ -4,7 +4,7 @@ import AdminPanelHeader from "../shared/headers/adminPanelHeader/AdminPanelHeade
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="">
+    <div className="bg-light dark:bg-dark">
       <AdminPanelHeader />
       <div className="container mx-auto flex">
         <AdminSidebar />

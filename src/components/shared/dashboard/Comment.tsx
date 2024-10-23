@@ -93,14 +93,14 @@ const Comment = ({ comment }: Props) => {
     <Skeleton className="w-full rounded-md h-[32px]" />
   ) : (
     <div className="flex flex-col gap-[4px]">
-      <div className="flex items-center gap-[6px]">
+      <div className="flex gap-[6px]">
         <span className="font-[600]">{author?.fullName}</span>
-        <div className="flex items-center justify-between w-full">
+        <div className="flex justify-between w-full">
           <p>{comment?.content}</p>
           <Button
             onClick={onComment}
             disabled={createCommentLikePending || deleteCommentLikePending}
-            className="cursor-pointer border-none bg-white p-0 hover:bg-white h-auto hover:text-dark text-dark/70 duration-100"
+            className="cursor-pointer border-none bg-white dark:bg-black p-0 hover:bg-white h-auto hover:text-dark text-dark/70 duration-100"
           >
             <Heart
               size={14}

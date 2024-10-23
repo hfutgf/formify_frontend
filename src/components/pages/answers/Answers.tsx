@@ -19,7 +19,7 @@ const FormPage = () => {
     return <Loading />;
   }
   return (
-    <div className="bg-greenLight min-h-[calc(100vh-70px)]">
+    <div className="bg-greenLight dark:bg-dark min-h-[calc(100vh-70px)]">
       <div className="container mx-auto p-[24px]">
         <div className="w-[65%] mx-auto flex flex-col gap-[24px]">
           {answers?.map((answer) => (

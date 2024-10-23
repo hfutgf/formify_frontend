@@ -80,9 +80,9 @@ const Likes = ({ templateId }: Props) => {
         disabled={createLikePending || deleteLikePending}
         onClick={onCreateLike}
         variant={"outline"}
-        className="flex items-center gap-[4px] bg-white hover:bg-white text-dark/60 hover:text-dark duration-200 cursor-pointer border-none"
+        className="flex items-center gap-[4px] bg-light dark:bg-dark  text-dark/60 hover:text-dark duration-200 cursor-pointer border-none"
       >
-        <span>{likes.length}</span>
+        <span className="dark:text-white text-black">{likes.length}</span>
         <Heart
           size={20}
           stroke={liked ? "red" : "gray"}

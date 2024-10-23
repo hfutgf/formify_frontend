@@ -23,7 +23,13 @@ const UserFilter = ({
   setGetUsersLoading,
   setGetUsersByRoleLoading,
 }: Props) => {
-  const [roleValue, setRoleValue] = useState<"USER" | "ADMIN" | string>();
+  const [roleValue, setRoleValue] = useState<"USER" | "ADMIN" | string>(() => {
+    const data = JSON.parse(localStorage.getItem("roleValue")!);
+    if (data) {
+      return data;
+    }
+    return "ALL";
+  });
 
   const { user } = useUserStore();
   const userService = new UserService();
@@ -47,13 +53,6 @@ const UserFilter = ({
     },
     enabled: !!user?.id && !!roleValue,
   });
-
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("roleValue")!);
-    if (data) {
-      setRoleValue(data);
-    }
-  }, []);
 
   useEffect(() => {
     if (roleValue !== "ALL") {

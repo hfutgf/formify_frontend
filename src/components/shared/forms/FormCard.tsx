@@ -21,13 +21,13 @@ const FormCard = ({ form }: Props) => {
   });
 
   return getUserIsLoading ? (
-    <div className="w-[100px] h-[70px] flex items-center justify-center bg-white rounded-md">
+    <div className="w-[100px] h-[70px] flex items-center justify-center bg-white dark:bg-black rounded-md">
       <Loader2 className="animate-spin" />
     </div>
   ) : (
     <Link
       to={routesConfig.ANSWERS + "/forms/" + form.id + "/" + user?.id}
-      className="border p-[16px] rounded-md flex flex-col items-center cursor-pointer bg-white shadow-sm hover:bg-light duration-300 overflow-hidden"
+      className="border p-[16px] rounded-md flex flex-col items-center cursor-pointer bg-white shadow-sm hover:bg-light dark:bg-black dark:hover:bg-dark duration-300 overflow-hidden"
     >
       <span>
         {user && user?.fullName!.length > 16
