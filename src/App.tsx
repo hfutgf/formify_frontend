@@ -18,10 +18,12 @@ import ProfileLayout from "./components/layouts/ProfileLayout";
 import AnswerLayout from "./components/layouts/AnswerLayout";
 import NotFoundLayout from "./components/layouts/NotFoundLayout";
 import AdminLayout from "./components/layouts/AdminLayout";
+import { useTranslation } from "react-i18next";
 
 const App = () => {
   const { setUser } = useUserStore();
   const location = useLocation();
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     userSession().then((user) => {
@@ -43,6 +45,20 @@ const App = () => {
       }
     }
   }, [setUser]);
+
+  useEffect(() => {
+    const lng = localStorage.getItem("language");
+    if (lng) {
+      try {
+        const parseLng = JSON.parse(lng);
+        i18n.changeLanguage(parseLng);
+      } catch (error) {
+        console.error("Error parsing user data from localStorage:", error);
+      }
+    } else {
+      i18n.changeLanguage("en");
+    }
+  }, [i18n]);
 
   return (
     <Routes>

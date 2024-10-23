@@ -1,22 +1,40 @@
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Language = () => {
+  const [lnValue, setLnValue] = useState<string>(() => {
+    const lng = JSON.parse(localStorage.getItem("language")!);
+    if (lng) {
+      return lng;
+    } else {
+      return "en";
+    }
+  });
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+    setLnValue(lng);
+    localStorage.setItem("language", JSON.stringify(lng));
+  };
   return (
-    <Popover>
-      <PopoverTrigger className="border p-2 rounded-sm">EN</PopoverTrigger>
-      <PopoverContent className="w-[56px] flex flex-col space-y-1 items-center justify-center">
-        <div className="cursor-pointer hover:bg-light dark:hover:bg-dark duration-200 w-full flex items-center justify-center rounded-sm">
-          EN
-        </div>
-        <div className="cursor-pointer hover:bg-light dark:hover:bg-dark duration-200 w-full flex items-center justify-center rounded-sm">
-          RU
-        </div>
-      </PopoverContent>
-    </Popover>
+    <Select value={lnValue} onValueChange={changeLanguage}>
+      <SelectTrigger className="w-auto">
+        <SelectValue placeholder="Ln" />
+      </SelectTrigger>
+      <SelectContent className="w-[48px]">
+        <SelectItem value="en">{t("en")}</SelectItem>
+        <SelectItem value="ru">{t("ru")}</SelectItem>
+      </SelectContent>
+    </Select>
   );
 };
 

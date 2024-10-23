@@ -7,8 +7,8 @@ import Loading from "./components/pages/loading/Loading.tsx";
 import TanstackProvider from "./components/providers/TanstackProvider.tsx";
 import ThemeProvider from "./components/providers/ThemeProvider.tsx";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
+import "@/config/i18n.ts";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>

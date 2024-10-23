@@ -5,8 +5,10 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "../loading/Loading";
 import CreateTemplate from "../../shared/modals/createTemplateModal/CreateTemplate";
 import useTemplateStore from "@/store/templates.store";
+import { useTranslation } from "react-i18next";
 
 const Dashboard = () => {
+  const { t } = useTranslation();
   const { setTemplates, templates } = useTemplateStore();
   const templateService = new TemplateService();
 
@@ -29,7 +31,9 @@ const Dashboard = () => {
   return (
     <div className="container mx-auto min-h-[calc(100vh-70px)] px-[32px] flex items-center flex-col justify-start gap-[20px]">
       <div className="w-full p-[24px]">
-        <h4 className="text-[18px] font-[500] text-start text-dark">Create</h4>
+        <h4 className="text-[18px] font-[500] text-start text-dark">
+          {t("create")}
+        </h4>
         <div className="mt-[20px] flex items-center flex-wrap gap-[16px]">
           <div className="flex flex-col gap-[12px] w-[192px]">
             <CreateTemplate />

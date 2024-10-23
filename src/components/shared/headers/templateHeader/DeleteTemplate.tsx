@@ -16,9 +16,11 @@ import {
 import { Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import routesConfig from "@/config/routes.config";
+import { useTranslation } from "react-i18next";
 
 const DeleteTemplate = () => {
   const { setTemplates, templates, template } = useTemplateStore();
+  const { t } = useTranslation();
 
   const tempalteService = new TemplateService();
   const navigate = useNavigate();
@@ -45,15 +47,15 @@ const DeleteTemplate = () => {
       <AlertDialog>
         <AlertDialogTrigger className="bg-red text-white rounded-md p-2 flex items-center gap-[4px]">
           <Trash2 size={20} />
-          Delete
+          {t("delete")}
         </AlertDialogTrigger>
         <AlertDialogContent className="rounded-md">
           <AlertDialogHeader>
             <AlertDialogTitle>
-              Are you sure you want to delete this template?
+              {t("Are you sure you want to delete this template?")}
             </AlertDialogTitle>
             <AlertDialogDescription>
-              If you delete it, it will be impossible to restore it.
+              {t("If you delete it, it will be impossible to restore it.")}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="justify-end gap-4">
@@ -63,9 +65,9 @@ const DeleteTemplate = () => {
                 onClick={() => deleteTempalte()}
                 className="bg-red hover:bg-red/80 duration-200"
               >
-                Continue
+                {t("continue")}
               </AlertDialogAction>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
             </div>
           </AlertDialogFooter>
         </AlertDialogContent>

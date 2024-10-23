@@ -9,8 +9,10 @@ import { useQuery } from "@tanstack/react-query";
 import { TemplateService } from "@/services/template.service";
 import { queryConfig } from "@/config/query.config";
 import CreateTemplateForm from "./CreateTemplateForm";
+import { useTranslation } from "react-i18next";
 
 const CreateTemplate = () => {
+  const { t } = useTranslation();
   const templateService = new TemplateService();
   const { isLoading: isThemesPending, data: themes } = useQuery({
     queryKey: [queryConfig.GET_TEMPLATE_THEMES],
@@ -24,7 +26,7 @@ const CreateTemplate = () => {
       </DialogTrigger>
       <DialogContent className="rounded-lg">
         <DialogTitle className="text-[18px] text-center font-[500]">
-          Create template
+          {t("create-template")}
         </DialogTitle>
         {isThemesPending ? (
           <LoaderCircle className="text-blue animate-spin" size={32} />

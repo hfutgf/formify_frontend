@@ -18,6 +18,7 @@ import authenticationCheck from "@/utils/authenticationCheck";
 import { useMutation } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const CreateTemplateForm = ({ themes }: { themes: string[] | undefined }) => {
@@ -27,6 +28,7 @@ const CreateTemplateForm = ({ themes }: { themes: string[] | undefined }) => {
   const { register, handleSubmit } = useForm<TypeCreateTemplate>();
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const templateService = new TemplateService();
 
   const { isPending: createPending, mutate } = useMutation({
@@ -67,14 +69,17 @@ const CreateTemplateForm = ({ themes }: { themes: string[] | undefined }) => {
       onSubmit={handleSubmit(createTemplate)}
       className="mt-[8px] w-full flex flex-col gap-[16px]"
     >
-      <Input {...register("title", { required: true })} placeholder="Title" />
+      <Input
+        {...register("title", { required: true })}
+        placeholder={t("title")}
+      />
       <Select
         value={themeValue}
         required={true}
         onValueChange={(value) => setThemeValue(value)}
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Theme" />
+          <SelectValue placeholder={t("theme")} />
         </SelectTrigger>
         <SelectContent>
           {sortedTheme?.map((theme) => (
@@ -93,11 +98,11 @@ const CreateTemplateForm = ({ themes }: { themes: string[] | undefined }) => {
       >
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="true" id="option-one" />
-          <Label htmlFor="option-one">Public</Label>
+          <Label htmlFor="option-one">{t("public")}</Label>
         </div>
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="false" id="option-two" />
-          <Label htmlFor="option-two">Private</Label>
+          <Label htmlFor="option-two">{t("private")}</Label>
         </div>
       </RadioGroup>
       <Button
@@ -105,7 +110,7 @@ const CreateTemplateForm = ({ themes }: { themes: string[] | undefined }) => {
         type="submit"
         className="w-full bg-pink dark:bg-light dark:text-dark hover:bg-pink/80 duration-200 mt-[16px]"
       >
-        Create
+        {t("create")}
       </Button>
     </form>
   );

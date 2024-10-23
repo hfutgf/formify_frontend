@@ -15,6 +15,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 interface Props {
@@ -31,7 +32,7 @@ const ChangePassword = ({ user }: Props) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const { register, handleSubmit, reset } = useForm<ChangePasswordForm>();
-
+  const { t } = useTranslation();
   const userSerivce = new UserService();
   const { mutate: updateUser, isPending: updateUserPending } = useMutation({
     mutationKey: [queryConfig.CRUD_USERS, user?.id],
@@ -69,7 +70,7 @@ const ChangePassword = ({ user }: Props) => {
       </li>
       <DialogContent className="rounded-md">
         <DialogHeader>
-          <DialogTitle>Change password name?</DialogTitle>
+          <DialogTitle>{t("Change password name?")}</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <form
@@ -79,24 +80,24 @@ const ChangePassword = ({ user }: Props) => {
           <Input
             {...register("password", { required: true })}
             type="password"
-            placeholder="Password"
+            placeholder={t("password")}
           />
           <Input
             {...register("newPassword", { required: true })}
             type="password"
-            placeholder="New password"
+            placeholder={t("New password")}
           />
           <Input
             {...register("confirmNewPassword", { required: true })}
             type="password"
-            placeholder="Confirm new password"
+            placeholder={t("Confirm new password")}
           />
           <Button
             disabled={updateUserPending}
             type="submit"
             className="w-full bg-primary1 hover:bg-primary1/70 duration-300 "
           >
-            Save
+            {t("save")}
           </Button>
         </form>
       </DialogContent>

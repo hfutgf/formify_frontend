@@ -5,6 +5,7 @@ import { QuestionService } from "@/services/question.service";
 import { IAnswer } from "@/types/answer.types";
 import { QuestionType } from "@/types/question.type";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   answer: IAnswer;
@@ -13,6 +14,7 @@ interface Props {
 const AnswerCard = ({ answer }: Props) => {
   const questionService = new QuestionService();
   const answerService = new AnswerService();
+  const { t } = useTranslation();
 
   const { data: question, isLoading: questionLoading } = useQuery({
     queryKey: [queryConfig.GET_QUESTIONS + "/question/", answer.questionId],
@@ -36,8 +38,8 @@ const AnswerCard = ({ answer }: Props) => {
         <div className="flex items-center gap-[6px]">
           <span>
             {question?.questionType !== QuestionType.MULTICHOICE
-              ? "Answer"
-              : "Answers"}
+              ? t("answer")
+              : t("answers")}
             :
           </span>
           <div>

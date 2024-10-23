@@ -7,6 +7,7 @@ import DeleteTemplate from "./DeleteTemplate";
 import SendForm from "./SendForm";
 import { cn } from "@/lib/utils";
 import routesConfig from "@/config/routes.config";
+import { useTranslation } from "react-i18next";
 
 const TemplateHeader = () => {
   const { user } = useUserStore();
@@ -15,6 +16,7 @@ const TemplateHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { templateId } = useParams();
+  const { t } = useTranslation();
 
   return (
     <div className="bg-white min-h-[70px] max-h-[70px] flex items-center dark:bg-black border-b shadow-sm">
@@ -34,7 +36,7 @@ const TemplateHeader = () => {
                 !location.pathname.includes("forms") ? "underline" : ""
               )}
             >
-              Questions
+              {t("questions")}
             </Link>
             <Link
               to={routesConfig.TEMPLATE + "/forms/" + templateId}
@@ -42,11 +44,11 @@ const TemplateHeader = () => {
                 location.pathname.includes("forms") ? "underline" : ""
               )}
             >
-              Answers
+              {t("answers")}
             </Link>
           </div>
         ) : (
-          <div className="flex items-end justify-center">Questions</div>
+          <div className="flex items-end justify-center">{t("questions")}</div>
         )}
 
         <div className="flex items-center justify-end space-x-4">

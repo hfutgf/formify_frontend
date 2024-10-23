@@ -14,6 +14,7 @@ import { IUser, TypeUpdateUser } from "@/types/user.types";
 import { useMutation } from "@tanstack/react-query";
 import { Pencil } from "lucide-react";
 import { FormEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 interface Props {
@@ -25,6 +26,7 @@ const ChangeFullName = ({ user, setUser }: Props) => {
   const [value, setValue] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const userSerivce = new UserService();
+  const { t } = useTranslation();
   const { mutate: updateUser, isPending: updateUserPending } = useMutation({
     mutationKey: [queryConfig.CRUD_USERS, user?.id],
     mutationFn: async (body: TypeUpdateUser) =>
@@ -54,13 +56,13 @@ const ChangeFullName = ({ user, setUser }: Props) => {
       </li>
       <DialogContent className="rounded-md">
         <DialogHeader>
-          <DialogTitle>Change full name?</DialogTitle>
+          <DialogTitle>{t("Change full name?")}</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
         <form onSubmit={onSubmit} className="flex flex-col gap-[12px]">
           <Input
             required={true}
-            placeholder="Full name"
+            placeholder={t("full-name")}
             onChange={(e) => setValue(e.target.value)}
           />
           <Button
@@ -68,7 +70,7 @@ const ChangeFullName = ({ user, setUser }: Props) => {
             type="submit"
             className="w-full bg-primary1 hover:bg-primary1/70 duration-300 "
           >
-            Save
+            {t("save")}
           </Button>
         </form>
       </DialogContent>

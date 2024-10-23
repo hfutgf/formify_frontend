@@ -1,11 +1,13 @@
 import routesConfig from "@/config/routes.config";
 import { cn } from "@/lib/utils";
 import useUserStore from "@/store/users.store";
+import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 
 const SidebarProfile = () => {
   const { user } = useUserStore();
   const location = useLocation();
+  const { t } = useTranslation();
   return (
     <div className="w-[15%] min-h-[calc(100vh-70px)] border-r flex flex-col p-[16px_20px]">
       <Link
@@ -15,7 +17,7 @@ const SidebarProfile = () => {
           "p-[4px]"
         )}
       >
-        Personal
+        {t("personal")}
       </Link>
       <Link
         to={routesConfig.MY_TEMPLATES}
@@ -24,7 +26,7 @@ const SidebarProfile = () => {
           "p-[4px]"
         )}
       >
-        My templates
+        {t("my-templates")}
       </Link>
       {user?.role === "ADMIN" ? (
         <Link
@@ -34,7 +36,7 @@ const SidebarProfile = () => {
             "p-[4px]"
           )}
         >
-          Admin panel
+          {t("admin-panel")}
         </Link>
       ) : (
         <></>

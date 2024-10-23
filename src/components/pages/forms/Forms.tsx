@@ -4,9 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import Loading from "../loading/Loading";
 import FormCard from "@/components/shared/forms/FormCard";
+import { useTranslation } from "react-i18next";
 
 const Forms = () => {
   const { templateId } = useParams();
+  const { t } = useTranslation();
 
   const formService = new FormService();
 
@@ -22,7 +24,7 @@ const Forms = () => {
   return (
     <div className="bg-greenLight dark:bg-dark">
       <div className="container mx-auto min-h-[calc(100vh-70px)] p-[24px]">
-        <h1 className="text-[20px]">Forms:</h1>
+        <h1 className="text-[20px]">{t("forms")}:</h1>
         <div className="flex items-center gap-[24px] mt-[16px]">
           {forms
             ?.sort(

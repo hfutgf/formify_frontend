@@ -10,6 +10,7 @@ import { AxiosResponse } from "axios";
 import { Eye, EyeOff } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Registration = () => {
@@ -18,6 +19,7 @@ const Registration = () => {
   const [viewPassword, setViewPassword] = useState(false);
   const [viewConfirmPassword, setViewConfirmPassword] = useState(false);
   const { setUser } = useUserStore();
+  const { t } = useTranslation();
 
   const { register, handleSubmit } = useForm<IRegisterForm>();
   const navigate = useNavigate();
@@ -50,7 +52,9 @@ const Registration = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="max-w-[450px] min-w-[450px] border rounded-[12px] shadow-md p-[24px] bg-white dark:bg-black overflow-hidden "
     >
-      <h1 className="text-center text-gray text-[24px] font-[500]">Sign up</h1>
+      <h1 className="text-center text-gray text-[24px] font-[500]">
+        {t("sign-up")}
+      </h1>
       <div
         className={cn(
           "text-red mt-[24px] text-center",
@@ -63,18 +67,18 @@ const Registration = () => {
         <Input
           {...register("email", { required: true })}
           type="text"
-          placeholder="Email"
+          placeholder={t("email")}
         />
         <Input
           {...register("fullName", { required: true })}
           type="text"
-          placeholder="Full name"
+          placeholder={t("full-name")}
         />
         <div className="relative">
           <Input
             {...register("password", { required: true })}
             type={viewPassword ? "text" : "password"}
-            placeholder="Password"
+            placeholder={t("password")}
           />
           <Eye
             onClick={() => setViewPassword(true)}
@@ -97,7 +101,7 @@ const Registration = () => {
           <Input
             {...register("confirmPassword", { required: true })}
             type={viewConfirmPassword ? "text" : "password"}
-            placeholder="Confirm password"
+            placeholder={t("confirm-password")}
           />
           <Eye
             onClick={() => setViewConfirmPassword(true)}
@@ -121,15 +125,15 @@ const Registration = () => {
         disabled={isLoading}
         className="w-full dark:text-white mt-[24px] bg-gradient-to-r from-blue to-pink hover:from-blue/90 hover:to-pink/90 "
       >
-        Registration
+        {t("registration")}
       </Button>
       <div className="mt-[48px] flex items-center justify-center space-x-1">
-        <span className="text-gray">Do yout have an account?</span>
+        <span className="text-gray"> {t("Do you have an account?")}</span>
         <Link
           to={routesConfig.LOGIN}
           className="font-[500] hover:text-gray duration-200 select-none"
         >
-          Sign up
+           {t("sign-in")}
         </Link>
       </div>
     </form>

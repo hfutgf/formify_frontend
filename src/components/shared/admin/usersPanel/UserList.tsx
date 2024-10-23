@@ -12,6 +12,7 @@ import { Loader, Pencil } from "lucide-react";
 import EditUser from "./EditUser";
 import { Dispatch, SetStateAction } from "react";
 import DeleteUser from "./DeleteUser";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   users: IUser[];
@@ -26,6 +27,7 @@ const UserList = ({
   getUsersByRoleLoading,
   setUsers,
 }: Props) => {
+  const { t } = useTranslation();
   if (getUsersLoading || getUsersByRoleLoading) {
     return (
       <div className="flex items-center justify-center mt-[144px]">
@@ -39,10 +41,10 @@ const UserList = ({
       <TableHeader>
         <TableRow className="grid grid-cols-[1fr_3.5fr_3.5fr_1fr_1fr_2fr]">
           <TableHead>№</TableHead>
-          <TableHead>Email</TableHead>
-          <TableHead>Full name</TableHead>
-          <TableHead>Role</TableHead>
-          <TableHead>Status</TableHead>
+          <TableHead>{t("email")}</TableHead>
+          <TableHead>{t("full-name")}</TableHead>
+          <TableHead>{t("role")}</TableHead>
+          <TableHead>{t('status')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

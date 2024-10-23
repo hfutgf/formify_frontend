@@ -7,12 +7,14 @@ import useTemplateStore from "@/store/templates.store";
 import { useQuery } from "@tanstack/react-query";
 import { Search } from "lucide-react";
 import { FormEvent, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 const SearchTemplate = () => {
   const [title, setTitle] = useState("");
   const [enabledSearchTemplates, setEnabledSearchTemplates] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const { setSearchTemplates } = useTemplateStore();
   const templateService = new TemplateService();
@@ -43,7 +45,7 @@ const SearchTemplate = () => {
       >
         <Input
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Search template"
+          placeholder={t("search")}
           className="border-none"
         />
         <Button

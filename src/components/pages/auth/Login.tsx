@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import useUserStore from "@/store/users.store";
 import authenticationCheck from "@/utils/authenticationCheck";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -19,6 +20,7 @@ const Login = () => {
   const { setUser } = useUserStore();
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
 
   const { register, handleSubmit } = useForm<ILoginForm>();
   const authService = new AuthService();
@@ -46,7 +48,9 @@ const Login = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="max-w-[450px] min-w-[450px] border rounded-[12px] shadow-md p-[24px] bg-white dark:bg-black overflow-hidden "
     >
-      <h1 className="text-center text-gray text-[24px] font-[500]">Sign in</h1>
+      <h1 className="text-center text-gray text-[24px] font-[500]">
+        {t("sign-in")}
+      </h1>
       <div
         className={cn(
           "text-red mt-[24px] text-center",
@@ -59,13 +63,13 @@ const Login = () => {
         <Input
           {...register("email", { required: true })}
           type="text"
-          placeholder="Email"
+          placeholder={t("email")}
         />
         <div className="relative">
           <Input
             {...register("password", { required: true })}
             type={viewPassword ? "text" : "password"}
-            placeholder="Password"
+            placeholder={t("password")}
           />
           <Eye
             onClick={() => setViewPassword(true)}
@@ -90,15 +94,15 @@ const Login = () => {
         disabled={isLoading}
         className="w-full dark:text-white mt-[24px] bg-gradient-to-r from-blue to-pink hover:from-blue/90 hover:to-pink/90 "
       >
-        Login
+        {t("login")}
       </Button>
       <div className="mt-[48px] flex items-center justify-center space-x-1">
-        <span className="text-gray">Don't have an account?</span>
+        <span className="text-gray"> {t("Don't have an account")}</span>
         <Link
           to={routesConfig.REGISTER}
           className="font-[500] hover:text-gray duration-200"
         >
-          Sign up
+          {t("sign-up")}
         </Link>
       </div>
     </form>

@@ -5,11 +5,14 @@ import { AuthService } from "@/services/auth.service";
 import useUserStore from "@/store/users.store";
 import { useMutation } from "@tanstack/react-query";
 import { DoorOpen, User } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 
 const Links = () => {
   const { user, setUser } = useUserStore();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   const authService = new AuthService();
   const { isPending, mutate } = useMutation({
     mutationKey: [queryConfig.LOGOUT],
@@ -35,7 +38,7 @@ const Links = () => {
               className="text-[16px] flex items-start justify-center space-x-1"
             >
               <User size={20} />
-              <span>Profile</span>
+              <span>{t("profile")}</span>
             </Button>
           </Link>
           <Button
@@ -51,12 +54,12 @@ const Links = () => {
         <>
           <Link to={routesConfig.LOGIN}>
             <Button variant={"outline"} className="text-[16px]">
-              Sign in
+              {t("sign-in")}
             </Button>
           </Link>
           <Link to={routesConfig.REGISTER}>
             <Button variant={"outline"} className="text-[16px]">
-              Sign up
+              {t("sign-up")}
             </Button>
           </Link>
         </>

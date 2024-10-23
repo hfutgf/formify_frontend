@@ -63,7 +63,6 @@ const Questions = () => {
   if (isLoading || isPendingQuestion || isQuestionTypesPending) {
     return <Loading />;
   }
-  console.log(template)
   return (
     <div className="min-h-[calc(100vh-70px)] bg-greenLight dark:bg-dark">
       <div className="container mx-auto py-[32px] flex flex-col gap-[24px] select-none">
