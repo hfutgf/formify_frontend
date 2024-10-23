@@ -27,6 +27,10 @@ const Links = () => {
     mutate();
     localStorage.removeItem("currentUser");
     localStorage.removeItem("searchTemplates");
+    localStorage.removeItem("roleValue");
+    localStorage.removeItem("template");
+    localStorage.removeItem("themeValue");
+    localStorage.removeItem("user");
   };
   return (
     <div className="flex items-center gap-[4px]">
