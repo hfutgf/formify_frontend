@@ -11,7 +11,7 @@ export class UserService extends Common {
   getUser = async (id?: number) => {
     try {
       const response = await this.axiosWithOutAuth.get<IUser>(
-        queryConfig.GET_USER + "/" + id
+        queryConfig.CRUD_USERS + "/" + id
       );
       return response.data;
     } catch (error) {

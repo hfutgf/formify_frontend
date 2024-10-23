@@ -36,7 +36,7 @@ const EditTemplateForm = ({ themes }: { themes: string[] | undefined }) => {
   const templateService = new TemplateService();
 
   const { mutate: update, isPending: updatePending } = useMutation({
-    mutationKey: [queryConfig.UPDATE_TEMPLATE, template?.id],
+    mutationKey: [queryConfig.CURD_TEMPLATES, template?.id],
     mutationFn: async (body: FormData) =>
       await templateService.update(template?.id, body),
     onSuccess: (data) => {

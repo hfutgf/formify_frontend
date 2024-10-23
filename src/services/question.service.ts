@@ -7,7 +7,7 @@ export class QuestionService extends Common {
   create = async (templateId: number | undefined, body: TypeQuestionForm) => {
     try {
       const response = await this.axiosWithAuth.post<IQuestion>(
-        queryConfig.CREATE_QUESTION + "/" + templateId,
+        queryConfig.CURD_QUESTION + "/" + templateId,
         body
       );
       return response.data;
@@ -20,7 +20,7 @@ export class QuestionService extends Common {
   getQuestionByTemplateId = async (templateId: number) => {
     try {
       const response = await this.axiosWithAuth.get<IQuestion[]>(
-        queryConfig.GET_QUESTIONS + "/" + templateId
+        queryConfig.CURD_QUESTION + "/" + templateId
       );
       return response.data;
     } catch (error) {
@@ -32,7 +32,7 @@ export class QuestionService extends Common {
   deleteQuestion = async (questionId?: number) => {
     try {
       const response = await this.axiosWithAuth.delete<IQuestion>(
-        queryConfig.DELETE_QUESTION + "/" + questionId
+        queryConfig.CURD_QUESTION + "/" + questionId
       );
       return response.data;
     } catch (error) {
@@ -56,7 +56,7 @@ export class QuestionService extends Common {
   getOptions = async (questionId: number | undefined) => {
     try {
       const response = await this.axiosWithAuth.get<IOption[]>(
-        queryConfig.GET_OPTIONS + "/" + questionId
+        queryConfig.CURD_OPTION + "/" + questionId
       );
       return response.data;
     } catch (error) {
@@ -71,7 +71,7 @@ export class QuestionService extends Common {
   ) => {
     try {
       const response = await this.axiosWithAuth.put(
-        queryConfig.UPDATE_QUESTION + "/" + questonId,
+        queryConfig.CURD_QUESTION + "/" + questonId,
         body
       );
       return response.data;
@@ -84,7 +84,7 @@ export class QuestionService extends Common {
   createOption = async (questionId: number) => {
     try {
       const response = await this.axiosWithAuth.post<IOption>(
-        queryConfig.CREATE_OPTION + "/" + questionId,
+        queryConfig.CURD_OPTION + "/" + questionId,
         { text: "" }
       );
       return response.data;
@@ -97,7 +97,7 @@ export class QuestionService extends Common {
   updateOption = async (optionId?: number, body?: { text: string }) => {
     try {
       const response = await this.axiosWithAuth.put(
-        queryConfig.UPDATE_OPTION + "/" + optionId,
+        queryConfig.CURD_OPTION + "/" + optionId,
         body
       );
       return response.data;
@@ -140,7 +140,7 @@ export class QuestionService extends Common {
   deleteOption = async (optionId: number | undefined) => {
     try {
       const response = await this.axiosWithAuth.delete(
-        queryConfig.UPDATE_OPTION + "/" + optionId
+        queryConfig.CURD_OPTION + "/" + optionId
       );
       return response.data;
     } catch (error) {
@@ -152,7 +152,7 @@ export class QuestionService extends Common {
   getQuestion = async (questionId: number | undefined) => {
     try {
       const response = await this.axiosWithAuth.get<IQuestion>(
-        queryConfig.GET_QUESTIONS + "/question/" + questionId
+        queryConfig.CURD_QUESTION + "/question/" + questionId
       );
       return response.data;
     } catch (error) {

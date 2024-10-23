@@ -17,7 +17,7 @@ const Options = ({ question }: Props) => {
 
   const questionService = new QuestionService();
   useQuery({
-    queryKey: [queryConfig.GET_OPTIONS, question?.id],
+    queryKey: [queryConfig.CURD_OPTION, question?.id],
     queryFn: async () => {
       if (question) {
         const data = await questionService.getOptions(question?.id);
@@ -30,7 +30,7 @@ const Options = ({ question }: Props) => {
   });
 
   const { mutate: createOption } = useMutation({
-    mutationKey: [queryConfig.CREATE_OPTION, question?.id],
+    mutationKey: [queryConfig.CURD_OPTION, question?.id],
     mutationFn: async () => await questionService.createOption(question!.id),
     onSuccess: (data) => {
       setOptions((prev) => [...prev, data!]);
@@ -38,7 +38,7 @@ const Options = ({ question }: Props) => {
   });
 
   const { mutate: updateOption } = useMutation({
-    mutationKey: [queryConfig.UPDATE_OPTION, clickOption?.id],
+    mutationKey: [queryConfig.CURD_OPTION, clickOption?.id],
     mutationFn: async (body: { text: string }) =>
       await questionService.updateOption(clickOption?.id, body),
     onSuccess: (data) => {
@@ -52,7 +52,7 @@ const Options = ({ question }: Props) => {
   });
 
   const { mutate: deleteOption, isPending: deleteOptionPending } = useMutation({
-    mutationKey: [queryConfig.DELETE_OPTION, clickOption?.id],
+    mutationKey: [queryConfig.CURD_OPTION, clickOption?.id],
     mutationFn: async () => await questionService.deleteOption(clickOption?.id),
     onSuccess: (data) => {
       setOptions((prev) => [...prev.filter((item) => item.id !== data.id)]);

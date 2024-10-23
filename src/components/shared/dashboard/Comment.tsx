@@ -22,7 +22,7 @@ const Comment = ({ comment }: Props) => {
   const commentService = new CommentSerivce();
 
   const { data: author, isLoading: getAuthorLoading } = useQuery({
-    queryKey: [queryConfig.GET_USER, comment?.authorId],
+    queryKey: [queryConfig.CRUD_USERS, comment?.authorId],
     queryFn: async () => await userService.getUser(comment?.authorId),
     enabled: !!comment?.authorId,
   });

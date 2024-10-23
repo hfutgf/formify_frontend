@@ -17,7 +17,7 @@ const AnswerCard = ({ answer }: Props) => {
   const { t } = useTranslation();
 
   const { data: question, isLoading: questionLoading } = useQuery({
-    queryKey: [queryConfig.GET_QUESTIONS + "/question/", answer.questionId],
+    queryKey: [queryConfig.CURD_QUESTION + "/question/", answer.questionId],
     queryFn: async () => await questionService.getQuestion(answer.questionId),
     enabled: !!answer.questionId,
   });

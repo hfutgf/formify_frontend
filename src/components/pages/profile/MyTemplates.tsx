@@ -10,7 +10,7 @@ const MyTemplates = () => {
   const templateService = new TemplateService();
 
   const { data: templates, isLoading: getTemplatesPending } = useQuery({
-    queryKey: [queryConfig.GET_TEMPLATES, user?.id],
+    queryKey: [queryConfig.CURD_TEMPLATES, user?.id],
     queryFn: async () => await templateService.getUserTemplates(user?.id),
     enabled: !!user?.id,
   });

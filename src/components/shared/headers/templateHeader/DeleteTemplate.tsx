@@ -27,7 +27,7 @@ const DeleteTemplate = () => {
 
   const { isPending: deleteTempaltePending, mutate: deleteTempalte } =
     useMutation({
-      mutationKey: [queryConfig.DELETE_TEMPLATE, template?.id],
+      mutationKey: [queryConfig.CURD_TEMPLATES, template?.id],
       mutationFn: async () =>
         await tempalteService.deleteTemplate(template?.id),
       onSuccess: (data) => {

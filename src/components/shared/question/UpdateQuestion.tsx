@@ -21,7 +21,7 @@ const UpdateQuestion = ({ question, setQuestion }: Props) => {
 
   const { isPending: updatedQuestionPending, mutate: updateQuestion } =
     useMutation({
-      mutationKey: [queryConfig.UPDATE_QUESTION, question?.id],
+      mutationKey: [queryConfig.CURD_QUESTION, question?.id],
       mutationFn: async (body: TypeQuestionForm) =>
         await questionService.updateQuestion(question?.id, body),
       onSuccess: (data) => {

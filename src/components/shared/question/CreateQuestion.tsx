@@ -39,7 +39,7 @@ const CreateQuestion = ({
 
   const { isPending: isCreateQuestionPending, mutate: createQuestion } =
     useMutation({
-      mutationKey: [queryConfig.CREATE_QUESTION, template?.id],
+      mutationKey: [queryConfig.CURD_QUESTION, template?.id],
       mutationFn: async (body: TypeQuestionForm) =>
         await questionService.create(template?.id, body),
       onSuccess: (data) => {

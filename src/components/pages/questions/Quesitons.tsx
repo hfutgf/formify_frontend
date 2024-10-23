@@ -23,7 +23,7 @@ const Questions = () => {
   const questionService = new QuestionService();
 
   const { isLoading } = useQuery({
-    queryKey: [queryConfig.GET_TEMPLATE, Number(templateId)],
+    queryKey: [queryConfig.CURD_TEMPLATES, Number(templateId)],
     queryFn: async () => {
       const data = await templateService.getOneTempalte(Number(templateId));
       if (!data) {
@@ -37,7 +37,7 @@ const Questions = () => {
   });
 
   const { isLoading: isPendingQuestion } = useQuery({
-    queryKey: [queryConfig.GET_QUESTIONS, Number(templateId)],
+    queryKey: [queryConfig.CURD_QUESTION, Number(templateId)],
     queryFn: async () => {
       const data = await questionService.getQuestionByTemplateId(
         Number(templateId)

@@ -37,7 +37,7 @@ const Question = ({
 
   const { mutate: deleteQuestion, isPending: deleteQuestionPending } =
     useMutation({
-      mutationKey: [queryConfig.DELETE_QUESTION, question?.id],
+      mutationKey: [queryConfig.CURD_QUESTION, question?.id],
       mutationFn: async () =>
         await questionService.deleteQuestion(question?.id),
       onSuccess: (data) => {

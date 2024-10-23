@@ -11,7 +11,7 @@ export class TemplateService extends Common {
   getAll = async () => {
     try {
       const response = await this.axiosWithOutAuth.get<IGetTemplates[]>(
-        queryConfig.GET_TEMPLATES
+        queryConfig.CURD_TEMPLATES
       );
       return response.data;
     } catch (error) {
@@ -35,7 +35,7 @@ export class TemplateService extends Common {
   create = async (body: TypeCreateTemplate) => {
     try {
       const response = await this.axiosWithAuth.post<ITemplate>(
-        queryConfig.CREATE_TEMPLATE,
+        queryConfig.CURD_TEMPLATES,
         body
       );
       return response.data;
@@ -48,7 +48,7 @@ export class TemplateService extends Common {
   getOneTempalte = async (templateId: number) => {
     try {
       const response = await this.axiosWithAuth.get(
-        queryConfig.GET_TEMPLATE + "/" + templateId
+        queryConfig.CURD_TEMPLATES + "/" + templateId
       );
       return response.data;
     } catch (error) {
@@ -60,7 +60,7 @@ export class TemplateService extends Common {
   update = async (templateId?: number, body?: FormData) => {
     try {
       const response = await this.axiosWithAuth.put<ITemplate>(
-        queryConfig.UPDATE_TEMPLATE + "/" + templateId,
+        queryConfig.CURD_TEMPLATES + "/" + templateId,
         body,
         {
           headers: {
@@ -103,7 +103,7 @@ export class TemplateService extends Common {
   deleteTemplate = async (templateId?: number) => {
     try {
       const response = await this.axiosWithAuth.delete<ITemplate>(
-        queryConfig.DELETE_TEMPLATE + "/" + templateId
+        queryConfig.CURD_TEMPLATES + "/" + templateId
       );
       return response.data;
     } catch (error) {
@@ -115,7 +115,7 @@ export class TemplateService extends Common {
   getUserTemplates = async (userId?: number) => {
     try {
       const response = await this.axiosWithAuth.get<IGetTemplates[]>(
-        queryConfig.GET_TEMPLATES + "/" + userId
+        "/user" + queryConfig.CURD_TEMPLATES + "/" + userId
       );
       return response.data;
     } catch (error) {
@@ -130,7 +130,7 @@ export class TemplateService extends Common {
         return await this.getAll();
       }
       const response = await this.axiosWithAuth.get<IGetTemplates>(
-        "/theme" + queryConfig.GET_TEMPLATES + "/?theme=" + theme
+        "/theme" + queryConfig.CURD_TEMPLATES + "/?theme=" + theme
       );
       return [response.data];
     } catch (error) {

@@ -11,7 +11,7 @@ const AnswerHeader = () => {
   const userService = new UserService();
 
   const { data: author } = useQuery({
-    queryKey: [queryConfig.GET_USER, authorId],
+    queryKey: [queryConfig.CRUD_USERS, authorId],
     queryFn: async () => await userService.getUser(Number(authorId)),
     enabled: !!authorId,
   });

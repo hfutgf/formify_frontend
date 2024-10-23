@@ -32,7 +32,7 @@ const CreateTemplateForm = ({ themes }: { themes: string[] | undefined }) => {
   const templateService = new TemplateService();
 
   const { isPending: createPending, mutate } = useMutation({
-    mutationKey: [queryConfig.CREATE_TEMPLATE],
+    mutationKey: [queryConfig.CURD_TEMPLATES],
     mutationFn: async (body: TypeCreateTemplate) =>
       await templateService.create(body),
     onSuccess: (data) => {

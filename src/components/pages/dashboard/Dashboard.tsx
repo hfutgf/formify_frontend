@@ -13,7 +13,7 @@ const Dashboard = () => {
   const templateService = new TemplateService();
 
   const { isPending } = useQuery({
-    queryKey: [queryConfig.GET_TEMPLATES],
+    queryKey: [queryConfig.CURD_TEMPLATES],
     queryFn: async () => {
       const data = await templateService.getAll();
       if (!data) {

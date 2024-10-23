@@ -31,7 +31,7 @@ const FilterTemplates = ({ setTemplates, setGetByThemeLoading }: Props) => {
     isLoading: getTempaltesByThemeLoading,
     refetch: refetchGetTemplatesByTheme,
   } = useQuery({
-    queryKey: ["/theme" + queryConfig.GET_TEMPLATES, theme],
+    queryKey: ["/theme" + queryConfig.CURD_TEMPLATES, theme],
     queryFn: async () => {
       const data = await templateService.getTemplatesByTheme(theme);
       if (data) setTemplates(data);
