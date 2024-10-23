@@ -17,20 +17,22 @@ const Links = () => {
   const { isPending, mutate } = useMutation({
     mutationKey: [queryConfig.LOGOUT],
     mutationFn: async () => await authService.logout(),
-    onSuccess: () => {
+    onSuccess: (data) => {
       navigate(routesConfig.LOGIN);
+      if (data?.status === 200) {
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("searchTemplates");
+        localStorage.removeItem("roleValue");
+        localStorage.removeItem("template");
+        localStorage.removeItem("themeValue");
+        localStorage.removeItem("user");
+      }
       setUser(null);
     },
   });
 
   const onLogOut = async () => {
     mutate();
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("searchTemplates");
-    localStorage.removeItem("roleValue");
-    localStorage.removeItem("template");
-    localStorage.removeItem("themeValue");
-    localStorage.removeItem("user");
   };
   return (
     <div className="flex items-center gap-[4px]">
