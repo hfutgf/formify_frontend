@@ -41,7 +41,6 @@ const QuestionList = () => {
     mutate(reorderedQuestions.map((item) => item.id));
     setQuestions(reorderedQuestions);
   };
-
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">

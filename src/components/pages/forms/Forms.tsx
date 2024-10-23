@@ -5,16 +5,22 @@ import { useParams } from "react-router-dom";
 import Loading from "../loading/Loading";
 import FormCard from "@/components/shared/forms/FormCard";
 import { useTranslation } from "react-i18next";
+import useFormsStore from "@/store/forms.store";
 
 const Forms = () => {
   const { templateId } = useParams();
   const { t } = useTranslation();
+  const { setForms, forms } = useFormsStore();
 
   const formService = new FormService();
 
-  const { isLoading: isGetFormsPending, data: forms } = useQuery({
+  const { isLoading: isGetFormsPending } = useQuery({
     queryKey: [queryConfig.CRUD_FORMS, Number(templateId)],
-    queryFn: async () => await formService.getFormTemplate(Number(templateId)),
+    queryFn: async () => {
+      const data = await formService.getFormTemplate(Number(templateId));
+      if (data) setForms(data);
+      return data;
+    },
     enabled: !!templateId,
   });
 

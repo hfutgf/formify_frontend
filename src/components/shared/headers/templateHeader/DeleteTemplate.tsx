@@ -58,8 +58,8 @@ const DeleteTemplate = () => {
               {t("If you delete it, it will be impossible to restore it.")}
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter className="justify-end gap-4">
-            <div className="space-x-4">
+          <AlertDialogFooter className="w-full">
+            <div className="space-x-4 w-full flex items-center justify-end">
               <AlertDialogAction
                 disabled={deleteTempaltePending}
                 onClick={() => deleteTempalte()}
@@ -67,7 +67,9 @@ const DeleteTemplate = () => {
               >
                 {t("continue")}
               </AlertDialogAction>
-              <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+              <AlertDialogCancel className="m-0">
+                {t("cancel")}
+              </AlertDialogCancel>
             </div>
           </AlertDialogFooter>
         </AlertDialogContent>

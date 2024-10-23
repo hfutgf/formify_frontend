@@ -19,4 +19,16 @@ export class FormService extends Common {
       console.error(e.response?.data);
     }
   };
+
+  removeForm = async (formId?: number) => {
+    try {
+      const response = await this.axiosWithAuth.delete<IForm>(
+        queryConfig.CRUD_FORMS + "/" + formId
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      console.error(e.response?.data);
+    }
+  };
 }
