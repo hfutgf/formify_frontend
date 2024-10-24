@@ -14,8 +14,8 @@ export class Common {
   }
 
   private options: CreateAxiosDefaults = {
-    baseURL: "https://server-umber.vercel.app/api",
-    // baseURL: import.meta.env.VITE_BASE_URL,
+    // baseURL: "https://server-umber.vercel.app/api",
+    baseURL: import.meta.env.VITE_BASE_URL,
     headers: {
       "Content-Type": "application/json",
     },
@@ -23,6 +23,5 @@ export class Common {
   };
 
   axiosWithOutAuth: AxiosInstance = axios.create(this.options);
-
   axiosWithAuth: AxiosInstance = axios.create(this.options);
 }

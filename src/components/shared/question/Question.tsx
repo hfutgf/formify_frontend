@@ -95,7 +95,7 @@ const Question = ({
           ) : (
             <>
               <div className="flex items-center justify-center ">
-                <h4 className="text-[20px] font-[500]">{question?.title}</h4>
+                <h4 className="text-[20px] font-[500] ">{question?.title}</h4>
               </div>
               <div className="flex items-center justify-start">
                 <p className="text-[16px] font-[400]">

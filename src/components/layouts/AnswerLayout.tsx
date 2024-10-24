@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import useTemplateStore from "@/store/templates.store";
-import AnswerHeader from "../shared/headers/answerHeader/answerHeader";
+import AnswerHeader from "../shared/headers/answerHeader/AnswerHeader";
 
 const AnswerLayout = ({ children }: { children: ReactNode }) => {
   const { setTemplate } = useTemplateStore();

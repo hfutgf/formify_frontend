@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { FormService } from "@/services/form.service";
 import useFormsStore from "@/store/forms.store";
 import { useTranslation } from "react-i18next";
+import routesConfig from "@/config/routes.config";
 
 const AnswerHeader = () => {
   const { authorId, formId } = useParams();
@@ -23,13 +24,21 @@ const AnswerHeader = () => {
     enabled: !!authorId,
   });
 
-  const { isPending: deleteFormPending } = useMutation({
+  const { isPending: deleteFormPending, mutate: deleteForm } = useMutation({
     mutationKey: [queryConfig.CRUD_FORMS, formId],
     mutationFn: async () => await formService.removeForm(Number(formId)),
     onSuccess: (data) => {
-      if (data) removeForm(data);
+      if (data) {
+        removeForm(data);
+        navigate(
+          routesConfig.TEMPLATE + routesConfig.FORMS + "/" + data.templateId
+        );
+      }
     },
   });
+  const onDeleteForm = () => {
+    deleteForm();
+  };
   return (
     <div className="bg-white min-h-[70px] max-h-[70px] flex items-center dark:bg-black border-b shadow-sm">
       <div className={cn("container mx-auto grid grid-cols-[3fr_6fr_3fr]")}>
@@ -49,7 +58,11 @@ const AnswerHeader = () => {
           </Link>
         </div>
         <div className="flex justify-end">
-          <Button disabled={deleteFormPending} variant={"destructive"}>
+          <Button
+            onClick={onDeleteForm}
+            disabled={deleteFormPending}
+            variant={"destructive"}
+          >
             <Trash2 size={20} />
             <span>{t("delete")}</span>
           </Button>

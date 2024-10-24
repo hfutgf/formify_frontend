@@ -72,7 +72,7 @@ const UpdateQuestion = ({ question, setQuestion }: Props) => {
             onDoubleClick={() => setClickTitle(true)}
             className="text-[20px] font-[500]"
           >
-            <abbr className="no-underline" title="Double click to change">
+            <abbr className="no-underline w-full cursor-text" title="Double click to change">
               {question?.title}
             </abbr>
           </h4>
@@ -108,7 +108,7 @@ const UpdateQuestion = ({ question, setQuestion }: Props) => {
         <div className="flex items-center justify-start">
           <p
             onDoubleClick={() => setClickDescription(true)}
-            className="text-[16px] font-[400]"
+            className="text-[16px] font-[400] w-full cursor-text"
           >
             <abbr className="no-underline" title="Double click to change">
               {question?.description}

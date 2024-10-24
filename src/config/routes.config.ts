@@ -4,7 +4,7 @@ const routesConfig = {
   DASHBOARD: "/dashboard",
   PERSONAL: "/profile/personal",
   MY_TEMPLATES: "/profile/my-templates",
-  FORMS: "/profile/forms",
+  FORMS: "/forms",
   TEMPLATE: "/template",
   ANSWERS: "/answers",
   SEARCH: "/dashboard/search-tempalte",
