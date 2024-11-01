@@ -27,12 +27,12 @@ const dashboardRoutes = [
 
 const profileRoutes = [
   {
-    component: lazy(() => import("./components/pages/profile/Personal")),
-    path: routesConfig.PERSONAL,
-  },
-  {
     component: lazy(() => import("./components/pages/profile/MyTemplates")),
     path: routesConfig.MY_TEMPLATES,
+  },
+  {
+    component: lazy(() => import("./components/pages/profile/Personal")),
+    path: routesConfig.PERSONAL + "/:userId",
   },
 ];
 

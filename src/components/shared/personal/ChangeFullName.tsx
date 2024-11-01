@@ -18,8 +18,8 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 interface Props {
-  user: IUser | null;
-  setUser: (user: IUser) => void;
+  user?: IUser;
+  setUser: (user?: IUser) => void;
 }
 
 const ChangeFullName = ({ user, setUser }: Props) => {
@@ -27,6 +27,7 @@ const ChangeFullName = ({ user, setUser }: Props) => {
   const [openDialog, setOpenDialog] = useState(false);
   const userSerivce = new UserService();
   const { t } = useTranslation();
+
   const { mutate: updateUser, isPending: updateUserPending } = useMutation({
     mutationKey: [queryConfig.CRUD_USERS, user?.id],
     mutationFn: async (body: TypeUpdateUser) =>

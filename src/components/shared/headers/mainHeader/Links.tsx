@@ -38,7 +38,7 @@ const Links = () => {
     <div className="flex items-center gap-[4px]">
       {user ? (
         <div className="flex items-center space-x-2">
-          <Link to={routesConfig.PERSONAL}>
+          <Link to={routesConfig.PERSONAL + `/${user.id}`}>
             <Button
               variant={"outline"}
               className="text-[16px] flex items-start justify-center space-x-1"

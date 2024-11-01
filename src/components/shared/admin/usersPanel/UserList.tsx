@@ -13,6 +13,8 @@ import EditUser from "./EditUser";
 import { Dispatch, SetStateAction } from "react";
 import DeleteUser from "./DeleteUser";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import routesConfig from "@/config/routes.config";
 
 interface Props {
   users: IUser[];
@@ -44,7 +46,7 @@ const UserList = ({
           <TableHead>{t("email")}</TableHead>
           <TableHead>{t("full-name")}</TableHead>
           <TableHead>{t("role")}</TableHead>
-          <TableHead>{t('status')}</TableHead>
+          <TableHead>{t("status")}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -59,7 +61,11 @@ const UserList = ({
             >
               <TableCell>{i + 1}</TableCell>
               <TableCell>{user.email}</TableCell>
-              <TableCell>{user.fullName}</TableCell>
+              <TableCell>
+                <Link to={routesConfig.PERSONAL + `/${user.id}`}>
+                  {user.fullName}
+                </Link>
+              </TableCell>
               <TableCell>{user.role}</TableCell>
               <TableCell>{user.status}</TableCell>
               <TableCell className="cursor-pointer flex justify-end gap-[8px]">

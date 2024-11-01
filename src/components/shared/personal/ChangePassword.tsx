@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 interface Props {
-  user: IUser | null;
+  user?: IUser;
 }
 
 interface ChangePasswordForm {
