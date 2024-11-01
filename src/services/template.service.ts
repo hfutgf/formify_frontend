@@ -68,7 +68,7 @@ export class TemplateService extends Common {
           },
         }
       );
-      console.log('work')
+      console.log("work");
 
       return response.data;
     } catch (error) {
@@ -125,15 +125,27 @@ export class TemplateService extends Common {
     }
   };
 
-  getTemplatesByTheme = async (theme?: string) => {
+  getTemplatesByTheme = async (theme?: string, adminId?: number) => {
     try {
       if (theme === "ALL") {
-        return await this.getAll();
+        return await this.getTemplates(adminId);
       }
-      const response = await this.axiosWithAuth.get<IGetTemplates>(
+      const response = await this.axiosWithAuth.get<ITemplate[]>(
         "/theme" + queryConfig.CURD_TEMPLATES + "/?theme=" + theme
       );
-      return [response.data];
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      console.error(e.response?.data);
+    }
+  };
+
+  getTemplates = async (adminId?: number) => {
+    try {
+      const response = await this.axiosWithAuth.get<ITemplate[]>(
+        queryConfig.CURD_TEMPLATES + "/all" + `/${adminId}`
+      );
+      return response.data;
     } catch (error) {
       const e = error as AxiosError;
       console.error(e.response?.data);

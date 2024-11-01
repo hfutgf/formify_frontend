@@ -1,38 +1,58 @@
-import TemplateCards from "@/components/shared/dashboard/TemplateCards";
+import DeleteTemplate from "@/components/shared/headers/templateHeader/DeleteTemplate";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { queryConfig } from "@/config/query.config";
+import routesConfig from "@/config/routes.config";
 import { TemplateService } from "@/services/template.service";
 import useUserStore from "@/store/users.store";
 import { useQuery } from "@tanstack/react-query";
-import { Loader } from "lucide-react";
+import { Link } from "react-router-dom";
+import Loading from "../loading/Loading";
 
 const MyTemplates = () => {
   const { user } = useUserStore();
+
   const templateService = new TemplateService();
 
   const { data: templates, isLoading: getTemplatesPending } = useQuery({
     queryKey: [queryConfig.CURD_TEMPLATES, user?.id],
-    queryFn: async () => await templateService.getUserTemplates(user?.id),
+    queryFn: async () => await templateService.getTemplates(user?.id),
     enabled: !!user?.id,
   });
 
   return getTemplatesPending ? (
-    <div className="h-full flex items-center justify-center">
-      <Loader className="animate-spin" size={20} />
-    </div>
+    <Loading />
   ) : (
-    <div>
-      {templates?.map((item) =>
-        item?.data?.length ? (
-          <TemplateCards
-            key={item?.theme}
-            theme={item?.theme}
-            templates={item?.data}
-          />
-        ) : (
-          <></>
-        )
-      )}
-    </div>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Name</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {templates?.map((template) => (
+          <TableRow
+            key={template.id}
+            className="flex justify-between items-center"
+          >
+            <TableCell className="hover:underline duration-200">
+              <Link to={routesConfig.TEMPLATE + "/" + template.id}>
+                {template.title}
+              </Link>
+            </TableCell>
+            <TableCell className="cursor-pointer">
+              <DeleteTemplate />
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 

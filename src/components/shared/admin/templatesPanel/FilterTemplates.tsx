@@ -7,12 +7,13 @@ import {
 } from "@/components/ui/select";
 import { queryConfig } from "@/config/query.config";
 import { TemplateService } from "@/services/template.service";
-import { IGetTemplates } from "@/types/template.types";
+import useUserStore from "@/store/users.store";
+import { ITemplate } from "@/types/template.types";
 import { useQuery } from "@tanstack/react-query";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface Props {
-  setTemplates: Dispatch<SetStateAction<IGetTemplates[]>>;
+  setTemplates: Dispatch<SetStateAction<ITemplate[]>>;
   setGetByThemeLoading: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -25,6 +26,7 @@ const FilterTemplates = ({ setTemplates, setGetByThemeLoading }: Props) => {
       return "ALL";
     }
   });
+  const { user } = useUserStore();
   const templateService = new TemplateService();
 
   const {
@@ -33,7 +35,7 @@ const FilterTemplates = ({ setTemplates, setGetByThemeLoading }: Props) => {
   } = useQuery({
     queryKey: ["/theme" + queryConfig.CURD_TEMPLATES, theme],
     queryFn: async () => {
-      const data = await templateService.getTemplatesByTheme(theme);
+      const data = await templateService.getTemplatesByTheme(theme, user?.id);
       if (data) setTemplates(data);
       return data;
     },
