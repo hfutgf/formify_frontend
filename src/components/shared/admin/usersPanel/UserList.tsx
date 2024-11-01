@@ -8,13 +8,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { IUser } from "@/types/user.types";
-import { Loader, Pencil } from "lucide-react";
+import { Pencil } from "lucide-react";
 import EditUser from "./EditUser";
 import { Dispatch, SetStateAction } from "react";
 import DeleteUser from "./DeleteUser";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import routesConfig from "@/config/routes.config";
+import Loading from "@/components/pages/loading/Loading";
 
 interface Props {
   users: IUser[];
@@ -31,11 +32,7 @@ const UserList = ({
 }: Props) => {
   const { t } = useTranslation();
   if (getUsersLoading || getUsersByRoleLoading) {
-    return (
-      <div className="flex items-center justify-center mt-[144px]">
-        <Loader size={20} className="animate-spin" />
-      </div>
-    );
+    return <Loading />;
   }
 
   return (
@@ -61,7 +58,7 @@ const UserList = ({
             >
               <TableCell>{i + 1}</TableCell>
               <TableCell>{user.email}</TableCell>
-              <TableCell>
+              <TableCell className="hover:underline duration-200">
                 <Link to={routesConfig.PERSONAL + `/${user.id}`}>
                   {user.fullName}
                 </Link>

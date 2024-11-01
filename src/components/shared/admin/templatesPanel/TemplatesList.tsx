@@ -1,6 +1,6 @@
 import { IGetTemplates } from "@/types/template.types";
 import TemplateCards from "../../dashboard/TemplateCards";
-import { Loader } from "lucide-react";
+import Loading from "@/components/pages/loading/Loading";
 
 interface Props {
   templates: IGetTemplates[];
@@ -9,11 +9,7 @@ interface Props {
 
 const TemplatesList = ({ templates, getByThemeLoading }: Props) => {
   if (getByThemeLoading) {
-    return (
-      <div className="flex items-center justify-center mt-[144px]">
-        <Loader size={24} className="animate-spin" />
-      </div>
-    );
+    return <Loading />;
   }
   return (
     <div>

@@ -32,8 +32,10 @@ const ChangeFullName = ({ user, setUser }: Props) => {
     mutationKey: [queryConfig.CRUD_USERS, user?.id],
     mutationFn: async (body: TypeUpdateUser) =>
       await userSerivce.update(user!.id, body),
-    onSuccess: (response) => {
-      setUser(response?.data);
+    onSuccess: (data) => {
+      if (data) {
+        setUser(data);
+      }
       toast.success("Data was successfully changed");
       setOpenDialog(false);
     },
