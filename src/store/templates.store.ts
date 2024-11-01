@@ -9,6 +9,8 @@ type Store = {
   setTemplates: (templates: (IGetTemplates | undefined)[]) => void;
   serachTempaltes: ITemplate[];
   setSearchTemplates: (serachTempaltes: ITemplate[]) => void;
+  searchLoading: boolean;
+  setSearchLoading: (value: boolean) => void;
 };
 
 const useTemplateStore = create<Store>()((set) => ({
@@ -19,6 +21,8 @@ const useTemplateStore = create<Store>()((set) => ({
   setTemplates: (templates) => set(() => ({ templates })),
   serachTempaltes: [],
   setSearchTemplates: (serachTempaltes) => set(() => ({ serachTempaltes })),
+  searchLoading: false,
+  setSearchLoading: (value) => set(() => ({ searchLoading: value })),
 }));
 
 export default useTemplateStore;

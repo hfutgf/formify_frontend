@@ -6,7 +6,7 @@ import { TemplateService } from "@/services/template.service";
 import useTemplateStore from "@/store/templates.store";
 import { useQuery } from "@tanstack/react-query";
 import { Search } from "lucide-react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +16,7 @@ const SearchTemplate = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const { setSearchTemplates } = useTemplateStore();
+  const { setSearchTemplates, setSearchLoading } = useTemplateStore();
   const templateService = new TemplateService();
 
   const { isLoading: searchTempalteLoading } = useQuery({
@@ -31,6 +31,10 @@ const SearchTemplate = () => {
     },
     enabled: enabledSearchTemplates && !!title,
   });
+
+  useEffect(() => {
+    setSearchLoading(searchTempalteLoading);
+  }, [searchTempalteLoading, setSearchLoading]);
 
   const onSearchTempaltes = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
