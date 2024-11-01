@@ -161,17 +161,18 @@ const RadioOption = ({
                             </div>
                             <RadioGroupItem
                               value={option.text}
-                              id="option-one"
+                              id={String(option.id)}
                             />
-                            <Label
+                            <div
+                              className="cursor-text w-full h-4"
                               onDoubleClick={() => {
                                 setClickOption(option);
                               }}
-                              className="cursor-text w-full"
-                              htmlFor="option-one"
                             >
-                              {option.text}
-                            </Label>
+                              <Label htmlFor={String(option.id)}>
+                                {option.text}
+                              </Label>
+                            </div>
                           </div>
                         </div>
                       )}
@@ -179,8 +180,11 @@ const RadioOption = ({
                   )
                 ) : (
                   <div key={option.id} className="flex items-center space-x-2">
-                    <RadioGroupItem value={option.text} id="option-one" />
-                    <Label htmlFor="option-one">{option.text}</Label>
+                    <RadioGroupItem
+                      value={option.text}
+                      id={String(option.id)}
+                    />
+                    <Label htmlFor={String(option.id)}>{option.text}</Label>
                   </div>
                 )
               )}
