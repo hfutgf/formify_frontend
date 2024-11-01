@@ -68,6 +68,7 @@ export class TemplateService extends Common {
           },
         }
       );
+      console.log('work')
 
       return response.data;
     } catch (error) {

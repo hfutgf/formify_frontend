@@ -11,8 +11,10 @@ import { useQuery } from "@tanstack/react-query";
 import { LoaderCircle, Pencil } from "lucide-react";
 import EditTemplateForm from "./EditTemplateForm";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 const EditTemplateModal = () => {
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const { t } = useTranslation();
   const templateService = new TemplateService();
   const { isLoading: isThemesPending, data: themes } = useQuery({
@@ -21,7 +23,7 @@ const EditTemplateModal = () => {
   });
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={(value) => setOpenModal(value)} open={openModal}>
       <DialogTrigger className="h-10 px-4 py-2 inline-flex items-center gap-[4px] justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground ">
         <Pencil size={20} />
         {t("edit")}
@@ -32,7 +34,7 @@ const EditTemplateModal = () => {
           {isThemesPending ? (
             <LoaderCircle className="text-blue animate-spin" size={32} />
           ) : (
-            <EditTemplateForm themes={themes} />
+            <EditTemplateForm setOpenModal={setOpenModal} themes={themes} />
           )}
         </DialogHeader>
       </DialogContent>
